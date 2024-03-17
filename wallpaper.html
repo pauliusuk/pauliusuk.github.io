@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallpaper of the Day</title>
+  <style>
+    .goback,
+    .refresh {
+      position: absolute;
+      background-color: #FEF6E0;
+      left: 0;
+      top: 40px;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .refresh {
+      top: 100px;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 90vh;
+      margin: 0;
+      background-color: #333;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    h1 {
+      margin-top: 0px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      max-height: 80vh;
+    }
+
+    .text-above-image {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #wallpaper-link {
+      display: block;
+      width: 75%;
+      max-height: 90vh;
+    }
+
+    #wallpaper {
+      max-height: 80vh;
+      width: 100%;
+      border: 5px solid transparent;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+      display: block;
+    }
+
+    .info {
+      max-width: 70%;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #0066CC;
+    }
+
+    h1 a {
+      color: white;
+    }
+
+    h1 a:hover {
+      color: #0099cc;
+    }
+
+    a:active {
+      color: orange;
+    }
+
+    a:hover {
+      color: #0066CC;
+      /* Change the color when hovered */
+    }
+
+    #uploader-username {
+      color: white;
+    }
+
+    #uploader-username:hover {
+      color: #0066CC;
+      /* Change the color when hovered */
+    }
+
+    #uploader-avatar {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      #wallpaper-link {
+        width: 100%;
+      }
+
+      #wallpaper {
+        width: 100%;
+        height: auto;
+        max-height: none;
+      }
+
+      .info {
+        max-width: 90%;
+      }
+
+      #uploader-avatar {
+        width: 12px;
+        height: 12px;
+      }
+
+      @media (max-width: 480px) {
+        #wallpaper-link {
+          width: 100%;
+        }
+
+        #wallpaper {
+          width: 100%;
+          height: auto;
+          max-height: none;
+        }
+
+        .info {
+          max-width: 100%;
+          font-size: 12px;
+        }
+
+        #uploader-avatar {
+          width: 8px;
+          height: 8px;
+
+        }
+  </style>
+</head>
+
+<body>
+  <button class="goback" onclick="window.history.back()">←</button>
+  <button class="refresh" onclick="window.location.reload()">⟳</button>
+  <div class="container">
+    <h1>Wallpaper of the Day - <a href="https://wallhaven.cc">wallhaven.cc</a></h1>
+    <div class="content">
+      <a id="wallpaper-link" href="" target="_blank">
+        <img id="wallpaper" src="" alt="Daily Wallpaper">
+      </a>
+      <div class="info" id="description"></div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      function formatRelativeDate(date) {
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays === 0 ? 'today' : diffDays === 1 ? 'yesterday' : `${diffDays} days ago`;
+      }
+
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }).replace(/ /g, '-');
+        return `${formatRelativeDate(date)}, ${formattedDate}`;
+      }
+
+      function integrateData(wallpaper) {
+        const uploadTime = wallpaper.created_at ? formatDate(wallpaper.created_at) : 'Unknown date';
+        const category = wallpaper.category || 'Unknown';
+        const purity = wallpaper.purity || 'Unknown';
+        const resolution = wallpaper.resolution || 'Unknown resolution';
+        const fileSize = wallpaper.file_size ? `${(wallpaper.file_size / 1048576).toFixed(2)} MiB` : 'Size unknown';
+        const views = wallpaper.views || '0';
+        const favorites = wallpaper.favorites || '0';
+
+        document.getElementById('wallpaper').src = wallpaper.path;
+        document.getElementById('wallpaper-link').href = `https://wallhaven.cc/w/${wallpaper.id}`;
+        document.getElementById('description').innerHTML = `
+          <strong>Uploaded by:</strong><img id="uploader-avatar" src="" alt="Uploader Avatar"> <a id="uploader-username" href="" target="_blank"></a> <br>
+          <strong>Uploaded:</strong> ${uploadTime} <br>
+          <strong>Category:</strong> ${category} <br>
+          <strong>Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
+          <strong>Resolution:</strong> ${resolution} <br>
+          <strong>Size:</strong> ${fileSize} <br>
+          <strong>Views:</strong> ${views} <br>
+          <strong>Favorites:</strong> ${favorites} <br>
+          <strong>Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
+        `;
+
+        const uploader = wallpaper.uploader;
+        const uploaderUsernameElement = document.getElementById('uploader-username');
+        const uploaderAvatarElement = document.getElementById('uploader-avatar');
+        if (uploaderUsernameElement && uploaderAvatarElement) {
+          uploaderUsernameElement.textContent = uploader.username;
+          uploaderUsernameElement.href = `https://wallhaven.cc/user/${uploader.username}`;
+          uploaderAvatarElement.src = uploader.avatar['128px'];
+
+          uploaderAvatarElement.addEventListener('click', function () {
+            window.open(`https://wallhaven.cc/user/${uploader.username}`);
+          });
+        } else {
+          console.error('Element with ID "uploader-username" or "uploader-avatar" not found');
+        }
+      }
+
+      function fetchWallpaperDetails(wallpaperId) {
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const targetUrl = `https://wallhaven.cc/api/v1/w/${wallpaperId}`;
+        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            integrateData(data.data);
+          })
+          .catch(error => console.error('Error fetching wallpaper details:', error));
+      }
+
+      function fetchWallpaperData() {
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const targetUrl = 'https://wallhaven.cc/api/v1/search?sorting=hot&page=2&categories=111&purity=100';
+        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            fetchWallpaperDetails(data.data[0].id);
+          })
+          .catch(error => console.error('Error fetching wallpaper data:', error));
+      }
+
+      fetchWallpaperData();
+    });
+
+  </script>
+
+</body>
+
+</html>

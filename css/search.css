@@ -1,0 +1,53 @@
+  #elbi-input {
+    margin-right: 20px;
+    padding-right: 30px;
+    background-color: #343740;
+    border-color: transparent;
+    color: white;
+    border-radius: 20px;
+  }
+
+  .light #elbi-input {
+    background-color: #FFFFFF;
+    color: black;
+  }
+
+  .elbi-search-icon {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-51%);
+    font-size: 15px;
+  }
+
+  .elbi-results {
+    list-style-type: none;
+    margin-top: 100px;
+    width: 100%;
+  }
+
+  .elbi-results-item {
+    list-style-type: none;
+    padding-top: 300px;
+    color: #000000;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 350px;
+  }
+
+  .light .elbi-results-item {
+    background-color: #FFFFFF;
+  }
+
+  .elbi-results-item:hover {
+    color: black;
+  }
+
+  #search-icon {
+    color: darkgrey;
+  }
+
+  .elbi-search {
+    position: relative;
+  }

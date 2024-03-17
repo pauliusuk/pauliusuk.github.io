@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Paulius.uk</title>
+    <link>http://localhost:1313/categories/programming/</link>
+    <description>Recent content in Programming on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Apr 2024 15:39:22 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Top 10 Web Browser Extensions for Chrome and Firefox</title>
+      <link>http://localhost:1313/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</link>
+      <pubDate>Sun, 28 Apr 2024 15:39:22 +0100</pubDate>
+      <guid>http://localhost:1313/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</guid>
+      <description>Paragraph1 Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex es&#xA;Paragraph2 smaller Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem ipsum dolor sit amet, officia</description>
+    </item>
+  </channel>
+</rss>
