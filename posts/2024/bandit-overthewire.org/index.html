@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bandit Overthewire.org | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OverTheWire.org Bandit Wargame Walkthrough. Bandit is a beginner-friendly wargame designed to teach basic command-line skills. Players progress through levels by solving increasingly complex challenges, learning essential Unix commands, and understanding shell scripting concepts. The game encourages exploration, experimentation, and resourcefulness, providing hints and guidance while promoting independent problem-solving and self-directed learning.">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Bandit overthewire.org</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Bandit overthewire.org</h1>
+      <p class="singleHeadDesc">OverTheWire.org Bandit Wargame Walkthrough. Bandit is a beginner-friendly wargame designed to teach basic command-line skills. Players progress through levels by solving increasingly complex challenges, learning essential Unix commands, and understanding shell scripting concepts. The game encourages exploration, experimentation, and resourcefulness, providing hints and guidance while promoting independent problem-solving and self-directed learning.</p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/cybersecurity/" class="singleCategory">Cybersecurity</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>07-March-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          10 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/bandit.webp" alt="Bandit overthewire.org" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    
+
+
+
+
+  <a href="https://overthewire.org/wargames/bandit/" target="_blank">
+
+    <img src="https://overthewire.org/img/domokitten.png" alt="Icon" style="width:70px;">
+
+  </a>
+
+
+
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th style="text-align:center">Solution</th>
+<th>Description</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit0.html" class="hover-link" target="_blank">Level 0</a>
+</td>
+<td style="text-align:center">ssh <a href="mailto:bandit0@bandit.labs.overthewire.org">bandit0@bandit.labs.overthewire.org</a> -p 2220</td>
+<td><code>ssh into server with port 2220.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> bandit0 </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit1.html" class="hover-link" target="_blank">Level 0 → Level 1</a>
+</td>
+<td style="text-align:center">cat readme</td>
+<td><code>The password for the next level is stored in a file called readme.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit2.html" class="hover-link" target="_blank">Level 1 → Level 2</a>
+</td>
+<td style="text-align:center">cat ./-</td>
+<td><code>The password for the next level is stored in a file called - located in the home directory.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit3.html" class="hover-link" target="_blank">Level 2 → Level 3</a>
+</td>
+<td style="text-align:center">cat &ldquo;spaces in this filename&rdquo;</td>
+<td><code>The password for the next level is stored in a file called spaces in this filename located in the home directory.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit4.html" class="hover-link" target="_blank">Level 3 → Level 4</a>
+</td>
+<td style="text-align:center">cat ./.hidden</td>
+<td><code>The password for the next level is stored in a hidden file in the inhere directory.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> 2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit5.html" class="hover-link" target="_blank">Level 4 → Level 5</a>
+</td>
+<td style="text-align:center"><code>1=</code>file ./* <br>
+<code>2=</code>cat ./-file07 (ASCII text)</td>
+<td><code>The password for the next level is stored in the only human-readable file in the inhere directory. Tip: if your terminal is messed up, try the “reset” command.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit6.html" class="hover-link" target="_blank">Level 5 → Level 6</a>
+</td>
+<td style="text-align:center">find ./ -type f -size 1033c ! -executable</td>
+<td><code>file somewhere under the inhere directory and has all of the following properties: 1.Human-readable. 2.1033 bytes in size 3.Not executable.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit7.html" class="hover-link" target="_blank">Level 6 → Level 7</a>
+</td>
+<td style="text-align:center">find / -type f -user bandit7 -group bandit6 -size 33c 2&gt;/dev/null</td>
+<td><code>stored somewhere on the server and has all of the following properties: owned by user bandit7 owned by group bandit6 33 bytes in size.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit8.html" class="hover-link" target="_blank">Level 7 → Level 8</a>
+</td>
+<td style="text-align:center">cat data.txt | grep millionth</td>
+<td><code>The password for the next level is stored in the file data.txt next to the word millionth.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> TESKZC0XvTetK0S9xNwm25STk5iWrBvP </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit9.html" class="hover-link" target="_blank">Level 8 → Level 9</a>
+</td>
+<td style="text-align:center">sort data.txt | uniq -u</td>
+<td><code>The password for the next level is stored in the file data.txt and is the only line of text that occurs only once.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> EN632PlfYiZbn3PhVK3XOGSlNInNE00t </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit10.html" class="hover-link" target="_blank">Level 9 → Level 10</a>
+</td>
+<td style="text-align:center">strings data.txt | grep &lsquo;==&rsquo;</td>
+<td><code>stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit11.html" class="hover-link" target="_blank">Level 10 → Level 11</a>
+</td>
+<td style="text-align:center">cat data.txt | base64 -d</td>
+<td><code>stored in the file data.txt, which contains base64 encoded data.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> 6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit12.html" class="hover-link" target="_blank">Level 11 → Level 12</a>
+</td>
+<td style="text-align:center">cat data.txt | tr &lsquo;A-Za-z&rsquo; &lsquo;N-ZA-Mn-za-m&rsquo;</td>
+<td><code>stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit13.html" class="hover-link" target="_blank">Level 12 → Level 13</a>
+</td>
+<td style="text-align:center"><code>1=</code>mkdir /tmp/tmpabc <code>2=</code>cp data.txt /tmp/tmpabc <code>3=</code>cd /tmp/tmpabc <code>4=</code>cat data.txt <code>5=</code>cat data.txt | xxd -r &gt; data <code>6=</code>file data(mv data data.gz) <code>7=</code>gzip -d data.gz <code>8=</code>file data(mv data data.bz2) <code>9=</code>bzip2 -d data.bz2 <code>10</code>=file data(mv data data.gz) <code>11</code>=gzip -d data.gz <code>12=</code>file data(mv data data.tar) <code>13=</code>tar xf data.tar (rm -rf data.tar) <code>14=</code>file data5.bin(mv file data5.bin data.tar) <code>15=</code>tar xf data.tar <code>16=</code>file data6.bin (mv data6.bin data.bz2) rm -rf data.tar <code>17=</code>bzip2 -d data.bz2 <code>18=</code>file data(mv data data.tar) <code>19=</code>tar xf data.tar (rm -rf data.tar) <code>20=</code>file data8.bin(mv data8.bin data.gz) <code>21=</code>gzip -d data.gz(file data:ASCII text) <code>22=</code>cat data</td>
+<td><code>stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit14.html" class="hover-link" target="_blank">Level 13 → Level 14</a>
+</td>
+<td style="text-align:center"><p style="color: #8A790E;">option1=</p>
+<code>1=</code>cat sshkey.private and copy text inside<br>
+<code>2=</code>exit. <br>
+<code>3=</code>create a file <code>longkey.private</code> <br>
+<code>4=</code>paste copied text and do <code>chmod 700 longkey.private</code> <code>5=</code>ssh <a href="mailto:bandit14@bandit.labs.overthewire.org">bandit14@bandit.labs.overthewire.org</a> -p 2220 -i longkey.private <br>
+<code>6=</code>cat /etc/bandit_pass/bandit14 <p style="color: #8A790E;">option2=</p>
+<code>1=</code>login in 13 and do ls (note the file name: sshkey.private) and exit.<br>
+<code>2=</code>now from console secure_copy to your machine: <br>
+<code>scp -P 2220 bandit13@bandit.labs.overthewire.org:sshkey.private .</code> <br>
+enter previous lvl password: wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw <br>
+<code>3=</code>chmod 700 sshkey.private<br>
+<code>4=</code>ssh <a href="mailto:bandit14@bandit.labs.overthewire.org">bandit14@bandit.labs.overthewire.org</a> -p 2220 -i longkey.private<br>
+<code>5=</code>cat /etc/bandit_pass/bandit14</td>
+<td><code>stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit15.html" class="hover-link" target="_blank">Level 14 → Level 15</a>
+</td>
+<td style="text-align:center"><code>1=</code>cat /etc/bandit_pass/bandit14 fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq <br>
+<code>2=</code>echo &quot;fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq&quot; | nc localhost 30000</td>
+<td><code>The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> Correct! jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit16.html" class="hover-link" target="_blank">Level 15 → Level 16</a>
+</td>
+<td style="text-align:center">echo &ldquo;jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt&rdquo; | openssl s_client -connect localhost:30001 -ign_eof</td>
+<td><code>The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL encryption.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> Correct! JQttfApK4SeyHwDlI9SXGR50qclOAil1 </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit17.html" class="hover-link" target="_blank">Level 16 → Level 17</a>
+</td>
+<td style="text-align:center"><p style="color: #8A790E;">option1=</p>
+ <code>1=</code>nmap -p 31000-32000 localhost(or replace localhost with: 127.0.0.1) <br>
+<code>2=</code>nmap -p 31000,31046,31518,31691,31790,31960 -Av localhost output(31790/tcp open  ssl/unknown) <br>
+<code>3=</code>echo &quot;JQttfApK4SeyHwDlI9SXGR50qclOAil1&quot;  | openssl s_client -connect localhost:31790 -ign_eof <br>
+<code>4=</code>now exit and on your local machine and open text editor: vim bandit17.key (paste long rsa key) <br>
+<code>5=</code>chmod 600 bandit17.key <br>
+<code>6=</code>ssh -i bandit17.key <a href="mailto:bandit17@bandit.labs.overthewire.org">bandit17@bandit.labs.overthewire.org</a> -p 2220 <p style="color: #8A790E;">option2(less verbose output)=</p>
+ <code>1=</code>nmap -sV -A -v -p 31000-32000 localhost | grep open <br>
+<code>2=</code>cat /etc/bandit_pass/bandit16 &ldquo;lvl16password&rdquo; <br>
+<code>3=</code>echo &ldquo;JQttfApK4SeyHwDlI9SXGR50qclOAil1&rdquo; | openssl s_client -connect localhost:31790 -ign_eof  <br>
+<code>4=</code>now follow steps from 4 in option1</td>
+<td><code>The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. First find out which of these ports have a server listening on them. Then find out which of those speak SSL and which don’t. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> RSA PRIVATE KEY similiar to level-13 </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit18.html" class="hover-link" target="_blank">Level 17 → Level 18</a>
+</td>
+<td style="text-align:center">diff passwords.new passwords.old</td>
+<td><code>There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> < hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit19.html" class="hover-link" target="_blank">Level 18 → Level 19</a>
+</td>
+<td style="text-align:center">ssh <a href="mailto:bandit18@bandit.labs.overthewire.org">bandit18@bandit.labs.overthewire.org</a> -p 2220 cat readme</td>
+<td><code>The password for the next level is stored in a file readme in the homedirectory. Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> awhqfNnAbc1naukrpqDYcF95h7HoMTrC </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit20.html" class="hover-link" target="_blank">Level 19 → Level 20</a>
+</td>
+<td style="text-align:center"><code>1=</code>./bandit20-do id <br>
+<code>2=</code>./bandit20-do cat /etc/bandit_pass/bandit20</td>
+<td><code>To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> VxCazJaVykI6W36BkBU0mJTCM8rR95XT </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit21.html" class="hover-link" target="_blank">Level 20 → Level 21</a>
+</td>
+<td style="text-align:center">first open 2 terminals<br>
+ <code>terminal-1=</code>nc -lvp 9999 <br>
+<code>terminal-2=</code>./suconnect 9999 <br>
+<code>terminal-1=</code>paste password</td>
+<td><code>There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> NvEJF7oVjkddltPSrdKEFOllh9V1IBcq </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit22.html" class="hover-link" target="_blank">Level 21 → Level 22</a>
+</td>
+<td style="text-align:center"><code>1=</code>cat /etc/cron.d/cronjob_bandit22 <br>
+<code>2=</code>cat /usr/bin/cronjob_bandit22.sh <br>
+<code>3=</code>cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv</td>
+<td><code>A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> WdDozAdTM2z9DiFEQ2mGlwngMfj4EZff </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit23.html" class="hover-link" target="_blank">Level 22 → Level 23</a>
+</td>
+<td style="text-align:center"><code>1=</code>cat /etc/cron.d/cronjob_bandit23 <br>
+<code>2=</code>cat /usr/bin/cronjob_bandit23.sh <br>
+<code>3=</code>echo I am user bandit23 | md5sum | cut -d &rsquo; &rsquo; -f 1 <br>
+<code>4=</code>cat /tmp/8ca319486bfbbc3663ea0fbe81326349</td>
+<td><code>A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit24.html" class="hover-link" target="_blank">Level 23 → Level 24</a>
+</td>
+<td style="text-align:center"><code>1=</code>cat /etc/cron.d/cronjob_bandit24 <br>
+<code>2=</code>cat /usr/bin/cronjob_bandit24.sh <br>
+<code>3=</code>mkdir /tmp/banditlevel23 (chmod 777 /tmp/banditlevel23) <br>
+<code>4=</code>cd /var/spool/bandit24/foo <br>
+<code>5=</code>echo &ldquo;cat /etc/bandit_pass/bandit24 &gt; /tmp/banditlevel23/password.txt&rdquo; &gt; test.sh <br>
+<code>6=</code>chmod 777 test.sh <br>
+<code>7=</code>cat /tmp/banditlevel23/password.txt</td>
+<td><code>A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit25.html" class="hover-link" target="_blank">Level 24 → Level 25</a>
+</td>
+<td style="text-align:center"><code>1=</code>nc localhost 30002 <br>
+<code>2=</code>VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar 0000 <br>
+<code>3=</code>mkdir /tmp/brute24 (cd /tmp/brute24) <br>
+<code>4=</code>vim <p style="color: #669DF6;"><a href="https://pastebin.com/raw/yp23MC6B">script.sh</a></p>
+
+ <br>
+<code>5=</code>chmod +x script.sh <br>
+<code>6=</code>./script.sh | nc localhost 30002 <p style="color: #8A790E;">optional=</p>
+ <code>1=</code>./script.sh &gt; brute.txt <br>
+<code>2=</code>cat brute.txt | nc localhost 3002</td>
+<td><code>A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> The password of user bandit25 is p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit26.html" class="hover-link" target="_blank">Level 25 → Level 26</a>
+</td>
+<td style="text-align:center"><code>1=</code>cat /etc/passwd | grep -i 26 (bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext)<br>
+<code>2=</code>cat /usr/bin/showtext (exit)<br>
+<code>3=</code>scp -P 2220 <a href="mailto:bandit25@bandit.labs.overthewire.org">bandit25@bandit.labs.overthewire.org</a>:bandit26.sshkey . <br>
+<code>4=</code>make terminal small and <code>do=</code>ssh -i bandit26.sshkey <a href="mailto:bandit26@bandit.labs.overthewire.org">bandit26@bandit.labs.overthewire.org</a> -p 2220 <br>
+<code>5=</code>press &ldquo;v&rdquo; to enter editor mode and type to check which shell (:set shell?) <br>
+<code>6=</code>:set shell=/bin/bash (type :set shell? to confirm) <br>
+<code>7=</code>:shell <br>
+<code>8=</code>cat /etc/bandit_pass/bandit26</td>
+<td><code>Logging in to bandit26 from bandit25 should be fairly easy… The shell for user bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of it.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> c7GvcKlw9mC7aUQaPx7nwFstuAIBw1o1 </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit27.html" class="hover-link" target="_blank">Level 26 → Level 27</a>
+</td>
+<td style="text-align:center"><code>1=</code>./bandit27-do whoami<br>
+ <code>2=</code>./bandit27-do cat /etc/bandit_pass/bandit27</td>
+<td><code>Good job getting a shell! Now hurry and grab the password for bandit27!</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> YnQpBuifNMas1hcUFk70ZmqkhUU2EuaS </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit28.html" class="hover-link" target="_blank">Level 27 → Level 28</a>
+</td>
+<td style="text-align:center"><code>1=</code>mktemp -d(/tmp/tmp.72MhKnbXcx)<br>
+<code>2=</code>cd /tmp/tmp.72MhKnbXcx <br>
+<code>3=</code>git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo (enter previous lvl password:YnQpBuifNMas1hcUFk70ZmqkhUU2EuaS) <br>
+<code>4=</code>cat ./repo/README</td>
+<td><code>There is a git repository at ssh://bandit27-git@localhost/home/bandit27-git/repo via the port 2220. The password for the user bandit27-git is the same as for the user bandit27. Clone the repository and find the password for the next level.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> AVanL161y9rsbcJIsFHuw35rjaOM19nR </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit29.html" class="hover-link" target="_blank">Level 28 → Level 29</a>
+</td>
+<td style="text-align:center"><code>1=</code>mktemp -d (/tmp/tmp.qEFnst9Vxs)<br>
+<code>2=</code>cd /tmp/tmp.qEFnst9Vxs <br>
+<code>3=</code>git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo <br>
+<code>4=</code>cat repo (cat README.md)<br>
+<code>5=</code>git log <br>
+<code>6=</code>git checkout f08b9cc63fa1a4602fb065257633c2dae6e5651b <code>7=</code>cat README.md</td>
+<td><code>There is a git repository at ssh://bandit28-git@localhost/home/bandit28-git/repo via the port 2220. The password for the user bandit28-git is the same as for the user bandit28. Clone the repository and find the password for the next level.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> ## credentials - username: bandit29 - password: tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit30.html" class="hover-link" target="_blank">Level 29 → Level 30</a>
+</td>
+<td style="text-align:center"><code>1=</code>mktemp -d (/tmp/tmp.2HRilRJF3d)<br>
+ <code>2=</code>cd /tmp/tmp.2HRilRJF3d <br>
+<code>3=</code>git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo<br>
+ <code>4=</code>cd repo (cat README.md)<br>
+<code>5=</code>git log <br>
+<code>6=</code>git checkout fca34ddb7d1ff1f78df36538252aea650b0b040d <br>
+<code>7=</code>git branch -a<br>
+ <code>8=</code>git checkout remotes/origin/dev <br>
+<code>9=</code>cat README.md</td>
+<td><code>There is a git repository at ssh://bandit29-git@localhost/home/bandit29-git/repo via the port 2220. The password for the user bandit29-git is the same as for the user bandit29. Clone the repository and find the password for the next level.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit31.html" class="hover-link" target="_blank">Level 30 → Level 31</a>
+</td>
+<td style="text-align:center"><code>1=</code>mktemp -d (/tmp/tmp.Z2yP6fbC8U)<br>
+<code>2=</code>cd /tmp/tmp.Z2yP6fbC8U <br>
+<code>3=</code>git clone ssh://bandit30-git@localhost:2220/home/bandit30-git<br>
+<code>4=</code>cd repo (cat README.md)<br>
+<code>5=</code>git branch -a <br>
+<code>6=</code>git tag (secret) <br>
+<code>7=</code>git show secret</td>
+<td><code>There is a git repository at ssh://bandit30-git@localhost/home/bandit30-git/repo via the port 2220. The password for the user bandit30-git is the same as for the user bandit30. Clone the repository and find the password for the next level.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit32.html" class="hover-link" target="_blank">Level 31 → Level 32</a>
+</td>
+<td style="text-align:center"><code>1=</code>mktemp -d (/tmp/tmp.JD0KAGqH6U)<br>
+<code>2=</code>cd /tmp/tmp.JD0KAGqH6U <br>
+<code>3=</code>git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo <br>
+<code>4=</code>cd repo (cat README.md) [•Details: File name: key.txt Content: &lsquo;May I come in?&rsquo; Branch: master•] <br>
+<code>5=</code>vim key.txt <br>
+<code>6=</code>May I come in? <br>
+<code>7=</code>ls -a <br>
+<code>8=</code>cat .gitignore <br>
+<code>9=</code>git add -f key.txt <br>
+<code>10=</code>git commit -m &ldquo;Upload key.txt&rdquo; <br>
+<code>11=</code>git push -u origin master</td>
+<td><code>There is a git repository at ssh://bandit31-git@localhost/home/bandit31-git/repo via the port 2220. The password for the user bandit31-git is the same as for the user bandit31. Clone the repository and find the password for the next level.</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> remote: Well done! Here is the password for the next level: remote: rmCBvG56y58BXzv98yZGdO7ATVL5dW8y  </p>
+</details>
+</td>
+</tr>
+<tr>
+<td>
+
+<a href="https://overthewire.org/wargames/bandit/bandit33.html" class="hover-link" target="_blank">Level 32 → Level 33</a>
+</td>
+<td style="text-align:center"><code>1=</code>$0 <br>
+<code>2=</code>cat /etc/bandit_pass/bandit33</td>
+<td><code>After all this git stuff its time for another escape. Good luck! xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></td>
+<td><details>
+  <summary>show pass</summary>
+  <p style="color: red;"> odHo63fHiFqcWWJG9rLiLDtPm45KzUKy </p>
+</details>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- |
+
+<a href="https://overthewire.org/wargames/bandit/bandit34.html" class="hover-link" target="_blank">Level 33 → Level 34</a>
+| YYYYYYYYY | `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`| <details>
+  <summary>show pass</summary>
+  <p style="color: red;"> xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx </p>
+</details>
+ -->
+<p><br>
+
+<br>
+</p>
+<h1 id="additional-comments">Additional comments:</h1>
+<h2 id="level-12">Level 12:</h2>
+<ul>
+<li>Aliases:
+<ul>
+<li>alias rot13=&quot;tr 'A-Za-z' 'N-ZA-Mn-za-m'&quot;</li>
+<li>alias rot5=&quot;tr '0-9' '5-90-4'&quot;
+<br>
+<br>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="level-24">Level 24</h2>
+<ul>
+<li>if script gets stuck, you might want change the script to<br>
+begin count from 9999 to 0 or to divide script in 2 or less<br>
+parts so it runs through less lines:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">for</span> i in <span class="o">{</span>5555..9999<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar </span><span class="nv">$i</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span></span></span></code></pre></div>
+<h2 id="level-27--28--29--30--31">Level 27 / 28 / 29 / 30 / 31</h2>
+<ul>
+<li>
+<p>dont forget to add <code>port 2220</code> after localhost when git cloning<br>
+and use previous level passwords for each lvl to sign into these levels:</p>
+<ul>
+<li>git clone ssh://bandit27-git@localhost<code>:2220</code>/home/bandit27-git/repo</li>
+<li>git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo</li>
+<li>git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo</li>
+<li>git clone ssh://bandit30-git@localhost:2220/home/bandit30-git/repo</li>
+<li>git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo</li>
+</ul>
+</li>
+</ul>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/overthewire.org/" class="singleTag">#overthewire.org</a>
+    
+    <a href="https://paulius.uk/tags/cyber/" class="singleTag">#cyber</a>
+    
+    <a href="https://paulius.uk/tags/shell/" class="singleTag">#shell</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#additional-comments">Additional comments:</a>
+      <ul>
+        <li><a href="#level-12">Level 12:</a></li>
+        <li><a href="#level-24">Level 24</a></li>
+        <li><a href="#level-27--28--29--30--31">Level 27 / 28 / 29 / 30 / 31</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+<div class="related">
+  <h5>See also:</h5>
+  <div class="relatedcontainer">
+    
+    <a class="relateditem" href="/posts/2024/docker-containers/">
+      <div class="card-info">
+        <h6>Managing Docker Containers</h6>
+        <p>
+          
+        <p class="relatedItemDesc">What is Docker? Docker is a platform that allows developers to create, deploy, and run applications in …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+    <a class="relateditem" href="/posts/2024/network-commands/">
+      <div class="card-info">
+        <h6>Networking Commands and Troubleshooting</h6>
+        <p>
+          
+        <p class="relatedItemDesc">Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+   <script src="/js/copy-code-button.js">
+    </script>
+    
+</body>
+
+</html>

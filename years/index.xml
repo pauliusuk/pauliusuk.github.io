@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Years on Paulius.uk</title>
+    <link>https://paulius.uk/years/</link>
+    <description>Recent content in Years on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Apr 2024 19:34:43 +0100</lastBuildDate>
+    <atom:link href="https://paulius.uk/years/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2024</title>
+      <link>https://paulius.uk/years/2024/</link>
+      <pubDate>Sat, 27 Apr 2024 19:34:43 +0100</pubDate>
+      <guid>https://paulius.uk/years/2024/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

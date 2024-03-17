@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CSS Selectors | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="In CSS, selectors are like filters that you apply to HTML elements to specify which ones you want to style. They allow you to target specific elements or groups of elements based on their attributes, classes, IDs, or relationship with other elements.">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>CSS Selectors</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">CSS Selectors</h1>
+      <p class="singleHeadDesc">In CSS, selectors are like filters that you apply to HTML elements to specify which ones you want to style. They allow you to target specific elements or groups of elements based on their attributes, classes, IDs, or relationship with other elements.</p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/web-development/" class="singleCategory">Web Development</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>28-March-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          3 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/SelectorsCSS.webp" alt="CSS Selectors" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=css" alt="Icon" style="width:50px;">
+
+
+
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search... ">
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Example</th>
+<th>Example description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pseudo-classes</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>:active</code></td>
+<td>a:active</td>
+<td>Selects the active link</td>
+</tr>
+<tr>
+<td><code>:checked</code></td>
+<td>input:checked</td>
+<td>Selects every checked &lt;input&gt; element</td>
+</tr>
+<tr>
+<td><code>:default</code></td>
+<td>input:default</td>
+<td>Selects the default &lt;input&gt; element</td>
+</tr>
+<tr>
+<td><code>:disabled</code></td>
+<td>input:disabled</td>
+<td>Selects every disabled &lt;input&gt; element</td>
+</tr>
+<tr>
+<td><code>:empty</code></td>
+<td>p:empty</td>
+<td>Selects every &lt;p&gt; element that has no children (including text nodes)</td>
+</tr>
+<tr>
+<td><code>:enabled</code></td>
+<td>input:enabled</td>
+<td>Selects every enabled &lt;input&gt; element</td>
+</tr>
+<tr>
+<td><code>:first-child</code></td>
+<td>p:first-child</td>
+<td>Selects every &lt;p&gt; element that is the first child of its parent</td>
+</tr>
+<tr>
+<td><code>:first-of-type</code></td>
+<td>p:first-of-type</td>
+<td>Selects every &lt;p&gt; element that is the first &lt;p&gt; element of its parent</td>
+</tr>
+<tr>
+<td><code>:focus</code></td>
+<td>input:focus</td>
+<td>Selects the input element which has focus</td>
+</tr>
+<tr>
+<td><code>:fullscreen</code></td>
+<td>:fullscreen</td>
+<td>Selects the element that is in full-screen mode</td>
+</tr>
+<tr>
+<td><code>:hover</code></td>
+<td>a:hover</td>
+<td>Selects links on mouse over</td>
+</tr>
+<tr>
+<td><code>:in-range</code></td>
+<td>input:in-range</td>
+<td>Selects input elements with a value within a specified range</td>
+</tr>
+<tr>
+<td><code>:indeterminate</code></td>
+<td>input:indeterminate</td>
+<td>Selects input elements that are in an indeterminate state</td>
+</tr>
+<tr>
+<td><code>:invalid</code></td>
+<td>input:invalid</td>
+<td>Selects all input elements with an invalid value</td>
+</tr>
+<tr>
+<td><code>:lang(language)</code></td>
+<td>p:lang(it)</td>
+<td>Selects every &lt;p&gt; element with a lang attribute equal to &ldquo;it&rdquo; (Italian)</td>
+</tr>
+<tr>
+<td><code>:last-child</code></td>
+<td>p:last-child</td>
+<td>Selects every &lt;p&gt; element that is the last child of its parent</td>
+</tr>
+<tr>
+<td><code>:last-of-type</code></td>
+<td>p:last-of-type</td>
+<td>Selects every &lt;p&gt; element that is the last &lt;p&gt; element of its parent</td>
+</tr>
+<tr>
+<td><code>:link</code></td>
+<td>a:link</td>
+<td>Selects all unvisited links</td>
+</tr>
+<tr>
+<td><code>:not(selector)</code></td>
+<td>:not(p)</td>
+<td>Selects every element that is not a &lt;p&gt; element</td>
+</tr>
+<tr>
+<td><code>:nth-child(n)</code></td>
+<td>p:nth-child(2)</td>
+<td>Selects every &lt;p&gt; element that is the second child of its parent</td>
+</tr>
+<tr>
+<td><code>:nth-last-child(n)</code></td>
+<td>p:nth-last-child(2)</td>
+<td>Selects every &lt;p&gt; element that is the second child of its parent, counting from the last child</td>
+</tr>
+<tr>
+<td><code>:nth-last-of-type(n)</code></td>
+<td>p:nth-last-of-type(2)</td>
+<td>Selects every &lt;p&gt; element that is the second &lt;p&gt; element of its parent, counting from the last child</td>
+</tr>
+<tr>
+<td><code>:nth-of-type(n)</code></td>
+<td>p:nth-of-type(2)</td>
+<td>Selects every &lt;p&gt; element that is the second &lt;p&gt; element of its parent</td>
+</tr>
+<tr>
+<td><code>:only-child</code></td>
+<td>p:only-child</td>
+<td>Selects every &lt;p&gt; element that is the only child of its parent</td>
+</tr>
+<tr>
+<td><code>:only-of-type</code></td>
+<td>p:only-of-type</td>
+<td>Selects every &lt;p&gt; element that is the only &lt;p&gt; element of its parent</td>
+</tr>
+<tr>
+<td><code>:optional</code></td>
+<td>input:optional</td>
+<td>Selects input elements with no &ldquo;required&rdquo; attribute</td>
+</tr>
+<tr>
+<td><code>:out-of-range</code></td>
+<td>input:out-of-range</td>
+<td>Selects input elements with a value outside a specified range</td>
+</tr>
+<tr>
+<td><code>:read-only</code></td>
+<td>input:read-only</td>
+<td>Selects input elements with the &ldquo;readonly&rdquo; attribute specified</td>
+</tr>
+<tr>
+<td><code>:read-write</code></td>
+<td>input:read-write</td>
+<td>Selects input elements with the &ldquo;readonly&rdquo; attribute NOT specified</td>
+</tr>
+<tr>
+<td><code>:required</code></td>
+<td>input:required</td>
+<td>Selects input elements with the &ldquo;required&rdquo; attribute specified</td>
+</tr>
+<tr>
+<td><code>:root</code></td>
+<td>:root</td>
+<td>Selects the document&rsquo;s root element</td>
+</tr>
+<tr>
+<td><code>:target</code></td>
+<td>#news:target</td>
+<td>Selects the current active #news element (clicked on a URL containing that anchor name)</td>
+</tr>
+<tr>
+<td><code>:valid</code></td>
+<td>input:valid</td>
+<td>Selects all input elements with a valid value</td>
+</tr>
+<tr>
+<td><code>:visited</code></td>
+<td>a:visited</td>
+<td>Selects all visited links</td>
+</tr>
+<tr>
+<td><strong>Classes and IDs</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>.class</code></td>
+<td>.intro</td>
+<td>Selects all elements with class=&ldquo;intro&rdquo;</td>
+</tr>
+<tr>
+<td><code>.class1.class2</code></td>
+<td>.name1.name2</td>
+<td>Selects all elements with both name1 and name2 set within its class attribute</td>
+</tr>
+<tr>
+<td><code>.class1 .class2</code></td>
+<td>.name1 .name2</td>
+<td>Selects all elements with name2 that is a descendant of an element with name1</td>
+</tr>
+<tr>
+<td><code>#id</code></td>
+<td>#firstname</td>
+<td>Selects the element with id=&ldquo;firstname&rdquo;</td>
+</tr>
+<tr>
+<td><strong>Attribute Selectors</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>[attribute]</code></td>
+<td>[target]</td>
+<td>Selects all elements with a target attribute</td>
+</tr>
+<tr>
+<td><code>[attribute=value]</code></td>
+<td>[target=&quot;_blank&quot;]</td>
+<td>Selects all elements with target=&quot;_blank&quot;</td>
+</tr>
+<tr>
+<td><code>[attribute~=value]</code></td>
+<td>[title~=&ldquo;flower&rdquo;]</td>
+<td>Selects all elements with a title attribute containing the word &ldquo;flower&rdquo;</td>
+</tr>
+<tr>
+<td><code>[attribute|=value]</code></td>
+<td>[lang|=&ldquo;en&rdquo;]</td>
+<td>Selects all elements with a lang attribute value equal to &ldquo;en&rdquo; or starting with &ldquo;en-&rdquo;</td>
+</tr>
+<tr>
+<td><code>[attribute^=value]</code></td>
+<td>a[href^=&ldquo;https&rdquo;]</td>
+<td>Selects every &lt;a&gt; element whose href attribute value begins with &ldquo;https&rdquo;</td>
+</tr>
+<tr>
+<td><code>[attribute$=value]</code></td>
+<td>a[href$=&quot;.pdf&quot;]</td>
+<td>Selects every &lt;a&gt; element whose href attribute value ends with &ldquo;.pdf&rdquo;</td>
+</tr>
+<tr>
+<td><strong>Other Selectors</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>——————►</td>
+<td>Selects all elements</td>
+</tr>
+<tr>
+<td><strong>Descendant Selectors</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>——————►</td>
+<td>Selects all &lt;p&gt; elements</td>
+</tr>
+<tr>
+<td><code>a[href^=&quot;https&quot;]</code></td>
+<td>——————►</td>
+<td>Selects every &lt;a&gt; element whose href attribute value begins with &ldquo;https&rdquo;</td>
+</tr>
+<tr>
+<td><code>a[href$=&quot;.pdf&quot;]</code></td>
+<td>——————►</td>
+<td>Selects every &lt;a&gt; element whose href attribute value ends with &ldquo;.pdf&rdquo;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/css/" class="singleTag">#css</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+  
+</body>
+
+</html>

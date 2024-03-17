@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cyber on Paulius.uk</title>
+    <link>https://paulius.uk/tags/cyber/</link>
+    <description>Recent content in Cyber on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Mar 2024 16:12:50 +0000</lastBuildDate>
+    <atom:link href="https://paulius.uk/tags/cyber/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bandit overthewire.org</title>
+      <link>https://paulius.uk/posts/2024/bandit-overthewire.org/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/bandit-overthewire.org/</guid>
+      <description>Level Solution Description Password Level 0 ssh bandit0@bandit.labs.overthewire.org -p 2220 ssh into server with port 2220. show pass bandit0 Level 0 → Level 1 cat readme The password for the next level is stored in a file called readme. show pass NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL Level 1 → Level 2 cat ./- The password for the next level is stored in a file called - located in the home directory. show pass rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi Level 2 → Level 3 cat &amp;ldquo;spaces in this filename&amp;rdquo; The password for the next level is stored in a file called spaces in this filename located in the home directory.</description>
+    </item>
+  </channel>
+</rss>

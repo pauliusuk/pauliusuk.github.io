@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on Paulius.uk</title>
+    <link>https://paulius.uk/categories/windows/</link>
+    <description>Recent content in Windows on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Apr 2024 16:20:46 +0100</lastBuildDate>
+    <atom:link href="https://paulius.uk/categories/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Networking Commands and Troubleshooting</title>
+      <link>https://paulius.uk/posts/2024/network-commands/</link>
+      <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/network-commands/</guid>
+      <description>Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, and managing network-related issues on both Windows and Linux systems. Here, we&amp;rsquo;ll explore some commonly used networking commands and their usage on both platforms, as well as troubleshooting steps to resolve common network problems.&#xA;Network Troubleshooting Steps Check Hardware Use ipconfig (or ifconfig) Use ping and tracert (traceroute) Perform DNS check Check for Virus/Malware Review Database Logs Contact ISP (Internet Service Provider) Additional Steps:</description>
+    </item>
+    <item>
+      <title>Windows Run Commands</title>
+      <link>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</link>
+      <pubDate>Sun, 31 Mar 2024 18:30:32 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</guid>
+      <description>Run Commands for Dialogue Box in Windows The Run dialogue box in Microsoft Windows provides a quick and convenient way for you to launch programs, open websites, and access several Windows settings. Let&amp;rsquo;s take a look at some commands and see how it works.&#xA;Launching run dialog Launching the Run dialog on Windows is usually done by pressing the⊞ Windows key + R, or else you can simply open the Start Menu and type &amp;ldquo;run.</description>
+    </item>
+  </channel>
+</rss>

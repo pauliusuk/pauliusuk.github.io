@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Networking Commands and Troubleshooting | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Networking Commands and Troubleshooting</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Networking Commands and Troubleshooting</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/networking/" class="singleCategory">Networking</a>
+        
+        <a href="https://paulius.uk/categories/windows/" class="singleCategory">Windows</a>
+        
+        <a href="https://paulius.uk/categories/linux/" class="singleCategory">Linux</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>04-April-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          8 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/networkingC.webp" alt="Networking Commands and Troubleshooting" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    <!-- 
+
+
+
+
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/networkx/networkx-original.svg" alt="Icon" style="width:50px;">
+
+
+ -->
+<!-- 
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="https://cdn2.webdamdb.com/1280_YH3X6z6na1S1.jpg?1625707082" alt="" style="width:300px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+    
+    <p class="imageSourceText" style="margin-left: 5px;">Image Source: </p>
+    
+    <p class="imageSourceLink"><a href="https://www.cablestogo.com/cables/fiber-optic/duplex-single-mode-os2-cables/23ft-7m-lc-lc-9-125-os2-duplex-single-mode-pvc-fiber-optic-cable-yellow/p/cg-37462">cablestogo</a></p>
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+ -->
+<p>
+
+
+
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Internet-icon.svg" alt="Icon" style="width:50px;">
+
+
+
+
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows,linux" alt="Icon" style="width:120px;">
+
+
+</p>
+<h1 id="networking-commands-for-windows-and-linux">Networking Commands for Windows and Linux</h1>
+<p>Networking commands are essential for diagnosing, troubleshooting, and managing network-related issues on both Windows and Linux systems. Here, we&rsquo;ll explore some commonly used networking commands and their usage on both platforms, as well as troubleshooting steps to resolve common network problems.</p>
+<h2 id="network-troubleshooting-steps">Network Troubleshooting Steps</h2>
+<ol>
+<li>Check Hardware</li>
+<li>Use ipconfig (or ifconfig)</li>
+<li>Use ping and tracert (traceroute)</li>
+<li>Perform DNS check</li>
+<li>Check for Virus/Malware</li>
+<li>Review Database Logs</li>
+<li>Contact ISP (Internet Service Provider)</li>
+</ol>
+<br>
+<p>Additional Steps:</p>
+<ul>
+<li>Check physical connections: Ensure all cables are securely plugged in and not damaged.</li>
+<li>Restart networking equipment: Rebooting routers, switches, and modems can often resolve temporary network issues.</li>
+<li>Verify firewall and security settings: Incorrect firewall configurations can block network traffic and cause connectivity problems.</li>
+<li>Check for software updates: Ensuring operating systems and network devices have the latest updates can address known issues and vulnerabilities.</li>
+</ul>
+<!-- - Conduct packet capture/analysis: Using tools like Wireshark to capture and analyze network traffic can help identify anomalies and pinpoint the source of network problems. -->
+<br>
+<div style="display: flex; justify-content: center;">
+    <h1>Network Troubleshooting Diagram</h1>
+</div>
+<br>
+<p><p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/Network/networkTroubleshoot.png" type='image/png'>
+        
+        
+        
+        
+        <img loading="lazy" src="/images/Network/networkTroubleshoot.png" alt=""  />
+    </picture>
+</p>
+</p>
+<p><br><br></p>
+<div class="windows-header">
+<h1 id="img-srchttpsskilliconsdeviconsiwindows-stylewidth-30px-height-30px-windows-networking-commands"><img src="https://skillicons.dev/icons?i=windows" style="width: 30px; height: 30px;"> Windows Networking Commands</h1>
+</div>
+<h3 id="ipconfig">IPCONFIG</h3>
+<p>IPCONFIG is used to display the current TCP/IP network configuration values assigned to network interfaces on Windows systems.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ipconfig</span></span></code></pre></div>
+<h3 id="ping">PING</h3>
+<p>PING is used to test the reachability of a host on a network and measure the round-trip time for packets sent from the local system to the target host.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ping <span class="p">&lt;</span>hostname or IP address&gt;</span></span></code></pre></div>
+<h3 id="netstat">NETSTAT</h3>
+<p>NETSTAT displays active network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
+<details><summary>Read more about netstat and <code>netstat -ano</code> commands</summary>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netstat </code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+NETSTAT displays active network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.
+<p>When you run <code>netstat</code> without any options, it provides a list of active connections along with the corresponding protocols (TCP/UDP), local and foreign addresses, and their status.</p>
+<p>Example output of <code>netstat</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Local Address</th>
+<th>Foreign Address</th>
+<th>State</th>
+<th>PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:135</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:445</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:3389</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>9012</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this table:</p>
+<ul>
+<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
+<li><code>Local Address</code>: Local IP address and port.</li>
+<li><code>Foreign Address</code>: Remote IP address and port.</li>
+<li><code>State</code>: Connection state (e.g., LISTENING, ESTABLISHED).</li>
+<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
+</ul>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netstat -ano</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<p>Now, let&rsquo;s look at the <code>netstat -ano</code> command and explain its components:</p>
+<ul>
+<li><code>a</code>: This option displays all connections and listening ports.</li>
+<li><code>n</code>: This option displays addresses and port numbers in numerical form, rather than resolving hostnames and service names.</li>
+<li><code>o</code>: This option displays the owning process ID associated with each connection.</li>
+</ul>
+<p>Example output of <code>netstat -ano</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Local Address</th>
+<th>Foreign Address</th>
+<th>State</th>
+<th>PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:135</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:445</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:3389</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>9012</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this table:</p>
+<ul>
+<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
+<li><code>Local Address</code>: Local IP address and port.</li>
+<li><code>Foreign Address</code>: Remote IP address and port.</li>
+<li><code>State</code>: Connection state (e.g., LISTENING, ESTABLISHED).</li>
+<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
+</ul>
+<p>This information can be useful for identifying which processes are using network resources, troubleshooting network issues, or identifying potentially unwanted or malicious connections.</p>
+<p>Remember, on Windows systems, the PID can be cross-referenced with the Task Manager to identify the specific process that&rsquo;s using a particular network connection.</p>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netstat -ano | findstr "LISTENING"</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<p>Another useful way to filter the <code>netstat -ano</code> output is by using the <code>findstr</code> command to specifically look for listening ports. This can help you quickly identify which processes are listening for incoming connections.</p>
+<p>The <code>findstr &quot;LISTENING&quot;</code> command filters the output to show only the connections that are in the <code>LISTENING</code> state.</p>
+<p>Example output after filtering:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Local Address</th>
+<th>Foreign Address</th>
+<th>State</th>
+<th>PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:135</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:445</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:3389</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>9012</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this filtered output:</p>
+<ul>
+<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
+<li><code>Local Address</code>: Local IP address and port.</li>
+<li><code>Foreign Address</code>: Remote IP address and port.</li>
+<li><code>State</code>: Connection state (e.g., LISTENING).</li>
+<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
+</ul>
+<br>
+<hr>
+</details>
+<br><br>
+<h3 id="tracert">TRACERT</h3>
+<p>TRACERT is used to trace the route taken by packets across an IP network to a specific destination.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">tracert <span class="p">&lt;</span>hostname or IP address&gt;</span></span></code></pre></div>
+<h3 id="nslookup">NSLOOKUP</h3>
+<p>NSLOOKUP is a command-line tool used for querying the Domain Name System (DNS) to obtain domain name or IP address mapping.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">nslookup <span class="p">&lt;</span>hostname&gt;</span></span></code></pre></div>
+<h3 id="getmac">getmac</h3>
+<p>To retrieve the MAC address of a device on a Windows system, you typically use the getmac command. Here&rsquo;s how you can use it:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">getmac</span></span></code></pre></div>
+<h3 id="arp">arp</h3>
+<p>To retrieve the ARP (Address Resolution Protocol) table on a Windows system, you can use the <code>arp -a</code> command. This command displays the current ARP cache, which contains mappings of IP addresses to MAC addresses. Here&rsquo;s how you can use it:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">arp -a</span></span></code></pre></div>
+<p>When you run this command in the Command Prompt, it will display the ARP table with the IP addresses and corresponding MAC addresses of devices on the local network.</p>
+<br />
+<hr />
+<div class="linux-header">
+<h1 id="img-srchttpsskilliconsdeviconsilinux-stylewidth-30px-height-30px-linux-networking-commands"><img src="https://skillicons.dev/icons?i=linux" style="width: 30px; height: 30px;"> Linux Networking Commands</h1>
+</div>
+<h3 id="ip-addr">IP ADDR</h3>
+<p>IP ADDR is used to display or manipulate routing, network devices, interfaces, and tunnels.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ip addr</span></span></code></pre></div>
+<h3 id="ifconfig">IFCONFIG</h3>
+<p>IFCONFIG is used to configure and display network interface parameters on Linux systems.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ifconfig</span></span></code></pre></div>
+<h3 id="ping-1">PING</h3>
+<p>PING in Linux functions similarly to Windows. It is used to test network connectivity.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping &lt;hostname or IP address&gt;</span></span></code></pre></div>
+<h3 id="netstat-1">NETSTAT</h3>
+<p>NETSTAT in Linux provides information about active network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
+<details><summary>Read more about <code>lsof</code> command</summary>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>sudo lsof -i -P -n | grep LISTEN</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<h4 id="lsof---list-open-files-command">LSOF - LIST OPEN FILES COMMAND</h4>
+<p>In Linux, the <code>lsof</code> command (short for &ldquo;list open files&rdquo;) is used to list information about files that are open by processes. When combined with specific options, it can also provide information about network connections.</p>
+<p>The command: <br><code>sudo lsof -i -P -n | grep LISTEN</code><br> lists all open files (-i) that are network-related, including sockets and ports (-i), in a numeric format (-P), and with host names turned off (-n). The output is then filtered using <code>grep LISTEN</code> to only show the entries where the connection state is &ldquo;LISTENING&rdquo;.</p>
+<p>Example output after filtering:</p>
+<table>
+<thead>
+<tr>
+<th>COMMAND</th>
+<th>PID</th>
+<th>USER</th>
+<th>FD</th>
+<th>TYPE</th>
+<th>DEVICE</th>
+<th>SIZE/OFF</th>
+<th>NODE</th>
+<th>NAME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sshd</td>
+<td>1234</td>
+<td>root</td>
+<td>3u</td>
+<td>IPv4</td>
+<td>1234</td>
+<td>0t0</td>
+<td>TCP</td>
+<td>*:22 (LISTEN)</td>
+</tr>
+<tr>
+<td>nginx</td>
+<td>5678</td>
+<td>www-data</td>
+<td>6u</td>
+<td>IPv4</td>
+<td>5678</td>
+<td>0t0</td>
+<td>TCP</td>
+<td>*:80 (LISTEN)</td>
+</tr>
+<tr>
+<td>apache</td>
+<td>9012</td>
+<td>apache</td>
+<td>4u</td>
+<td>IPv6</td>
+<td>9012</td>
+<td>0t0</td>
+<td>TCP</td>
+<td>*:443 (LISTEN)</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this table:</p>
+<ul>
+<li><code>COMMAND</code>: Process name or command associated with the open file.</li>
+<li><code>PID</code>: Process ID of the application or service.</li>
+<li><code>USER</code>: User associated with the process.</li>
+<li><code>FD</code>: File descriptor associated with the file.</li>
+<li><code>TYPE</code>: Type of file (e.g., IPv4, IPv6).</li>
+<li><code>DEVICE</code>: Device number associated with the file.</li>
+<li><code>SIZE/OFF</code>: Size or offset of the file.</li>
+<li><code>NODE</code>: Node associated with the file.</li>
+<li><code>NAME</code>: Name of the file.</li>
+</ul>
+<p>This command is useful for identifying which processes are listening on network ports, such as SSH, web servers, or other network services.</p>
+<br>
+<hr>
+</details>
+<br><br>
+<h3 id="traceroute">TRACEROUTE</h3>
+<p>TRACEROUTE is used to display the route packets take to network host.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">traceroute &lt;hostname or IP address&gt;</span></span></code></pre></div>
+<h3 id="dig">DIG</h3>
+<p>DIG (Domain Information Groper) is a flexible tool for interrogating DNS name servers.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dig &lt;hostname&gt;</span></span></code></pre></div>
+<h3 id="ss">SS</h3>
+<p>SS is used to investigate sockets.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ss</span></span></code></pre></div>
+<h3 id="ss--tunlp">SS -TUNLP</h3>
+<p>SS -TUNLP is used to display TCP, UDP, UNIX, and RAW sockets, along with the process listening or owning them.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ss -tunlp</span></span></code></pre></div>
+<hr />
+<h2 id="network-troubleshooting-devices">Network Troubleshooting Devices</h2>
+<ol>
+<li><strong>Network Cable Tester</strong>: This device is used to verify the integrity and connectivity of network cables. It typically consists of a main unit and remote units. The main unit sends signals through the cable, while the remote unit(s) receive and analyze the signals, indicating whether the cable is functioning correctly.</li>
+</ol>
+
+
+
+
+<a href="https://amzn.to/3W7C2qa" target="_blank" rel="nofollow noopener noreferrer" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin-top: 14px; margin-bottom: 40px;">
+    <img src="https://m.media-amazon.com/images/I/51GeUf-0ClL._SL1500_.jpg" alt="Affiliate Image" style="max-width: 200px; height: auto; display: block;">
+</a>
+
+
+<ol start="2">
+<li><strong>Toner and Probe Kit</strong>: A toner and probe kit helps trace and locate cables within walls, ceilings, or floors. The toner generates a distinct tone that travels along the cable, while the probe is used to detect and pinpoint the location of the tone, helping to identify the specific cable being traced.</li>
+</ol>
+
+
+
+
+<a href="https://amzn.to/4d82JBd" target="_blank" rel="nofollow noopener noreferrer" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin-top: 14px; margin-bottom: 40px;">
+    <img src="https://m.media-amazon.com/images/I/51RGnFqm8sL._AC_SL1000_.jpg" alt="Affiliate Image" style="max-width: 200px; height: auto; display: block;">
+</a>
+
+
+<ol start="3">
+<li><strong>Ethernet Cable Certifier</strong>: Ethernet cable certifiers are advanced testing devices used to certify the performance of Ethernet cables. They measure parameters such as attenuation, crosstalk, and impedance to ensure that the cable meets industry standards and can support the desired network speeds and protocols.</li>
+</ol>
+
+
+
+
+<a href="https://amzn.to/3U2Fn7o" target="_blank" rel="nofollow noopener noreferrer" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin-top: 14px; margin-bottom: 40px;">
+    <img src="https://m.media-amazon.com/images/I/71BT81cS4wL._SL1500_.jpg" alt="Affiliate Image" style="max-width: 200px; height: auto; display: block;">
+</a>
+
+
+<ol start="4">
+<li><strong>Cable Qualification Tester</strong>: Similar to cable certifiers, cable qualification testers assess the performance of network cables. They provide a pass/fail indication based on predefined performance thresholds but may not offer the same level of detailed testing and certification as certifiers.</li>
+</ol>
+
+
+
+
+<a href="https://amzn.to/3U8EJoT" target="_blank" rel="nofollow noopener noreferrer" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin-top: 14px; margin-bottom: 40px;">
+    <img src="https://m.media-amazon.com/images/I/61MveecQX5L._SL1000_.jpg" alt="Affiliate Image" style="max-width: 200px; height: auto; display: block;">
+</a>
+
+
+<ol start="5">
+<li><strong>Network Multimeter</strong>: A network multimeter combines the functionalities of a traditional electrical multimeter with network testing capabilities. It can measure electrical properties such as voltage, current, and resistance, as well as diagnose network connectivity issues such as cable faults and signal loss.</li>
+</ol>
+
+
+
+
+<a href="https://amzn.to/3w4cjEI" target="_blank" rel="nofollow noopener noreferrer" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin-top: 14px; margin-bottom: 40px;">
+    <img src="https://m.media-amazon.com/images/I/71-27wYnHjL._SL1500_.jpg" alt="Affiliate Image" style="max-width: 130px; height: auto; display: block;">
+</a>
+
+
+<ol start="6">
+<li><strong>Fiber Optic Tester (OTDR)</strong>: Optical Time-Domain Reflectometers (OTDRs) are used to test and troubleshoot fiber optic cables. They emit light pulses into the fiber and measure the reflections to assess the quality of the fiber link, detect faults, and determine the distance to any anomalies or breaks in the cable.</li>
+</ol>
+
+
+
+
+<a href="https://amzn.to/4b2cIpZ" target="_blank" rel="nofollow noopener noreferrer" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin-top: 14px; margin-bottom: 40px;">
+    <img src="https://m.media-amazon.com/images/I/61WT-FbQ13L._SL1000_.jpg" alt="Affiliate Image" style="max-width: 200px; height: auto; display: block;">
+</a>
+
+
+<br>
+<h2 id="conclusion">Conclusion</h2>
+<p>There are many more commands and ways to troubleshoot networks. Understanding and mastering these networking commands can greatly enhance your ability to troubleshoot and manage network-related issues on both Windows and Linux systems. Whether you&rsquo;re a system administrator, network engineer, or simply a curious user, familiarity with these commands is invaluable in maintaining a healthy and efficient network environment.</p>
+<br>
+<a onclick="document.querySelector('.windows-header').scrollIntoView({ behavior: 'smooth' }); return false;">
+    <kbd>Windows 🡅</kbd>
+</a>
+<a onclick="document.querySelector('.linux-header').scrollIntoView({ behavior: 'smooth' }); return false;">
+    <kbd>Linux 🡅</kbd>
+</a>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/network/" class="singleTag">#network</a>
+    
+    <a href="https://paulius.uk/tags/shell/" class="singleTag">#shell</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#networking-commands-for-windows-and-linux">Networking Commands for Windows and Linux</a>
+      <ul>
+        <li><a href="#network-troubleshooting-steps">Network Troubleshooting Steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#img-srchttpsskilliconsdeviconsiwindows-stylewidth-30px-height-30px-windows-networking-commands"><img src="https://skillicons.dev/icons?i=windows" style="width: 30px; height: 30px;"> Windows Networking Commands</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#ipconfig">IPCONFIG</a></li>
+            <li><a href="#ping">PING</a></li>
+            <li><a href="#netstat">NETSTAT</a></li>
+            <li><a href="#tracert">TRACERT</a></li>
+            <li><a href="#nslookup">NSLOOKUP</a></li>
+            <li><a href="#getmac">getmac</a></li>
+            <li><a href="#arp">arp</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#img-srchttpsskilliconsdeviconsilinux-stylewidth-30px-height-30px-linux-networking-commands"><img src="https://skillicons.dev/icons?i=linux" style="width: 30px; height: 30px;"> Linux Networking Commands</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#ip-addr">IP ADDR</a></li>
+            <li><a href="#ifconfig">IFCONFIG</a></li>
+            <li><a href="#ping-1">PING</a></li>
+            <li><a href="#netstat-1">NETSTAT</a></li>
+            <li><a href="#traceroute">TRACEROUTE</a></li>
+            <li><a href="#dig">DIG</a></li>
+            <li><a href="#ss">SS</a></li>
+            <li><a href="#ss--tunlp">SS -TUNLP</a></li>
+          </ul>
+        </li>
+        <li><a href="#network-troubleshooting-devices">Network Troubleshooting Devices</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+<div class="related">
+  <h5>See also:</h5>
+  <div class="relatedcontainer">
+    
+    <a class="relateditem" href="/posts/2024/docker-containers/">
+      <div class="card-info">
+        <h6>Managing Docker Containers</h6>
+        <p>
+          
+        <p class="relatedItemDesc">What is Docker? Docker is a platform that allows developers to create, deploy, and run applications in …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+    <a class="relateditem" href="/posts/2024/wifi-standards/">
+      <div class="card-info">
+        <h6>Wifi Standards</h6>
+        <p>
+          
+        <p class="relatedItemDesc">The Evolution of WiFi: From Slow to Blazing Fast As technology continues to advance, the world of wireless …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+   <script src="/js/copy-code-button.js">
+    </script>
+    
+</body>
+
+</html>

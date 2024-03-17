@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Managing Docker Containers | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Managing Docker Containers</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Managing Docker Containers</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/docker/" class="singleCategory">Docker</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>17-April-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          4 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/docker.webp" alt="Managing Docker Containers" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    <!-- 
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="https://cdn2.webdamdb.com/1280_YH3X6z6na1S1.jpg?1625707082" alt="" style="width:300px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+    
+    <p class="imageSourceText" style="margin-left: 5px;">Image Source: </p>
+    
+    <p class="imageSourceLink"><a href="https://www.cablestogo.com/cables/fiber-optic/duplex-single-mode-os2-cables/23ft-7m-lc-lc-9-125-os2-duplex-single-mode-pvc-fiber-optic-cable-yellow/p/cg-37462">cablestogo</a></p>
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+ -->
+
+
+
+
+
+  <a href="https://docker.com" target="_blank">
+
+    <img src="https://skillicons.dev/icons?i=docker" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+<h1 id="what-is-docker">What is Docker?</h1>
+<p>Docker is a platform that allows developers to create, deploy, and run applications in containers. These containers encapsulate the application and its dependencies, ensuring consistent and reproducible environments across different systems. With Docker, developers can easily share and deploy applications without worrying about compatibility issues or complex setup processes.</p>
+<br>
+<h1 id="docker-management">Docker Management</h1>
+<p>Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more. Here&rsquo;s a comprehensive guide to Docker management from cleanup to creation.</p>
+<h1 id="p-styletext-align-centertable-of-contentsp"><p style="text-align: center;">Table of Contents</p></h1>
+<div style="text-align: center;">
+    <p>1. <a href="#removing-docker-containers-images-and-volumes">Removing Docker Containers, Images, and Volumes</a></p>
+    <p>2. <a href="#creating-docker-images">Creating Docker Images</a></p>
+    <p>3. <a href="#initializing-docker-projects">Initializing Docker Projects</a></p>
+    <p>4. <a href="#using-docker-compose">Using Docker Compose</a></p>
+</div>
+<p><br><br></p>
+<h2 id="removing-docker-containers-images-and-volumes">Removing Docker Containers, Images, and Volumes</h2>
+<p>If you&rsquo;re looking to clean up your Docker environment by removing containers, images, and volumes, using the command line, here&rsquo;s how you can do it:</p>
+<br>
+<div class="admonition danger"><div class="admonition-content" >Warning!     Please use all the following remove commands wisely!</div>
+</div>
+
+<h3 id="removing-docker-containers">Removing Docker <strong>Containers</strong></h3>
+<ol>
+<li><strong>List all containers</strong>: (This command lists all containers, displaying only their IDs.)</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker ps -aq</span></span></code></pre></div>
+<ol start="2">
+<li><strong>Delete all containers</strong>:</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker stop <span class="k">$(</span>docker ps -aq<span class="k">)</span> <span class="o">&amp;&amp;</span> docker rm <span class="k">$(</span>docker ps -aq<span class="k">)</span></span></span></code></pre></div>
+<p><code>docker stop $(docker ps -aq)</code>   ⟶Stops all running containers. <br>
+<code>docker rm $(docker ps -aq)</code>   ⟶Removes all containers.</p>
+<br>
+<ul>
+<li>Using Docker Container Prune Command (The <code>-f</code> flag is used to force the deletion without asking for confirmation.)</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker container prune -f</span></span></code></pre></div>
+<br>
+<ul>
+<li>Using Docker System Prune Command (The <code>-a</code> flag removes all unused containers, and the <code>-f</code> flag is used to force the deletion without confirmation.)</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker system prune -a -f</span></span></code></pre></div>
+<h3 id="removing-docker-images">Removing Docker <strong>Images</strong></h3>
+<ol>
+<li><strong>List all images</strong>: (This command lists all images, displaying only their IDs.)</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker images -aq</span></span></code></pre></div>
+<ol start="2">
+<li><strong>Delete all images</strong>: (The <code>-f</code> flag is used to force the deletion without asking for confirmation.)</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker rmi <span class="k">$(</span>docker images -aq<span class="k">)</span> -f</span></span></code></pre></div>
+<ul>
+<li>Using Docker System Prune Command (The <code>-a</code> flag removes all unused images, and the <code>-f</code> flag is used to force the deletion without confirmation.)</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker system prune -a -f</span></span></code></pre></div>
+<h3 id="removing-docker-volumes">Removing Docker <strong>Volumes</strong></h3>
+<ol>
+<li><strong>List all volumes</strong>: (This command lists all volumes, displaying only their names or IDs.)</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker volume ls -q</span></span></code></pre></div>
+<ol start="2">
+<li><strong>Delete all volumes</strong>: (The <code>-f</code> flag is used to force the deletion without asking for confirmation.)</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker volume prune -f</span></span></code></pre></div>
+<h3 id="removing-specific-volumes">Removing <strong>Specific Volumes</strong></h3>
+<p>(Replace <code>[VOLUME_NAME or VOLUME_ID]</code> with the name or ID of the volume you want to remove.)</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker volume rm <span class="o">[</span>VOLUME_NAME or VOLUME_ID<span class="o">]</span></span></span></code></pre></div>
+<h4 id="using-docker-system-prune-command">Using Docker System Prune Command</h4>
+<p>(The <code>--volumes</code> flag removes all unused volumes, and the <code>-f</code> flag is used to force the deletion without confirmation.)</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker system prune --volumes -f</span></span></code></pre></div>
+<br>
+<h2 id="creating-docker-images"><em>Creating</em> Docker <strong>Images</strong></h2>
+<p>Creating Docker images is a fundamental aspect of Docker management. You can create Docker images using a <code>Dockerfile</code> or by committing changes to a container.</p>
+<br>
+<h4 id="using-dockerfile">Using Dockerfile</h4>
+<ol>
+<li><strong>Create a <code>Dockerfile</code></strong>:</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c"># Use an official base image</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> ubuntu:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Set environment variables</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> APP_HOME /app<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Create directory</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir <span class="nv">$APP_HOME</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Set working directory</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> $APP_HOME</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Copy application files</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> . .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Run your application</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;./your-app&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<ol start="2">
+<li><strong>Build the Docker image</strong>:</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker build -t your-image-name .</span></span></code></pre></div>
+<h4 id="using-commit">Using Commit</h4>
+<ol>
+<li><strong>Run a container</strong>:</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -it --name temp-container ubuntu:latest /bin/bash</span></span></code></pre></div>
+<ol start="2">
+<li>
+<p><strong>Make changes</strong> in the container.</p>
+</li>
+<li>
+<p><strong>Commit changes to create an image</strong>:</p>
+</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker commit temp-container your-image-name</span></span></code></pre></div>
+<h2 id="initializing-docker-projects">Initializing Docker <strong>Projects</strong></h2>
+<p>You can initialize a new Docker project using the <code>docker init</code> command. This command creates a new Dockerfile and a default <code>.dockerignore</code> file.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker init your-project-name</span></span></code></pre></div>
+<h2 id="using-docker-compose">Using Docker <strong>Compose</strong></h2>
+<p><a href="https://docs.docker.com/compose/">Docker Compose</a> is a tool for defining and running multi-container Docker applications. You can use a docker-compose.yml file to define your services, networks, and volumes.</p>
+<ol>
+<li><strong>Create a <code>docker-compose.yml</code> file</strong>:</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;80:80&#34;</span></span></span></code></pre></div>
+<ol start="2">
+<li><strong>Run Docker Compose</strong>: (This will start your services as defined in the <code>docker-compose.yml</code> file.)</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up</span></span></code></pre></div>
+<p>or</p>
+<p><code>docker-compose up -d</code> <br></p>
+<br>
+<p>docker-compose up -d command Starts up the services in the background (detached mode) without displaying the logs in the terminal. It&rsquo;s ideal for production or when you want the services to run in the background while you continue working on other tasks.</p>
+<br>
+<h1 id="conclusion">Conclusion</h1>
+<p>Managing Docker environments efficiently is essential for streamlined development and operations. From cleaning up unused resources to creating Docker images and using Docker Compose, mastering these tasks enhances your Docker workflow.</p>
+<p>For further exploration and advanced features, it is best to refer to the:</p>
+<ul>
+<li><a href="https://docs.docker.com/">official Docker documentation</a>.</li>
+</ul>
+<p>The official documentation provides comprehensive guides and references to help you leverage Docker&rsquo;s full potential. Explore Docker&rsquo;s powerful tools and best practices to optimize your containerization experience and simplify your development process.</p>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/docker/" class="singleTag">#docker</a>
+    
+    <a href="https://paulius.uk/tags/shell/" class="singleTag">#shell</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-docker">What is Docker?</a></li>
+    <li><a href="#docker-management">Docker Management</a></li>
+    <li><a href="#p-styletext-align-centertable-of-contentsp"><p style="text-align: center;">Table of Contents</p></a>
+      <ul>
+        <li><a href="#removing-docker-containers-images-and-volumes">Removing Docker Containers, Images, and Volumes</a>
+          <ul>
+            <li><a href="#removing-docker-containers">Removing Docker <strong>Containers</strong></a></li>
+            <li><a href="#removing-docker-images">Removing Docker <strong>Images</strong></a></li>
+            <li><a href="#removing-docker-volumes">Removing Docker <strong>Volumes</strong></a></li>
+            <li><a href="#removing-specific-volumes">Removing <strong>Specific Volumes</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#creating-docker-images"><em>Creating</em> Docker <strong>Images</strong></a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#initializing-docker-projects">Initializing Docker <strong>Projects</strong></a></li>
+        <li><a href="#using-docker-compose">Using Docker <strong>Compose</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+<div class="related">
+  <h5>See also:</h5>
+  <div class="relatedcontainer">
+    
+    <a class="relateditem" href="/posts/2024/network-commands/">
+      <div class="card-info">
+        <h6>Networking Commands and Troubleshooting</h6>
+        <p>
+          
+        <p class="relatedItemDesc">Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+    <a class="relateditem" href="/posts/2024/chmod/">
+      <div class="card-info">
+        <h6>Exploring Linux &#34;chmod&#34; commands</h6>
+        <p>
+          
+        <p class="relatedItemDesc">Let&rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &ldquo;s&rdquo; Bit. In the Linux …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+   <script src="/js/copy-code-button.js">
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0% 0%;
+  background-repeat: repeat;
+  margin-top: 0;
+  font-size: 12px;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  margin-right: .3em;
+}
+
+.fa-solid fa-clock {
+  font-size: 12px;
+  line-height: 9px;
+}
+
+.fa-solid.fa-calendar-day::before {
+  font-size: 15px;
+  line-height: 9px;
+  position: relative;
+  top: -2px;
+}

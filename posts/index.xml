@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Paulius.uk</title>
+    <link>https://paulius.uk/posts/</link>
+    <description>Recent content in Posts on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Apr 2024 19:34:43 +0100</lastBuildDate>
+    <atom:link href="https://paulius.uk/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHub Readme Automation with markscribe &amp; GitHub Actions</title>
+      <link>https://paulius.uk/posts/2024/automate-your-github-profile-with-markscribe/</link>
+      <pubDate>Sat, 27 Apr 2024 19:34:43 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/automate-your-github-profile-with-markscribe/</guid>
+      <description>Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
+    </item>
+    <item>
+      <title>Top 10 Web-Browser Extensions for Chrome and Firefox</title>
+      <link>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</link>
+      <pubDate>Wed, 24 Apr 2024 13:15:38 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</guid>
+      <description>What is an Extension/Add-on? A browser extension, often referred to as an add-on, is a small software program designed to enhance and customize the functionality of web browsers such as Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. These extensions can add new features, modify existing ones, or even block unwanted content.&#xA;Whether it&amp;rsquo;s blocking ads for a cleaner browsing experience, managing passwords securely, or accelerating downloads, browser extensions offer users a way to tailor their browsing experience to their needs and preferences.</description>
+    </item>
+    <item>
+      <title>Termux, Termux-api and SSH</title>
+      <link>https://paulius.uk/posts/2024/termux-and-ssh/</link>
+      <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/termux-and-ssh/</guid>
+      <description>What is Termux? Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.&#xA;What is Termux-api? Termux-api is a python module to access the termux-api This provides a way to get native access in Python to Android device functionality as API.</description>
+    </item>
+    <item>
+      <title>Managing Docker Containers</title>
+      <link>https://paulius.uk/posts/2024/docker-containers/</link>
+      <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/docker-containers/</guid>
+      <description>What is Docker? Docker is a platform that allows developers to create, deploy, and run applications in containers. These containers encapsulate the application and its dependencies, ensuring consistent and reproducible environments across different systems. With Docker, developers can easily share and deploy applications without worrying about compatibility issues or complex setup processes.&#xA;Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more.</description>
+    </item>
+    <item>
+      <title>Wifi Standards</title>
+      <link>https://paulius.uk/posts/2024/wifi-standards/</link>
+      <pubDate>Tue, 09 Apr 2024 18:39:08 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/wifi-standards/</guid>
+      <description>The Evolution of WiFi: From Slow to Blazing Fast As technology continues to advance, the world of wireless networking has seen a remarkable transformation. The humble beginnings of WiFi, with its modest 11 Mbps speeds, have given way to lightning-fast connections capable of delivering gigabit-level performance.&#xA;Let&amp;rsquo;s take a journey through the evolution of WiFi standards and explore how they have revolutionized the way we connect to the digital world.</description>
+    </item>
+    <item>
+      <title>Networking Commands and Troubleshooting</title>
+      <link>https://paulius.uk/posts/2024/network-commands/</link>
+      <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/network-commands/</guid>
+      <description>Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, and managing network-related issues on both Windows and Linux systems. Here, we&amp;rsquo;ll explore some commonly used networking commands and their usage on both platforms, as well as troubleshooting steps to resolve common network problems.&#xA;Network Troubleshooting Steps Check Hardware Use ipconfig (or ifconfig) Use ping and tracert (traceroute) Perform DNS check Check for Virus/Malware Review Database Logs Contact ISP (Internet Service Provider) Additional Steps:</description>
+    </item>
+    <item>
+      <title>Network Cables and Connectors</title>
+      <link>https://paulius.uk/posts/2024/network-cables-and-connectors/</link>
+      <pubDate>Thu, 04 Apr 2024 14:39:37 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/network-cables-and-connectors/</guid>
+      <description>Overview of most commonly used Networking Cables, and Connectors In the modern era of computing, various ports, cables, and connectors are utilized to connect peripherals, transfer data, and facilitate communication between devices. Understanding these components is essential for effectively interfacing different hardware components. Below is an overview of some commonly used Networking cables, and connectors:&#xA;Ethernet: Functionality: Ethernet ports and cables are used for wired network connections, providing reliable and high-speed data transmission between computers, routers, switches, and other networking equipment.</description>
+    </item>
+    <item>
+      <title>Common Network Ports</title>
+      <link>https://paulius.uk/posts/2024/common-network-ports/</link>
+      <pubDate>Thu, 04 Apr 2024 02:27:31 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/common-network-ports/</guid>
+      <description>Network Ports and Protocols Ports are crucial endpoints in network communication, facilitating the transfer of data between devices. They allow different services and applications to operate concurrently on a network device by assigning specific numbers to each service. This organization ensures accurate routing of data packets based on predefined protocols. Ports enable essential network functions like web browsing, email, and remote access, making them vital for effective network management and troubleshooting.</description>
+    </item>
+    <item>
+      <title>Windows Run Commands</title>
+      <link>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</link>
+      <pubDate>Sun, 31 Mar 2024 18:30:32 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</guid>
+      <description>Run Commands for Dialogue Box in Windows The Run dialogue box in Microsoft Windows provides a quick and convenient way for you to launch programs, open websites, and access several Windows settings. Let&amp;rsquo;s take a look at some commands and see how it works.&#xA;Launching run dialog Launching the Run dialog on Windows is usually done by pressing the⊞ Windows key + R, or else you can simply open the Start Menu and type &amp;ldquo;run.</description>
+    </item>
+    <item>
+      <title>CSS Selectors</title>
+      <link>https://paulius.uk/posts/2024/css-selectors/</link>
+      <pubDate>Thu, 28 Mar 2024 20:41:34 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/css-selectors/</guid>
+      <description>Selector Example Example description Pseudo-classes :active a:active Selects the active link :checked input:checked Selects every checked &amp;lt;input&amp;gt; element :default input:default Selects the default &amp;lt;input&amp;gt; element :disabled input:disabled Selects every disabled &amp;lt;input&amp;gt; element :empty p:empty Selects every &amp;lt;p&amp;gt; element that has no children (including text nodes) :enabled input:enabled Selects every enabled &amp;lt;input&amp;gt; element :first-child p:first-child Selects every &amp;lt;p&amp;gt; element that is the first child of its parent :first-of-type p:first-of-type Selects every &amp;lt;p&amp;gt; element that is the first &amp;lt;p&amp;gt; element of its parent :focus input:focus Selects the input element which has focus :fullscreen :fullscreen Selects the element that is in full-screen mode :hover a:hover Selects links on mouse over :in-range input:in-range Selects input elements with a value within a specified range :indeterminate input:indeterminate Selects input elements that are in an indeterminate state :invalid input:invalid Selects all input elements with an invalid value :lang(language) p:lang(it) Selects every &amp;lt;p&amp;gt; element with a lang attribute equal to &amp;ldquo;it&amp;rdquo; (Italian) :last-child p:last-child Selects every &amp;lt;p&amp;gt; element that is the last child of its parent :last-of-type p:last-of-type Selects every &amp;lt;p&amp;gt; element that is the last &amp;lt;p&amp;gt; element of its parent :link a:link Selects all unvisited links :not(selector) :not(p) Selects every element that is not a &amp;lt;p&amp;gt; element :nth-child(n) p:nth-child(2) Selects every &amp;lt;p&amp;gt; element that is the second child of its parent :nth-last-child(n) p:nth-last-child(2) Selects every &amp;lt;p&amp;gt; element that is the second child of its parent, counting from the last child :nth-last-of-type(n) p:nth-last-of-type(2) Selects every &amp;lt;p&amp;gt; element that is the second &amp;lt;p&amp;gt; element of its parent, counting from the last child :nth-of-type(n) p:nth-of-type(2) Selects every &amp;lt;p&amp;gt; element that is the second &amp;lt;p&amp;gt; element of its parent :only-child p:only-child Selects every &amp;lt;p&amp;gt; element that is the only child of its parent :only-of-type p:only-of-type Selects every &amp;lt;p&amp;gt; element that is the only &amp;lt;p&amp;gt; element of its parent :optional input:optional Selects input elements with no &amp;ldquo;required&amp;rdquo; attribute :out-of-range input:out-of-range Selects input elements with a value outside a specified range :read-only input:read-only Selects input elements with the &amp;ldquo;readonly&amp;rdquo; attribute specified :read-write input:read-write Selects input elements with the &amp;ldquo;readonly&amp;rdquo; attribute NOT specified :required input:required Selects input elements with the &amp;ldquo;required&amp;rdquo; attribute specified :root :root Selects the document&amp;rsquo;s root element :target #news:target Selects the current active #news element (clicked on a URL containing that anchor name) :valid input:valid Selects all input elements with a valid value :visited a:visited Selects all visited links Classes and IDs .</description>
+    </item>
+    <item>
+      <title>How to Add a Copy Code Button to Hugo Static Website?</title>
+      <link>https://paulius.uk/posts/2024/how-to-add-copy-button-to-hugo-site/</link>
+      <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/how-to-add-copy-button-to-hugo-site/</guid>
+      <description>How to add a copy-button to your Hugo static website? 1. Let&amp;rsquo;s create css file in /static/css/copy-code-button.css: .highlight-wrapper { display: block; } .highlight-wrapper .lntd pre { padding: 0; } .chroma .lntd pre { border: 0px solid #ccc; padding-right: 0px; padding-left: 0px; padding-top: 30px; padding-bottom: 18px; } .highlight { position: relative; z-index: 0; padding: 0; margin: 25px 0px 40px 0px; border-radius: 4px; } .highlight&amp;gt;.chroma { font-size: 85%; line-height: 25px; /* padding-left: 40px; */ margin-bottom: 30px; position: static; z-index: 1; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; overflow: auto; } .</description>
+    </item>
+    <item>
+      <title>Exploring Linux &#34;chmod&#34; commands</title>
+      <link>https://paulius.uk/posts/2024/chmod/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/chmod/</guid>
+      <description>Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit. In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage.</description>
+    </item>
+    <item>
+      <title>Bandit overthewire.org</title>
+      <link>https://paulius.uk/posts/2024/bandit-overthewire.org/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/bandit-overthewire.org/</guid>
+      <description>Level Solution Description Password Level 0 ssh bandit0@bandit.labs.overthewire.org -p 2220 ssh into server with port 2220. show pass bandit0 Level 0 → Level 1 cat readme The password for the next level is stored in a file called readme. show pass NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL Level 1 → Level 2 cat ./- The password for the next level is stored in a file called - located in the home directory. show pass rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi Level 2 → Level 3 cat &amp;ldquo;spaces in this filename&amp;rdquo; The password for the next level is stored in a file called spaces in this filename located in the home directory.</description>
+    </item>
+  </channel>
+</rss>

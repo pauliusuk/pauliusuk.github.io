@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Common Network Ports | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Common Network Ports</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Common Network Ports</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/networking/" class="singleCategory">Networking</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>04-April-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          4 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/table.webp" alt="Common Network Ports" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    
+
+
+
+
+  <a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers" target="_blank">
+
+    <img src="/images/Network/Binary.webp" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+<h1 id="network-ports-and-protocols">Network Ports and Protocols</h1>
+<p>Ports are crucial endpoints in network communication, facilitating the transfer of data between devices. They allow different services and applications to operate concurrently on a network device by assigning specific numbers to each service. This organization ensures accurate routing of data packets based on predefined protocols. Ports enable essential network functions like web browsing, email, and remote access, making them vital for effective network management and troubleshooting.<br></p>
+<h2 id="most-common-ports">Most Common ports</h2>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search... ">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>ICMP</td>
+<td>Internet Control Message Protocol</td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>FTP</td>
+<td>Data Channel, File Transfer Protocol</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>21</td>
+<td>FTP</td>
+<td>Control / Command Channel, File Transfer Protocol</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+<td>Secure Shell (for secure login)</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>23</td>
+<td>TELNET</td>
+<td>Teletype Network</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP</td>
+<td>Simple Mail Transfer Protocol, 587 secure</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>50</td>
+<td>IPSEC ESP</td>
+<td>Internet Protocol Security, Encapsulating Security Payload</td>
+<td></td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS</td>
+<td>Domain Name Server</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>67/68</td>
+<td>DHCP</td>
+<td>Dynamic Host Configuration Protocol</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>69</td>
+<td>TFTP</td>
+<td>Trivial File Transfer Protocol</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>80</td>
+<td>HTTP</td>
+<td>Hypertext Transfer Protocol (unencrypted)</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>88</td>
+<td>Kerberos</td>
+<td>Computer-network authentication protocol</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>110</td>
+<td>POP3</td>
+<td>Post Office Protocol v3 (iCloud don&rsquo;t use for incoming mail server)</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>123</td>
+<td>NTP</td>
+<td>Network Time Protocol</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>137</td>
+<td>NETBIOS</td>
+<td>Name Service</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>138</td>
+<td>NETBIOS</td>
+<td>Datagram Service</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>139</td>
+<td>NETBIOS</td>
+<td>Session Service over TCP/IP</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>143/993</td>
+<td>IMAP (IMAP4)</td>
+<td>Internet Message Access Protocol 993 is secure</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>161/162</td>
+<td>SNMP</td>
+<td>Simple Network Management Protocol (not used with iCloud)</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>389</td>
+<td>LDAP</td>
+<td>Lightweight Directory Access Protocol</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>443</td>
+<td>HTTPS</td>
+<td>Hypertext Transfer Protocol Secure (encrypted)</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>445</td>
+<td>SMB/CIFS</td>
+<td>Server Message Block / Common Internet File System</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>500</td>
+<td>ISAKMP (IKE)</td>
+<td>Internet Security Association and Key Management Protocol</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>514</td>
+<td>Syslog</td>
+<td>UDP Syslog messages</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>587</td>
+<td>SMTP</td>
+<td>Outgoing mail port email message submission</td>
+<td></td>
+</tr>
+<tr>
+<td>993</td>
+<td>SIMAP</td>
+<td>Secure Internet Message Access Protocol</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>1720</td>
+<td>H.323</td>
+<td>H.323 (Microsoft NetMeeting) call setup protocol</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>RDP</td>
+<td>Remote Desktop Protocol</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>5060</td>
+<td>SIP</td>
+<td>Session Initiation Protocol non-encrypted signaling traffic</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>5061</td>
+<td>SIP</td>
+<td>Traffic encrypted with Transport Layer Security (TLS)</td>
+<td>TCP/UDP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<h2 id="database-and-other-ports">Database and other ports</h2>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search... ">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8080</td>
+<td>HTTP Alternate</td>
+<td>HTTP Alternate (often used for proxy servers)</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>1194</td>
+<td>OpenVPN</td>
+<td>OpenVPN</td>
+<td>UDP</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>MySQL</td>
+<td>MySQL Database</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>PostgreSQL</td>
+<td>PostgreSQL Database</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>27017</td>
+<td>MongoDB</td>
+<td>MongoDB Database</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>MSSQL</td>
+<td>Microsoft SQL Server</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>Oracle</td>
+<td>Oracle Database</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>Redis</td>
+<td>Redis Database</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>27018</td>
+<td>MongoDB</td>
+<td>MongoDB shard configuration</td>
+<td>TCP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<br>
+<h1 id="well-known-ports">Well-known ports:</h1>
+<ul>
+<li>These ports are assigned by the Internet Assigned Numbers Authority (IANA) and typically range from <strong>0 to 1024</strong>. They are reserved for specific protocols or services.
+<ul>
+<li>Port 80: HTTP (Hypertext Transfer Protocol)</li>
+<li>Port 443: HTTPS (HTTP Secure)</li>
+<li>Port 25: SMTP (Simple Mail Transfer Protocol)</li>
+<li>Port 22: SSH (Secure Shell)</li>
+<li>Port 21: FTP (File Transfer Protocol)</li>
+</ul>
+</li>
+</ul>
+<h1 id="registered-ports">Registered ports:</h1>
+<ul>
+<li>These ports are also assigned by IANA, but they range from <strong>1024 to 49151</strong>. They are used by various applications and services but are not as universally recognized as well-known ports.
+<ul>
+<li>Port 3306: MySQL Database</li>
+<li>Port 5432: PostgreSQL Database</li>
+<li>Port 8080: HTTP Alternate (often used for proxy and caching servers)</li>
+<li>port 27017: MongoDB Database</li>
+<li>Port 5060: SIP (Session Initiation Protocol)</li>
+</ul>
+</li>
+</ul>
+<h1 id="dynamic-or-private-ports">Dynamic or Private ports:</h1>
+<ul>
+<li>These ports range from <strong>49152 to 65535</strong> and are available for general use. They are often used as ephemeral ports for outgoing connections.
+<ul>
+<li>Ports used for client-side connections that are dynamically assigned by the operating system.</li>
+<li>These ports are typically not associated with any specific protocol or service beforehand.</li>
+</ul>
+</li>
+</ul>
+<h1 id="common-service-ports">Common service ports:</h1>
+<ul>
+<li>These are ports that are commonly used for specific services but may not fall strictly into the well-known or registered categories.
+<ul>
+<li>Port 53: DNS (Domain Name System)</li>
+<li>Port 110: POP3 (Post Office Protocol version 3)</li>
+<li>Port 143: IMAP (Internet Message Access Protocol)</li>
+<li>Port 389: LDAP (Lightweight Directory Access Protocol)</li>
+<li>Port 1194: OpenVPN</li>
+</ul>
+</li>
+</ul>
+<br>
+<h1 id="additional-info">Additional info:</h1>
+<p>The <strong>syslog</strong> protocol is defined in RFC 5424 and is used to transport messages from devices to the syslog collector over IP networks. The protocol uses the connectionless transport protocol UDP by default over port 514.</p>
+<br>
+<h1 id="bottom-line">Bottom Line</h1>
+<p>These are just a few examples, and there are many more ports used for various networking protocols and services. Understanding port categories can help in configuring firewalls, routing rules, and troubleshooting network connectivity issues.</p>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/ports/" class="singleTag">#ports</a>
+    
+    <a href="https://paulius.uk/tags/network/" class="singleTag">#network</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#network-ports-and-protocols">Network Ports and Protocols</a>
+      <ul>
+        <li><a href="#most-common-ports">Most Common ports</a></li>
+        <li><a href="#database-and-other-ports">Database and other ports</a></li>
+      </ul>
+    </li>
+    <li><a href="#well-known-ports">Well-known ports:</a></li>
+    <li><a href="#registered-ports">Registered ports:</a></li>
+    <li><a href="#dynamic-or-private-ports">Dynamic or Private ports:</a></li>
+    <li><a href="#common-service-ports">Common service ports:</a></li>
+    <li><a href="#additional-info">Additional info:</a></li>
+    <li><a href="#bottom-line">Bottom Line</a></li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+<div class="related">
+  <h5>See also:</h5>
+  <div class="relatedcontainer">
+    
+    <a class="relateditem" href="/posts/2024/wifi-standards/">
+      <div class="card-info">
+        <h6>Wifi Standards</h6>
+        <p>
+          
+        <p class="relatedItemDesc">The Evolution of WiFi: From Slow to Blazing Fast As technology continues to advance, the world of wireless …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+    <a class="relateditem" href="/posts/2024/network-commands/">
+      <div class="card-info">
+        <h6>Networking Commands and Troubleshooting</h6>
+        <p>
+          
+        <p class="relatedItemDesc">Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+  
+</body>
+
+</html>

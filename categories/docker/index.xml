@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Paulius.uk</title>
+    <link>https://paulius.uk/categories/docker/</link>
+    <description>Recent content in Docker on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 Apr 2024 12:55:56 +0100</lastBuildDate>
+    <atom:link href="https://paulius.uk/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Managing Docker Containers</title>
+      <link>https://paulius.uk/posts/2024/docker-containers/</link>
+      <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/docker-containers/</guid>
+      <description>What is Docker? Docker is a platform that allows developers to create, deploy, and run applications in containers. These containers encapsulate the application and its dependencies, ensuring consistent and reproducible environments across different systems. With Docker, developers can easily share and deploy applications without worrying about compatibility issues or complex setup processes.&#xA;Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more.</description>
+    </item>
+  </channel>
+</rss>

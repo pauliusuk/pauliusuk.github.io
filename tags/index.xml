@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Paulius.uk</title>
+    <link>https://paulius.uk/tags/</link>
+    <description>Recent content in Tags on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Apr 2024 19:34:43 +0100</lastBuildDate>
+    <atom:link href="https://paulius.uk/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github</title>
+      <link>https://paulius.uk/tags/github/</link>
+      <pubDate>Sat, 27 Apr 2024 19:34:43 +0100</pubDate>
+      <guid>https://paulius.uk/tags/github/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Workflow</title>
+      <link>https://paulius.uk/tags/workflow/</link>
+      <pubDate>Sat, 27 Apr 2024 19:34:43 +0100</pubDate>
+      <guid>https://paulius.uk/tags/workflow/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Extensions</title>
+      <link>https://paulius.uk/tags/extensions/</link>
+      <pubDate>Wed, 24 Apr 2024 13:15:38 +0100</pubDate>
+      <guid>https://paulius.uk/tags/extensions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Top10</title>
+      <link>https://paulius.uk/tags/top10/</link>
+      <pubDate>Wed, 24 Apr 2024 13:15:38 +0100</pubDate>
+      <guid>https://paulius.uk/tags/top10/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Android</title>
+      <link>https://paulius.uk/tags/android/</link>
+      <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
+      <guid>https://paulius.uk/tags/android/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Termux</title>
+      <link>https://paulius.uk/tags/termux/</link>
+      <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
+      <guid>https://paulius.uk/tags/termux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://paulius.uk/tags/docker/</link>
+      <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
+      <guid>https://paulius.uk/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Shell</title>
+      <link>https://paulius.uk/tags/shell/</link>
+      <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
+      <guid>https://paulius.uk/tags/shell/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Network</title>
+      <link>https://paulius.uk/tags/network/</link>
+      <pubDate>Tue, 09 Apr 2024 18:39:08 +0100</pubDate>
+      <guid>https://paulius.uk/tags/network/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wifi</title>
+      <link>https://paulius.uk/tags/wifi/</link>
+      <pubDate>Tue, 09 Apr 2024 18:39:08 +0100</pubDate>
+      <guid>https://paulius.uk/tags/wifi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ports</title>
+      <link>https://paulius.uk/tags/ports/</link>
+      <pubDate>Thu, 04 Apr 2024 02:27:31 +0100</pubDate>
+      <guid>https://paulius.uk/tags/ports/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows</title>
+      <link>https://paulius.uk/tags/windows/</link>
+      <pubDate>Sun, 31 Mar 2024 18:30:32 +0100</pubDate>
+      <guid>https://paulius.uk/tags/windows/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Css</title>
+      <link>https://paulius.uk/tags/css/</link>
+      <pubDate>Thu, 28 Mar 2024 20:41:34 +0000</pubDate>
+      <guid>https://paulius.uk/tags/css/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>https://paulius.uk/tags/hugo/</link>
+      <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
+      <guid>https://paulius.uk/tags/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bash</title>
+      <link>https://paulius.uk/tags/bash/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://paulius.uk/tags/bash/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://paulius.uk/tags/linux/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://paulius.uk/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cyber</title>
+      <link>https://paulius.uk/tags/cyber/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/tags/cyber/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Overthewire.org</title>
+      <link>https://paulius.uk/tags/overthewire.org/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/tags/overthewire.org/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

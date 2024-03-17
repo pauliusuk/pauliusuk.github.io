@@ -1,0 +1,152 @@
+  .tag-javascript,
+  .tag-js {
+    background: #f0db4f;
+    color: black;
+  }
+
+  .tag-typescript {
+    background: #2775c3;
+    color: white;
+  }
+
+  .tag-android {
+    background: #36A14A;
+    color: #202124;
+  }
+
+  .tag-windows {
+    background: #0074CD;
+    color: black;
+  }
+
+  .tag-bash,
+  .tag-shell {
+    background: #293036;
+    color: #4AA023;
+  }
+
+  .tag-linux {
+    background: #EFB80D;
+    color: #020006;
+  }
+
+  .tag-hugo {
+    background: #FE37B2;
+    color: white;
+  }
+
+  .tag-python {
+    color: #ffda5d;
+    background: #3879ab;
+  }
+
+  .tag-cyber {
+    color: #34D149;
+    background: #000000;
+  }
+
+  .tag-excel {
+    color: #177C45;
+    background: white;
+  }
+
+  .tag-css {
+    color: #EBEBEB;
+    background: #0277BD;
+  }
+
+  .tag-html {
+    color: #E4E4E4;
+    background: #E96228;
+  }
+
+  .tag-github {
+    color: #fff;
+    background: #24292e;
+  }
+
+  .tag-docker {
+    color: #ffffff;
+    background: #2496ed;
+  }
+
+  .tagsList {
+    margin-top: 100px;
+    width: 80%;
+    margin-right: 0%;
+    margin-left: 5%;
+    min-height: 120vh;
+  }
+
+  .tag-name {
+    display: inline-block;
+    flex-direction: row;
+    color: green;
+  }
+
+  .tag-label {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+  .tag-count {
+    font-size: 14px;
+    font-style: italic;
+    color: #555;
+    vertical-align: top;
+    margin-top: -2px;
+    border-radius: 50%;
+  }
+
+  .tagTitle {
+    display: flex;
+    flex-direction: row;
+    display: inline-block;
+    /* margin-bottom: 6px; */
+  }
+
+  .tagItemTitle {
+    margin-right: 6px;
+    margin-top: 6px;
+    background-color: black;
+    border: 2px solid #7C0000;
+    display: inline-block;
+    text-decoration: none;
+    padding: 6px;
+    font-size: 20px;
+    width: auto;
+    gap: 20px;
+    color: #D8D8D9;
+  }
+
+  .tagItemTitle:hover {
+    border-color: darkgreen;
+    color: #99C794;
+  }
+
+  .light .tagItemTitle {
+    color: white;
+  }
+
+  .light .tagItemTitle:hover {
+    color: #99C794;
+    font-family: sans, serif;
+  }
+
+  .tag-page-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+  }
+
+  @media (max-width:466px) {
+    .tag-label {
+      margin-top: 90px;
+    }
+
+    .tag-page-title {
+      margin-top: 20px;
+    }
+  }

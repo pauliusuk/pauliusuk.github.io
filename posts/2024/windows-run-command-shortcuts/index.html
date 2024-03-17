@@ -1,0 +1,3594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Windows Run Commands | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Windows Run Commands</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Windows Run Commands</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/windows/" class="singleCategory">Windows</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>31-March-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          6 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/run.webp" alt="Windows Run Commands" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows" alt="Icon" style="width:50px;">
+
+
+
+<h1 id="run-commands-for-dialogue-box-in-windows">Run Commands for Dialogue Box in Windows</h1>
+<p><p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/run.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/run.webp" alt=""  />
+    </picture>
+</p>
+</p>
+<p>The Run dialogue box in Microsoft Windows provides a quick and convenient way for you to launch programs, open websites, and access several Windows settings. Let&rsquo;s take a look at some commands and see how it works.</p>
+<h1 id="launching-run-dialog">Launching run dialog</h1>
+<p>Launching the Run dialog on Windows is usually done by pressing the<kbd><em><strong>⊞ Windows key</kbd> + <kbd>R</strong></em></kbd>, or else you can simply open the Start Menu and type <em><strong>&ldquo;run.&rdquo;</strong></em>.
+<br></p>
+<h2 id="cpl-control-panel-applets">.cpl (Control Panel applets):</h2>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>appwiz.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>Programs and Features</strong> window, where you can view and uninstall installed programs on your Windows system.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/appwiz.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/appwiz.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>timedate.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command opens the <strong>Date and Time settings</strong> window on Windows systems. Within this window, users can adjust the date, time, time zone, and additional clock settings.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/timedate.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/timedate.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>intl.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>Regional and Language Options</strong> control panel, allowing users to set language, regional settings, and keyboard layouts.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/intl.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/intl.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>main.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>Mouse Properties</strong> control panel, allowing users to configure mouse settings such as pointer speed, buttons, and pointer schemes.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/mouse.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/mouse.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>mmsys.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>Sound</strong> control panel, allowing users to configure audio devices, playback, recording, and sound schemes.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/sound.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/sound.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>ncpa.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>Network Connections</strong> control panel, allowing users to view and configure network connections, adapters, and settings.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/ncpa.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/ncpa.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>powercfg.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>Power Options</strong> control panel, allowing users to configure power plans, battery settings, and sleep options.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/poweroptions.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/poweroptions.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>sysdm.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command will open the <strong>System Properties</strong> control panel, allowing users to view system information, configure hardware settings, and manage system properties.
+<br>
+<strong>sysdm.cpl ,3</strong> (System Properties Advanced tab)</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/sysdm.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/sysdm.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>desk.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >Executing this command opens the <strong>Display Settings</strong> control panel, enabling users to adjust screen resolution, orientation, and multiple monitor settings.
+<br>
+<strong>desk.cpl ,5</strong> (Desktop Icon Settings)</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/desk.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/desk.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>firewall.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command launches the <strong>Windows Defender Firewall</strong> control panel, allowing users to configure firewall settings, inbound and outbound rules, and network profiles.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/firewall.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/firewall.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>wscui.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command opens the <strong>Windows Security Center</strong> control panel, providing access to essential security features such as virus protection, firewall status, and automatic updates.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/security.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/security.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>control access.cpl</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition abstract"><div class="admonition-content" >This command opens the <strong>Ease of Access Center</strong>, a centralized hub in Windows designed to facilitate accessibility settings and options for users with disabilities or impairments. It provides tools such as Magnifier, Narrator, Speech Recognition, and customizable keyboard and mouse settings, empowering users to adapt their computing experience to their specific needs and preferences.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/ease.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/ease.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<h2 id="msc-microsoft-management-console">.msc (Microsoft Management Console):</h2>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>eventvwr.msc</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition note"><div class="admonition-content" >This command opens the <strong>Event Viewer</strong>, providing access to logs and events generated by Windows and various applications, helping users troubleshoot system issues and monitor system heh.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/eventvwr.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/eventvwr.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>services.msc</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition note"><div class="admonition-content" >Executing this command opens the <strong>Services snap-in</strong>, allowing users to view and manage Windows services, including starting, stopping, and configuring service properties.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/services.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/services.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>diskmgmt.msc</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition note"><div class="admonition-content" >Executing this command opens the <strong>Disk Management utility</strong>, allowing users to view and manage disk partitions, volumes, and storage devices on the computer.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/diskmgmt.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/diskmgmt.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>taskschd.msc</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition note"><div class="admonition-content" >Executing this command opens the <strong>Task Scheduler utility</strong>, allowing users to schedule and manage tasks on the computer.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/task.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/task.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<h2 id="fix-commands">Fix commands:</h2>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>mdsched</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition danger"><div class="admonition-content" >Invoking this command runs the <strong>Windows Memory Diagnostic Tool</strong>, which helps diagnose and identify potential issues with the computer&rsquo;s memory (RAM).</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/memorydiagnostics.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/memorydiagnostics.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>mrt</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition danger"><div class="admonition-content" >Invoking this command launches the <strong>Microsoft Windows Malicious Software Removal Tool</strong>, which scans your PC for malware or virus infections.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/mrt.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/mrt.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>hdwwiz</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition danger"><div class="admonition-content" >This command opens the <strong>Add Hardware Wizard</strong> control panel, allowing users to install new hardware devices and troubleshoot hardware-related issues.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/addhardware.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/addhardware.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>dfrgui</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition danger"><div class="admonition-content" >This command opens the <strong>Disk Defragmenter</strong> tool, allowing users to analyze and defragment their HDD drives for better performance. It&rsquo;s important to note that defragmenting HDD drives can help improve their performance by rearranging fragmented files, but it&rsquo;s not recommended for SSD drives as it can reduce their lifespan. For SSD drives, it&rsquo;s advisable to use the TRIM command to optimize performance(which is already set automatically for windows).</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/dfrgui.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/dfrgui.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<h2 id="other-commands">Other Commands:</h2>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>control printers</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command opens the <strong>Devices and Printers</strong> window, allowing users to manage printers, scanners, and other connected devices.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/controlprinters.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/controlprinters.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>control</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command launches the <strong>Control Panel</strong>, providing users with a centralized interface to adjust system settings, install and uninstall programs, manage user accounts, and perform various administrative tasks.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/controlpanel.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/controlpanel.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>optionalfeatures</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >Executing this command opens the <strong>Windows Features</strong> dialog, enabling users to enable or disable optional features and components of the Windows operating system.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/optionalfeatures.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/optionalfeatures.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>cleanmgr</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >Utilizing this command launches the <strong>Disk Cleanup utility</strong>, designed to free up disk space on the computer by removing unnecessary or temporary files.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/cleanmgr.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/cleanmgr.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>regedit</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command launches the <strong>Registry Editor</strong>, allowing users to view and modify the Windows registry, including system settings, installed software, and user preferences.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/regedit.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/regedit.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>msconfig</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >Executing this command opens the <strong>System Configuration utility</strong>, enabling users to manage startup programs, services, boot options, and system components.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/msconfig.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/msconfig.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>taskmgr</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >Executing this command opens the <strong>Task Manager</strong>, allowing users to view and manage running processes, monitor system performance, and control startup programs and services.<br> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> Open Task Manager directly</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/taskmgr.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/taskmgr.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>perfmon</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command opens the <strong>Performance Monitor</strong>, enabling users to monitor system performance in real-time, analyze performance data, and create custom performance counters and logs.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/perfmon.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/perfmon.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>perfmon /rel</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command triggers the <strong>Reliability Monitor</strong> in Windows, a tool that logs system stability and key events over time. It assists users in diagnosing issues by providing a historical overview of system performance and critical events, including software installations, application failures, and hardware issues.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/perfmon-rel.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/perfmon-rel.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>resmon</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command opens the <strong>Resource Monitor</strong>, which provides detailed real-time information about the usage of hardware (CPU, memory, disk, and network) and software (processes and services) resources on a Windows system.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/resmon.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/resmon.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>msinfo32</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command opens the <strong>System Information utility</strong>, providing detailed information about the computer&rsquo;s hardware, software, components, and system resources.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/msinfo32.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/msinfo32.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>winver</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition info"><div class="admonition-content" >This command opens the <strong>Windows Version Information utility</strong>, displaying detailed information about the current Windows version installed on the system.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/winver.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/winver.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>sdclt</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition tip"><div class="admonition-content" >This command opens up the <strong>Backup and Restore utility</strong>, allowing you to perform both backup and restoration tasks.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/sdclt.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/sdclt.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<!-- <div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>control /name Microsoft.FileHistory</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+ -->
+<!-- <div class="admonition tip"><div class="admonition-content" ><p>&ndash;&gt;</p>
+<!-- This command opens the **File History** settings window on Windows systems. File History is a feature in Windows that continuously backs up files stored in Libraries, Desktop, Favorites, and Contacts folders, as well as the OneDrive files available offline on your PC. By accessing this window, users can configure File History settings, including file backup frequency, folders to be backed up, and storage options. -->
+<!--</div>
+</div>
+ -->
+<!-- <style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p>&ndash;&gt;</p>
+<!-- ![](/images/windows-run-commands/file-history.webp) -->
+<!--
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+ -->
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netplwiz</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition tip"><div class="admonition-content" >This command opens up the <strong>User Accounts</strong> window, providing access to various account management settings.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/netplwiz.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/netplwiz.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>rstrui</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition tip"><div class="admonition-content" >Typing &ldquo;rstrui&rdquo; in the Run dialog launches the <strong>System Restore utility</strong>, allowing users to restore their system to a previous state.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/rstrui.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/rstrui.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>osk</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition tip"><div class="admonition-content" >Typing &ldquo;osk&rdquo; in the Run dialog launches the <strong>On Screen Keyboard</strong>, allowing users to type using a virtual keyboard displayed on the screen instead of a physical keyboard.<br> <kbd>Ctrl</kbd>+<kbd>⊞ Win</kbd>+<kbd>o</kbd> Opens the On-Screen Keyboard <strong>OSK</strong></div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/osk.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/osk.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>snippingtool</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition tip"><div class="admonition-content" >This command opens the <strong>Sinpping tool</strong>, which allows users to capture screenshots of selected areas on their screen and save them as an image file.<br> <kbd>⊞ Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> for screenshot<br><kbd>⊞ Win</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> for video</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/snip.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/snip.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>charmap</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<div class="admonition tip"><div class="admonition-content" >This command opens the <strong>Character Map utility</strong>, which provides a visual representation of characters and symbols available in various fonts, facilitating their insertion into documents and text fields.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/charmap.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/charmap.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<br>
+<h1 id="bottom-line">Bottom Line</h1>
+<p>This post introduces useful Windows Run commands, facilitating easy access to various apps and settings. Additionally, numerous other commands are available including dialer, notepad, winword, excel, and more. Hope this helps!</p>
+<br>
+<p><a href="#cpl-control-panel-applets"><kbd>.cpl 🡅<br></kbd></a>
+<a href="#msc-microsoft-management-console"><kbd>.msc 🡅<br></kbd></a>
+<a href="#fix-commands"><kbd>Fix 🡅<br></kbd></a>
+<a href="#other-commands"><kbd>other 🡅 <br></kbd> </a></p>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/windows/" class="singleTag">#windows</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#run-commands-for-dialogue-box-in-windows">Run Commands for Dialogue Box in Windows</a></li>
+    <li><a href="#launching-run-dialog">Launching run dialog</a>
+      <ul>
+        <li><a href="#cpl-control-panel-applets">.cpl (Control Panel applets):</a></li>
+        <li><a href="#msc-microsoft-management-console">.msc (Microsoft Management Console):</a></li>
+        <li><a href="#fix-commands">Fix commands:</a></li>
+        <li><a href="#other-commands">Other Commands:</a></li>
+      </ul>
+    </li>
+    <li><a href="#bottom-line">Bottom Line</a></li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+   <script src="/js/copy-code-button.js">
+    </script>
+    
+</body>
+
+</html>

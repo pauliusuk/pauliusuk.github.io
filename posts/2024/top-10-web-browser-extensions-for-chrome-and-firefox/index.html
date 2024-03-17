@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Top 10 Web-Browser Extensions for Chrome and Firefox | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Top 10 Web-Browser Extensions for Chrome and Firefox</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Top 10 Web-Browser Extensions for Chrome and Firefox</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/configuration/" class="singleCategory">Configuration</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>24-April-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          5 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/chfr.webp" alt="Top 10 Web-Browser Extensions for Chrome and Firefox" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    <p>
+
+
+
+
+  <a href="https://chromewebstore.google.com/" target="_blank">
+
+    <img src="/images/top10/chromestore.webp" alt="Icon" style="width:37px;">
+
+  </a>
+
+
+ 
+
+
+
+
+
+  <a href="https://addons.mozilla.org/en-GB/firefox/" target="_blank">
+
+    <img src="/images/top10/firefoxstore.webp" alt="Icon" style="width:34px;">
+
+  </a>
+
+
+</p>
+<!-- 
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="imagelink" alt="" style="width:300px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+    
+    <p class="imageSourceText" style="margin-left: 5px;">Image Source: </p>
+    
+    <p class="imageSourceLink"><a href="src%20link">src_name</a></p>
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+ -->
+<h1 id="what-is-an-extensionadd-on">What is an Extension/Add-on?</h1>
+<p>A browser extension, often referred to as an add-on, is a small software program designed to enhance and customize the functionality of web browsers such as Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. These extensions can add new features, modify existing ones, or even block unwanted content.</p>
+<p>Whether it&rsquo;s blocking ads for a cleaner browsing experience, managing passwords securely, or accelerating downloads, browser extensions offer users a way to tailor their browsing experience to their needs and preferences. With thousands of extensions available, users have the flexibility to choose and install the ones that best suit their requirements, making their online activities more efficient, secure, and enjoyable.</p>
+<br>
+<h1 style="text-align: center;"> Top 10 web-browser extensions <br> for Chrome And Firefox </h1>
+<br>
+<h1 id="1-bonjourr--startpage">1. Bonjourr · startpage</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://bonjourr.fr/" target="_blank">
+
+    <img src="/images/top10/bonjourr.webp" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+Improve your web browsing experience with Bonjourr, a beautiful, customizable and lightweight homepage inspired by iOS.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/2269/2269040-64.png?modified=8223af50" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/bonjourr-%C2%B7-minimalist-sta/dlnejlppicbjfcfcedcflplfjajinajd" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Bonjourr</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by bonjourr.fr</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/2269/2269040-64.png?modified=8223af50" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/bonjourr-startpage/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Bonjourr</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by bonjourr.fr</p>
+<p><br><br></p>
+<h1 id="2-dark-reader">2. Dark Reader</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://darkreader.org/" target="_blank">
+
+    <img src="https://raw.githubusercontent.com/darkreader/darkreader.github.io/master/images/darkreader-mascot.svg" alt="Icon" style="width:55px;">
+
+  </a>
+
+
+
+&ldquo;<strong>Dark Reader</strong>&rdquo; is a popular extension that enables dark mode for websites. It&rsquo;s easy on the eyes and reduces eye strain, especially during nighttime browsing. Default shortcut for dark reader is usually set to <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd> but you can change it in the settings to suit your needs.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="/images/top10/dark-reader.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Dark Reader</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'"></a>
+
+ <br>
+        •by Dark Reader Ltd</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="/images/top10/dark-reader.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-US/firefox/addon/darkreader/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Dark Reader</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'"></a>
+
+  <br>
+        •by Dark Reader Ltd</p>
+<p><br><br></p>
+<h1 id="3-ublock-origin">3. uBlock Origin</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://ublockorigin.com/" target="_blank">
+
+    <img src="https://raw.githubusercontent.com/gorhill/uBlock/master/src/img/ublock.svg" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+&ldquo;<strong>uBlock Origin</strong>&rdquo; is a content blocker that efficiently blocks ads, trackers, and popups. It uses default filter lists like EasyList and EasyPrivacy. Users can customize their blocking and it&rsquo;s free and open-source, supported y community contributions.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="https://raw.githubusercontent.com/gorhill/uBlock/master/src/img/ublock.svg" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">uBlock Origin</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by Raymond Hill</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="https://raw.githubusercontent.com/gorhill/uBlock/master/src/img/ublock.svg" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">uBlock Origin</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+  <br>
+        •by Raymond Hill</p>
+<p><br><br></p>
+<h1 id="4-return-youtube-dislike">4. Return YouTube Dislike</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://www.returnyoutubedislike.com/" target="_blank">
+
+    <img src="/images/top10/yt.webp" alt="Icon" style="width:51px;">
+
+  </a>
+
+
+
+&ldquo;<strong>Return YouTube Dislike</strong>&rdquo; restores the ability to see dislikes on YouTube. Starting December 13th 2021, YouTube removed the ability to see dislikes from their API.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="/images/top10/yt.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Return YouTube Dislike</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by Dmitry Selivanov</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="/images/top10/yt.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/return-youtube-dislikes/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Return YouTube Dislike</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+  <br>
+        •by Dmitry Selivanov</p>
+<p><br><br></p>
+<h1 id="5-video-speed-controller">5. Video Speed Controller</h1>
+<hr>  
+<p>
+
+
+
+
+  <a href="https://github.com/igrigorik/videospeed" target="_blank">
+
+    <img src="/images/top10/vspc.png" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+&ldquo;<strong>Video Speed Controller</strong>&rdquo; is a browser extension that enhances HTML5 video playback by allowing users to adjust playback speed, rewind, and control videos more effectively. It provides on-screen indicators and keyboard shortcuts for speed adjustments, making video viewing more optimized and customizable.</p>
+<p>S - decrease playback speed. <br>
+D - increase playback speed. <br>
+R - reset playback speed. <br>
+Z - rewind video by 10 seconds. <br>
+X - advance video by 10 seconds. <br>
+V - show/hide controller. <br></p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="/images/top10/vspc.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Video Speed Controller</a>
+
+  - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+
+<br>         •by codebicycle</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="/images/top10/vspc.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/videospeed/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Video Speed Controller</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+  <br>
+        •by codebicycle</p>
+<p><br><br></p>
+<h1 id="6-extensity">6. Extensity</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://sergiokas.github.io/Extensity/" target="_blank">
+
+    <img src="/images/top10/extensity.webp" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+&ldquo;<strong>Extensity</strong>&rdquo; is a convenient tool for Google Chrome users to quickly enable or disable browser extensions. It helps keep your toolbar clean by allowing you to activate extensions only when needed, ensuring a lean and fast browsing experience. With features like profiles for easy switching and Chrome Cloud Storage support for syncing across devices, Extensity is an ideal companion for managing your Chrome extensions efficiently.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="/images/top10/extensity.png" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/extensity/jjmflmamggggndanpgfnpelongoepncg" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Extensity</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+  <br>
+        •by sergiokas</p>
+<p><br><br></p>
+<h1 id="7-bitwarden-password-manager">7. Bitwarden Password Manager</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://bitwarden.com/" target="_blank">
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/735/735894-64.png?modified=27707d93" alt="Icon" style="width:53px;">
+
+  </a>
+
+
+
+&ldquo;<strong>Bitwarden</strong>&rdquo; is a top-rated password manager recognized by leading tech publications like PCMag and WIRED. It offers end-to-end encrypted storage for your passwords, ensuring your digital life remains secure against data breaches. With features like advanced 2FA, secure data sharing, and global translations, Bitwarden provides versatile protection across all your devices.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/735/735894-64.png?modified=27707d93" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Bitwarden</a>
+
+  - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+
+<br>         •by bitwarden.com</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/735/735894-64.png?modified=27707d93" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/bitwarden-password-manager/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Bitwarden</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+ <br>        •by bitwarden.com</p>
+<p><br><br></p>
+<h1 id="8-onetab">8. OneTab</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://www.one-tab.com/" target="_blank">
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/525/525044-64.png?modified=mcrushed" alt="Icon" style="width:53px;">
+
+  </a>
+
+
+
+&ldquo;<strong>OneTab</strong>&rdquo; streamlines your browsing by converting all open tabs into a single list with just one click. This efficient tab management reduces memory and CPU usage, optimizing your browser&rsquo;s performance. Easily restore tabs individually or all at once whenever you need them.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/525/525044-64.png?modified=mcrushed" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/onetab/chphlpgkkbolifaimnlloiipkdnihall" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">OneTab</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+
+<br>         •by one-tab.com</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/525/525044-64.png?modified=mcrushed" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/onetab/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">OneTab</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+ <br>        •by one-tab.com</p>
+<p><br><br></p>
+<h1 id="9-ejoy-ai-dictionary">9. eJoy Ai Dictionary</h1>
+<hr> 
+<p>
+
+
+
+
+  <a href="https://ejoy-english.com/en" target="_blank">
+
+    <img src="/images/top10/ejoy.webp" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+&ldquo;<strong>eJOY AI Dictionary</strong>&rdquo; extension revolutionizes your online learning by offering real-time translation, bilingual subtitles, and an AI-powered dictionary for instant definitions. Seamlessly integrated with your browser, it transforms any English content into an accessible learning resource. Elevate your learning journey with organized notes, interactive games, and smart review algorithms, making English mastery joyful and efficient.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="/images/top10/ejoy.webp" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/ejoy-ai-dictionary/amfojhdiedpdnlijjbhjnhokbnohfdfb" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">eJoy Ai Dictionary</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by ejoy-english.com</p>
+<p><br><br></p>
+<h1 id="10-clear-browsing-data">10. Clear Browsing Data</h1>
+<hr>
+<p>
+
+
+
+
+  <a href="https://github.com/dessant/clear-browsing-data" target="_blank">
+
+    <img src="https://camo.githubusercontent.com/793bafb6e984bfc0893655f72037cd60c34bc588dc6b165f871fe87edbd67792/68747470733a2f2f692e696d6775722e636f6d2f4b7038774342342e706e67" alt="Icon" style="width:55px;">
+
+  </a>
+
+
+
+&ldquo;<strong>Clear Browsing Data</strong>&rdquo; is a browser extension that lets you quickly delete cookies, history, and cache from your browser toolbar with a single click. It supports various data types like cookies, history, and saved passwords, which can be customized.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/857/857086-64.png?modified=8850b178" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/clear-browsing-data/bjilljlpencdcpihofiobpnfgcakfdbe" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Clear Browsing Data</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by armin.dev</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/857/857086-64.png?modified=8850b178" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/clear-browsing-data/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Clear Browsing Data</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+  <br>
+        •by armin.dev</p>
+<p><br><br></p>
+<div class="admonition info"><div class="admonition-content" ><h1 id="bonus-extensions">Bonus Extensions</h1>
+<h4 id="bonus-extensions-and-add-ons-are-listed-below-because-there-are-many-other-excellent-extensions-available">Bonus Extensions and Add-ons are listed below because there are many other excellent extensions available.</h4>
+</div>
+</div>
+
+<h1> Reopen Closed tabs </h1>
+<hr> 
+<p>
+
+
+
+
+    <img src="https://lh3.googleusercontent.com/MrPNgIjqIThKynYZxGuvB3-Kn9MoE9UrVSWW-BrIE6-95U8LR2d5wh-3Tq9cH6Mtbscf_tWGx57FLuT2K2ejDfmy8w=s120" alt="Icon" style="width:47px;">
+
+
+
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/794/794073-64.png?modified=mcrushed" alt="Icon" style="width:41px;">
+
+
+ &ldquo;<strong>Reopen Closed Tabs</strong>&rdquo; extensions help you quickly reopen closed tabs.</p>
+<br>
+<!-- Chrome -->
+<p>   
+
+
+
+
+    <img src="https://lh3.googleusercontent.com/MrPNgIjqIThKynYZxGuvB3-Kn9MoE9UrVSWW-BrIE6-95U8LR2d5wh-3Tq9cH6Mtbscf_tWGx57FLuT2K2ejDfmy8w=s120" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/reopen-closed-tab-button/jjchodckpgecejjbbdedboikbidieebe" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Reopen closed tab Button™</a>
+
+ - For Chrome 
+
+
+
+
+    <img src="/images/top10/chrome.webp" alt="Icon" style="width:15px;">
+
+
+ <br>
+        •by Smart Software</p>
+<br>
+<!-- Firefox -->
+<p>   
+
+
+
+
+    <img src="https://addons.mozilla.org/user-media/addon_icons/794/794073-64.png?modified=mcrushed" alt="Icon" style="width:20px;">
+
+
+
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/undoclosetabbutton/?utm_source=addons.mozilla.org&amp;utm_medium=referral&amp;utm_content=search" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Undo Close Tab</a>
+
+ - For Firefox 
+
+
+
+
+    <img src="/images/top10/firefox.webp" alt="Icon" style="width:15px;">
+
+
+  <br>
+        •by Manuel Reimer</p>
+<p><br><br></p>
+<h1 id="bottom-line">Bottom Line</h1>
+<p>Browser extensions play a crucial role in enhancing and customizing our online experience, offering a range of functionalities from ad blocking to password management. The top 10 extensions listed above have been carefully selected for their efficiency, security, and user-friendliness across both Chrome and Firefox platforms. By integrating these extensions into your browser, you can optimize performance, boost productivity, and enjoy a safer and more personalized browsing experience.</p>
+<!-- <div class="admonition abstract"><div class="admonition-content" ><p>&ndash;&gt;</p>
+<!-- Bonus!⚡Best Dark & Minimalist **Browser Themes**: -->
+<!-- For Firefox <img src="/images/top10/firefox.webp" alt="icon" style="width: 15px;">  <br> -->
+<!-- 
+
+
+
+
+
+1. <a href="https://addons.mozilla.org/en-US/firefox/addon/complete-black-theme-for-firef/" target="_blank" style="font-family: var(--apple-text); font-size: 16px; font-style: normal; text-decoration: none; font-weight: 600; color:var(--text) ; transition: color 1s;" onmouseover="this.style.color='#FFA500'" onmouseout="this.style.color='var(--text)'">Complete Black Theme for Firefox by Stefan vd</a>
+
+ -->
+<!-- 
+
+
+
+
+
+2. <a href="https://addons.mozilla.org/en-US/firefox/addon/black21/?utm_source=addons.mozilla.org&amp;utm_medium=referral&amp;utm_content=search" target="_blank" style="font-family: var(--apple-text); font-size: 16px; font-style: normal; text-decoration: none; font-weight: 600; color:var(--text) ; transition: color 1s;" onmouseover="this.style.color='#FFA500'" onmouseout="this.style.color='var(--text)'">Black by XI</a>
+
+ -->
+<!-- For Chrome <img src="/images/top10/chrome.webp" alt="icon" style="width: 15px;">  <br> -->
+<!-- 
+
+
+
+
+
+1. <a href="https://chromewebstore.google.com/detail/thorium-material-dark-the/dahfohiipmpcppjbablgfoggbogdmddp" target="_blank" style="font-family: var(--apple-text); font-size: 16px; font-style: normal; text-decoration: none; font-weight: 600; color:var(--text) ; transition: color 1s;" onmouseover="this.style.color='#FFA500'" onmouseout="this.style.color='var(--text)'">Thorium Material Dark Theme</a>
+
+ -->
+<!--</div>
+</div>
+ -->
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/top10/" class="singleTag">#Top10</a>
+    
+    <a href="https://paulius.uk/tags/extensions/" class="singleTag">#Extensions</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-an-extensionadd-on">What is an Extension/Add-on?</a></li>
+    <li><a href="#1-bonjourr--startpage">1. Bonjourr · startpage</a></li>
+    <li><a href="#2-dark-reader">2. Dark Reader</a></li>
+    <li><a href="#3-ublock-origin">3. uBlock Origin</a></li>
+    <li><a href="#4-return-youtube-dislike">4. Return YouTube Dislike</a></li>
+    <li><a href="#5-video-speed-controller">5. Video Speed Controller</a></li>
+    <li><a href="#6-extensity">6. Extensity</a></li>
+    <li><a href="#7-bitwarden-password-manager">7. Bitwarden Password Manager</a></li>
+    <li><a href="#8-onetab">8. OneTab</a></li>
+    <li><a href="#9-ejoy-ai-dictionary">9. eJoy Ai Dictionary</a></li>
+    <li><a href="#10-clear-browsing-data">10. Clear Browsing Data</a></li>
+    <li><a href="#bottom-line">Bottom Line</a></li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+  
+</body>
+
+</html>

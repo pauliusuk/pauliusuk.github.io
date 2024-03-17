@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Termux, Termux-Api and SSH | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Termux, Termux-api and SSH</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Termux, Termux-api and SSH</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/android/" class="singleCategory">Android</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>17-April-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          6 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/termux.webp" alt="Termux, Termux-api and SSH" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    <p>
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows,linux" alt="Icon" style="width:120px;">
+
+
+
+ 
+
+
+
+
+
+  <a href="https://termux.dev/en/" target="_blank">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Termux.svg" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+ 
+
+
+
+
+
+  <a href="https://developer.android.com/tools/releases/platform-tools" target="_blank">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Android_Robot_Head_2023.svg/1024px-Android_Robot_Head_2023.svg.png" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+</p>
+<h1 id="what-is-termux">What is Termux?</h1>
+<p>Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.</p>
+<br>
+<h1 id="what-is-termux-api">What is Termux-api?</h1>
+<p>Termux-api is a python module to access the termux-api This provides a way to get native access in Python to Android device functionality as API. Most of the termux-api implementations are directly available.</p>
+<br>
+<h1 id="what-is-ssh">What is SSH?</h1>
+<p>SSH stands for Secure Shell. It is a cryptographic network protocol that allows secure communication between two devices over an insecure network. SSH is commonly used for remote login to a server or computer, allowing users to access a command-line interface and execute commands on a remote machine securely.</p>
+<br>
+<h1 id="ssh-to-android-phone">SSH TO ANDROID PHONE</h1>
+<h3 id="links-to-download-f-droid-termux-and-termux-api">Links to download F-droid, Termux and Termux-api:</h3>
+<p>• 
+
+
+
+
+<a href="https://f-droid.org/en/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">f-droid</a>
+
+</p>
+<p>• 
+
+
+
+
+<a href="https://f-droid.org/en/packages/com.termux/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux</a>
+
+</p>
+<p>•
+
+
+
+
+<a href="https://f-droid.org/en/packages/com.termux.api/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux-api</a>
+
+</p>
+<br>
+<ul>
+<li>Commands from termux app on the <strong>phone</strong>: <br>
+<code>pkg update -y</code> <br>
+<code>pkg install openssh termux-api -y</code><br>
+<code>ifconfig</code> (note inet address: 192.168.1.228) <br>
+<code>whoami</code> (note the username: u0-a564) <br>
+<code>passwd</code> (to set desired password) <br>
+<code>sshd</code> (to start ssh in the background)<br>
+<br></li>
+<li>Now that we have installed Termux and OpenSSH, let&rsquo;s connect to the phone from our <strong>computer</strong>:<br></li>
+</ul>
+<p>       <code>ssh u0-a564@192.168.1.228 -p 8022</code> <br>
+       or: <br>
+       <code>ssh 192.168.1.228 -p 8022</code></p>
+<br>
+<ul>
+<li>You should now see the text below on your computer if it&rsquo;s the first time connecting your phone. <br> Type: <strong>yes</strong> <br><br>
+The authenticity of host &lsquo;[192.168.1.101]:8022 ([192.168.1.101]:8022)&rsquo; can&rsquo;t be established.<br>
+ED25519 key fingerprint is SHA256:ypEgvEH63cav/FXJkOAFB3mmEi002M+LNGjG3TskDiU.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</li>
+</ul>
+<p><div class="admonition success"><div class="admonition-content" >Congrats! You have now successfully connected your phone to your computer via <strong>SSH</strong>!</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/ssh.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/ssh.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<h1 id="why-did-we-use-port-8022-and-not-22">Why did we use port 8022 and not 22?</h1>
+<p>Port 8022 is not the default SSH port, which is 22. Changing the SSH port from the default 22 to a different port, like 8022, can be a security measure. Using a non-standard port can make it harder for unauthorized users or automated bots to find and potentially exploit your SSH server.</p>
+<br>
+<h1 id="termux-api-command-table">TERMUX API Command Table</h1>
+<p>additional dependencies:<br>
+apt install x11-rep	root-repo unstable-repo</p>
+<p>Let&rsquo;s see what commands we can run using Termux API:</p>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search... ">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>termux-setup-storage</code></td>
+<td>Access shared storage</td>
+</tr>
+<tr>
+<td><code>termux-battery-status</code></td>
+<td>Check battery status</td>
+</tr>
+<tr>
+<td><code>termux-sms-send -n 01235678910 hello</code></td>
+<td>Send an SMS</td>
+</tr>
+<tr>
+<td><code>termux-microphone-record -f ~/out.mp3</code></td>
+<td>Record audio to <code>~/out.mp3</code></td>
+</tr>
+<tr>
+<td><code>termux-microphone-record -q</code></td>
+<td>Stop recording audio</td>
+</tr>
+<tr>
+<td><code>termux-clipboard-set &quot;hello word&quot;</code></td>
+<td>Set clipboard text to &ldquo;hello word&rdquo;</td>
+</tr>
+<tr>
+<td><code>termux-clipboard-get</code></td>
+<td>Print clipboard text</td>
+</tr>
+<tr>
+<td><code>termux-sensor -l</code></td>
+<td>List available sensors</td>
+</tr>
+<tr>
+<td><code>termux-torch on</code></td>
+<td>Turn on torch  (off to switch off)</td>
+</tr>
+<tr>
+<td><code>termux-camera-photo photo.jpg</code></td>
+<td>Take a picture and save as <code>photo.jpg</code></td>
+</tr>
+<tr>
+<td><code>termux-tts-speak &quot;hello how what are you doing&quot;</code></td>
+<td>Text-to-speech, phone speaks the text</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<h3 id="additional-termux-api-implementations">Additional Termux API implementations:</h3>
+<p>You can find additional information and full list of termux api commands on the official page of the Termux API:</p>
+
+
+
+
+
+<a href="https://wiki.termux.com/wiki/Termux:API" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux:API wiki</a>
+
+
+<p><br><br></p>
+<h1 id="sftp">SFTP</h1>
+<h3 id="what-is-sftp">What is SFTP?</h3>
+<p>SFTP, or Secure File Transfer Protocol, is a network protocol designed for secure file access and transfer. It encrypts both commands and data, ensuring a safe transfer of files between clients and servers.</p>
+<ul>
+<li>using file manager:           <br>
+sftp://192.168.1.228:8022/      <br><br>
+192.168.1.228     # host        <br>
+8022              # port        <br></li>
+</ul>
+<p><a href="#ssh-to-android-phone"><kbd>See SSH section ↑<br></kbd></a> to find your host IP address: ifconfig  (inet address)</p>
+<br>
+<ul>
+<li>using client: <br>
+FileZilla is one of the most popular SFTP clients, known for its user-friendly interface and robust features. It supports secure file transfers via SFTP, making it a preferred choice for both beginners and professionals. <br>
+•
+
+
+
+
+<a href="https://filezilla-project.org/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">filezilla</a>
+
+</li>
+</ul>
+<p><br><br></p>
+<h1 id="sudo-termux">SUDO TERMUX</h1>
+<h3> What is sudo? </h3>
+<p>In Termux, sudo is a command that allows a permitted user to execute a command as the superuser or another user, as specified by the security policy. It is used to perform administrative tasks that require elevated privileges on the Android device within the Termux environment.</p>
+<br>
+<h3> Commands to gain superuser in Termux </h3>
+<ol>
+<li>
+<p><code>apt install git tsu x11-repo android-tools</code></p>
+</li>
+<li>
+<p><code>git clone https://gitlab.com/st42/termux-sudo</code></p>
+</li>
+<li>
+<p><code>cd termux-sudo</code></p>
+</li>
+<li>
+<p><code>cat sudo &gt; /data/data/com.termux/files/usr/bin/sudo</code></p>
+</li>
+<li>
+<p><code>chmod 700 /data/data/com.termux/files/usr/bin/sudo</code></p>
+</li>
+</ol>
+<p>Commands if an error occurs:</p>
+<ol>
+<li>ls</li>
+<li>cd termux-sudo/</li>
+<li>chmod +x sudo</li>
+<li>pkg remove tsu -y</li>
+<li>pkg install tsu -y</li>
+</ol>
+<p><br><br></p>
+<h1 id="screensharing-via-ssh">SCREENSHARING via SSH</h1>
+<h4 id="heading"></h4>
+
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: left;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="200px"
+      src="https://www.youtube.com/embed/AhEYl6eJNU8" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+
+<p>YouTube&rsquo;s walkthrough video by Kris Occhipinti
+<br></p>
+<div class="admonition warning"><div class="admonition-content" >Some of the commands below might not work, so feel free to experiment:</div>
+</div>
+
+<ul>
+<li>play video via ssh screenrecord:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ssh u0-a564@192.168.1.228 -p 8022 <span class="s2">&#34;sudo screenrecord --output-format=h264 -&#34;</span><span class="p">|</span> ffplay - <span class="mi">2</span><span class="p">&gt;</span>/dev/null</span></span></code></pre></div>
+<ul>
+<li>play video via ssh ffmpeg:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ssh u0-a564@192.168.1.228 -p 8022 <span class="s2">&#34;ffmpeg -f x11grab -i :0 -f avi - &#34;</span><span class="p">|</span> ffplay - <span class="p">&amp;&gt;</span>/dev/null</span></span></code></pre></div>
+<ul>
+<li>play video via ssh:</li>
+</ul>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">/system/bin/screenrecord --output /data/data/com.termux/files/home/hello.mp4 --output-format=h264</span></span></code></pre></div>
+<ol>
+<li>start sshd in termux on rooted device,</li>
+<li>then connect to the device from a Desktop machine like this:</li>
+</ol>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ssh u0-a564@192.168.1.228 -p8022 <span class="s2">&#34;sudo screenrecord --output-format=h264 -&#34;</span><span class="p">|</span> ffplay - <span class="mi">2</span><span class="p">&gt;</span>/dev/null</span></span></code></pre></div>
+<p>Casting Android Screen Across Network with Busybox nc
+(this is not encrypted)</p>
+<h4 id="on-desktop">On Desktop:</h4>
+<p><code>busybox nc -lp 8022|ffplay - 2&gt;/dev/null</code></p>
+<br>
+<h4 id="on-android-device">On Android Device:</h4>
+<p><code>screenrecord --output-format=h264 -|busybox nc &lt;DESKTOP IP&gt; 8022</code></p>
+<br>
+<h4 id="or-run-as-on-liner-on-desktop">Or run as on liner on desktop:</h4>
+<p><code>(busybox nc -lp 8022|ffplay - 2&gt;/dev/null)&amp;(adb shell screenrecord --output-format=h264 -|busybox nc &lt;DESKTOP IP&gt; 8022)</code></p>
+<p><br><br></p>
+<h1 id="screensharing-via-scrcpy">SCREENSHARING via SCRCPY</h1>
+<h3 id="what-is-scrcpy">What is Scrcpy?</h3>
+<p>SCRCPY is a free and open-source application that allows you to display and control Android devices connected via USB or TCP/IP. It provides a way to mirror and control your Android device from a computer, offering features like screen mirroring, file transfer, and remote control of the Android device from the computer.</p>
+<br>
+<!-- #### installing scrcpy: -->
+<!-- `pkg install scrcpy` -->
+<!-- <br> -->
+<h4 id="lets-first-enable-usb-debugging-on-android-phone">Let&rsquo;s First enable <strong>usb debugging</strong> on <strong>android phone</strong>:</h4>
+<p>settings &gt; about &gt; software information &gt; tap &ldquo;Build number&rdquo; 7 times &gt; back to settings &gt; developer options &gt; enable USB debugging</p>
+<br>
+<h4 id="you-should-now-see-allow-usb-debugging-on-your-phone">you should now see allow usb debugging on your phone:</h4>
+<p>click ok</p>
+<br>
+<div class="admonition warning1"><div class="admonition-content" >Enabling USB debugging (Security settings) allows control via input, not just screen sharing.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/usb-debugging.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/usb-debugging.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+
+<br>
+<!-- Commands if an error occurs (go to platform tools folder): <Br> -->
+<!--  ./adb kill-server <br> -->
+<!--  ./adb start-server <br> -->
+<!-- \* daemon not running; starting now at tcp:5037 <br> -->
+<!-- \* daemon started successfully <br> -->
+<!--  ./adb devices <br> -->
+<!-- List of devices attached <br> -->
+<!-- db3683d8        unauthorized <br> -->
+<h3 id="scrcpy-installation-for-windows-hahahugoshortcode11s15hbhb">SCRCPY installation for Windows 
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows" alt="Icon" style="width:50px;">
+
+
+</h3>
+<!-- 1. Download android <a href="https://developer.android.com/tools/releases/platform-tools#downloads" target="_blank">***`platform tools`***</a> <br> -->
+<!-- 2. extract and go inside platform-tools directory and open terminal, type: --> 
+<!-- ``` -->
+<!-- adb devices -->
+<!-- ``` -->
+<ol>
+<li>
+<p>download <a href="https://github.com/Genymobile/scrcpy/releases" target="_blank"><em><strong><code>SCRCPY</code></strong></em></a> Choose from Assets appropriate version mine is 64 bit so (scrcpy-win64-v2.4.zip) extract and go inside directory.</p>
+</li>
+<li>
+<p>Once you&rsquo;re in the scrcpy directory, open terminal and execute the following command:</p>
+</li>
+</ol>
+<p>       <code>./scrcpy</code></p>
+<br>
+<p><div class="admonition success"><div class="admonition-content" >Congrats! You have now successfully connected your phone to your computer via <strong>SCRCPY</strong>!</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/windows-run-commands/scrcpy.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/windows-run-commands/scrcpy.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p><br><br>
+<div class="admonition tip"><div class="admonition-content" ><p>💡 Easy tip: Ways to retrieve your public IP address using the curl command in the command line:</p>
+<p><code>curl ifconfig.me </code>
+<br>
+or
+<br>
+<code>curl ipinfo.io/ip </code>
+<br></p>
+</div>
+</div>
+</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Termux offers a powerful Linux environment on Android devices, enabling users to run command-line programs, SSH into their devices, and manage various tasks efficiently. With the Termux API, users can further extend the functionality by accessing shared storage, controlling device sensors, sending SMS, and more, all from the command line. Additionally, tools like SFTP, sudo for elevated privileges, and screen sharing options like SCRCPY and SSH-based methods provide comprehensive control and flexibility for Android users, bridging the gap between mobile and desktop computing. Whether you&rsquo;re a tech enthusiast or a developer, Termux opens up a world of possibilities for Android device customization and remote management.</p>
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/termux/" class="singleTag">#termux</a>
+    
+    <a href="https://paulius.uk/tags/android/" class="singleTag">#android</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-termux">What is Termux?</a></li>
+    <li><a href="#what-is-termux-api">What is Termux-api?</a></li>
+    <li><a href="#what-is-ssh">What is SSH?</a></li>
+    <li><a href="#ssh-to-android-phone">SSH TO ANDROID PHONE</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#links-to-download-f-droid-termux-and-termux-api">Links to download F-droid, Termux and Termux-api:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#why-did-we-use-port-8022-and-not-22">Why did we use port 8022 and not 22?</a></li>
+    <li><a href="#termux-api-command-table">TERMUX API Command Table</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#additional-termux-api-implementations">Additional Termux API implementations:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#sftp">SFTP</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#what-is-sftp">What is SFTP?</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#sudo-termux">SUDO TERMUX</a></li>
+    <li><a href="#screensharing-via-ssh">SCREENSHARING via SSH</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#screensharing-via-scrcpy">SCREENSHARING via SCRCPY</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#what-is-scrcpy">What is Scrcpy?</a></li>
+            <li><a href="#scrcpy-installation-for-windows-hahahugoshortcode11s15hbhb">SCRCPY installation for Windows HAHAHUGOSHORTCODE11s15HBHB</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  
+  
+  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
+
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
+
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+   <script src="/js/copy-code-button.js">
+    </script>
+    
+</body>
+
+</html>
