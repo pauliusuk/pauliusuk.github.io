@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Paulius.uk</title>
+    <link>https://pauliusuk.github.io/tags/</link>
+    <description>Recent content in Tags on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 Mar 2024 18:32:12 +0000</lastBuildDate>
+    <atom:link href="https://pauliusuk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>coding</title>
+      <link>https://pauliusuk.github.io/tags/coding/</link>
+      <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/coding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>css</title>
+      <link>https://pauliusuk.github.io/tags/css/</link>
+      <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/css/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>html</title>
+      <link>https://pauliusuk.github.io/tags/html/</link>
+      <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/html/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>javascript</title>
+      <link>https://pauliusuk.github.io/tags/javascript/</link>
+      <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>cyber</title>
+      <link>https://pauliusuk.github.io/tags/cyber/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/cyber/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>overthewire.org</title>
+      <link>https://pauliusuk.github.io/tags/overthewire.org/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/overthewire.org/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>shell</title>
+      <link>https://pauliusuk.github.io/tags/shell/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/shell/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>tech</title>
+      <link>https://pauliusuk.github.io/tags/tech/</link>
+      <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/tags/tech/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
