@@ -1,5 +1,5 @@
 :root {
-  --bg: #0b1529;
+  --bg: #0B1529;
   --bgSoft: #1A73E888;
   --text: #dee4eb;
   --textSoft: #cbd2d9;
@@ -469,12 +469,6 @@ body.light {
 
 
 /* FOOTER START */
-
-.light .footer {
-  background-color: #cbd2d9;
-  color: black;
-}
-
 .footer {
   box-sizing: border-box;
   display: flex;
@@ -484,10 +478,15 @@ body.light {
   height: 100px;
   width: 100%;
   padding-top: 18px;
-  font-size: 17px;
+  font-size: 16px;
   color: #cbd2d9;
-  background-color: #515151;
+  background-color: #343740;
   z-index: 1000;
+}
+
+.light .footer {
+  background-color: #cbd2d9;
+  color: black;
 }
 
 .footerLinks a {
@@ -510,7 +509,8 @@ body.light {
   margin-left: 11px;
 }
 
-.social {
+.socialFooter p {
+  font-size: 17px;
   gap: 10px;
   margin-bottom: 40px;
 }
