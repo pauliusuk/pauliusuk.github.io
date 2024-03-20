@@ -6,8 +6,15 @@
     <description>Recent content on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Mar 2024 18:32:12 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://pauliusuk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Drum Kit Game</title>
+      <link>https://pauliusuk.github.io/games/drum-kit/</link>
+      <pubDate>Wed, 20 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/games/drum-kit/</guid>
+      <description>Play Drum Kit Game</description>
+    </item>
     <item>
       <title>How to Add Copy Code Button to Hugo Static Site?</title>
       <link>https://pauliusuk.github.io/posts/2024/how-to-add-copy-button-to-hugo-site/</link>
