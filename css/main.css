@@ -404,11 +404,21 @@ body.light {
   font-size: 24px;
   margin-left: 17%;
   margin-right: 20px;
-  color: var(--text);
+  color: var(--textSoft);
 }
 
-.light .logo {
-  color: white;
+.logo:hover {
+  animation: color-rotate 2s linear infinite alternate;
+}
+
+@keyframes color-rotate {
+  from {
+    filter: hue-rotate(0deg) saturate(100%);
+  }
+
+  to {
+    filter: hue-rotate(720deg) saturate(500%);
+  }
 }
 
 .links {
@@ -509,18 +519,19 @@ body.light {
   margin-left: 11px;
 }
 
-.socialFooter p {
-  font-size: 17px;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
 .copyright {
   margin-left: 10px;
   flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.socialFooter p {
+  font-size: 17px;
+  gap: 10px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 /* FOOTER END */
