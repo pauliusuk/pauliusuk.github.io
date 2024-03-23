@@ -29,8 +29,7 @@ ol code {
 }
 
 /* Background */ .bg { color: #e2e4e5; background-color: #282a36; }
-/* PreWrapper */ .chroma { color: #e2e4e5; background-color: #282a36;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
+/* PreWrapper */ .chroma { color: #e2e4e5; background-color: #282a36;border:1px solid #33333766;}
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err { color: #ff5c57 }
 /* CodeLine */ .chroma .cl {  }
