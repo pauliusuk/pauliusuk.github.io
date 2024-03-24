@@ -310,18 +310,6 @@ body.light {
 /* dropdownmenu end */
 
 
-.authorsPage {
-  height: 70vh;
-  margin: 0 auto;
-  font-size: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.authorsPage ul:hover {
-  text-decoration: underline;
-  color: darkcyan;
-}
-
 /* category */
 .category-page-title {
   color: darkcyan;
@@ -400,12 +388,44 @@ body.light {
 }
 
 .logo {
+  float: left;
   font-weight: bold;
   font-size: 24px;
   margin-left: 17%;
   margin-right: 20px;
   color: var(--textSoft);
 }
+
+#search {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* .search-bar { */
+/*   float: left; */
+/*   margin-right: 20px; */
+/* } */
+
+/* .search-bar input[type="text"] { */
+/*   padding: 2px 0px 2px 10px; /1* Adjust padding as needed *1/ */
+/*   font-size: 16px; */
+/*   border: 1px solid #ccc; */
+/*   border-radius: 4px; */
+/*   background-color: #f8f8f8; */
+/*   background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30"><path fill="rgba(0,0,0,0.6)" d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path></svg>'); */
+/*   background-repeat: no-repeat; */
+/*   background-position: right 8px center; */
+/* } */
+
+/* /1* Hide default search input clear button *1/ */
+/* .search-bar input[type="text"]::-ms-clear { */
+/*   display: none; */
+/* } */
+/* .search-bar input[type="text"]::-ms-reveal { */
+/*   display: none; */
+/* } */
+
 
 .logo:hover {
   animation: color-rotate 2s linear infinite alternate;
@@ -429,6 +449,7 @@ body.light {
   gap: 18px;
   font-size: 17px;
   margin-right: 30%;
+  float: right;
 }
 
 .light .links {
@@ -794,6 +815,7 @@ body.light {
   .listItem {
     gap: 5px;
   }
+
 }
 
 @media (max-width: 760px) {

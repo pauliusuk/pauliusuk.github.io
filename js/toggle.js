@@ -7,13 +7,13 @@ function utterancesTheme(body) {
       type: 'set-theme',
       theme: theme
     };
-    utterancesFrame.contentWindow.postMessage(message, '*'); // Use '*' as the target origin
+    utterancesFrame.contentWindow.postMessage(message, 'https://utteranc.es'); // Specify target origin
   }
 }
 
 // Function to toggle light mode
 function toggleLightMode() {
-  const body = document.querySelector("body"); // Move body variable here
+  const body = document.querySelector("body");
   body.classList.toggle("light");
   const mode = body.classList.contains("light") ? "light" : "github-light";
   localStorage.setItem("mode", mode);
@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     body.classList.add(savedMode);
     // Update utterances theme based on the saved mode
     utterancesTheme(body);
+    toggleSyntaxCSS(body);
   } else {
     // If no mode saved, set default theme
     const defaultMode = "github-light"; // Set your default mode here
@@ -49,11 +50,36 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// Add event listener to toggle light mode
+// Add event listener to toggle light mode and handle storage event
 const toggle = document.querySelector(".toggle");
 toggle.addEventListener("click", function() {
-  toggleLightMode(); // Removed 'body' argument since it's not needed anymore
+  toggleLightMode();
+});
+
+// Handle storage event to update mode and themes
+window.addEventListener("storage", function(event) {
+  if (event.key === "mode") {
+    const body = document.querySelector("body");
+    const savedMode = localStorage.getItem("mode");
+    body.className = ""; // Clear existing classes
+    body.classList.add(savedMode);
+    utterancesTheme(body);
+    toggleSyntaxCSS(body);
+  }
 });
 
 // Call toggleSyntaxCSS initially to set the syntax CSS based on the saved mode
 toggleSyntaxCSS(document.querySelector("body")); // Pass body directly here
+
+// Grant access to local storage for utterances
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.hasStorageAccess) {
+    document.hasStorageAccess().then(function(hasAccess) {
+      if (!hasAccess) {
+        document.requestStorageAccess().then(function() {
+          console.log("Storage access granted for utterances.");
+        });
+      }
+    });
+  }
+});

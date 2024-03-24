@@ -35,29 +35,223 @@
   <link href="/css/main.css" rel="stylesheet">
 </head>
 
-</html>
-<nav class="navbar">
-  <div class="logo">
-    <a href="/">paulius.uk</a>
-  </div>
-  <div class="links">
-    <a href="/">Homepage</a>
-    <div class="dropdown">
-      <a href="#" class="dropdown-toggle">Categories</a>
-      <div class="dropdown-menu">
-        
-        
-        <a href="/categories/cybersecurity">cybersecurity</a>
-        
-        <a href="/categories/linux">linux</a>
-        
-        <a href="/categories/programming">programming</a>
-        
-      </div>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
     </div>
-    <a href="/games">Games</a>
-    <a href="/authors/paulius/">About</a>
-    <div class="toggle">
+
+    <div class="search-container">
+      <style>
+  #elbi-input {
+    margin-right: 20px;
+    padding-right: 30px;
+    background-color: #343740;
+    border-color: transparent;
+    color: white;
+    border-radius: 20px;
+  }
+
+  .light #elbi-input {
+    background-color: #FFFFFF;
+    color: black;
+  }
+
+  .elbi-search-icon {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-51%);
+    font-size: 15px;
+  }
+
+  .elbi-results {
+    list-style-type: none;
+    margin-top: 100px;
+    width: 100%;
+  }
+
+  .elbi-results-item {
+    list-style-type: none;
+    padding-top: 300px;
+    color: #000000;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 350px;
+  }
+
+  .light .elbi-results-item {
+    background-color: #FFFFFF;
+  }
+
+  .elbi-results-item:hover {
+    color: black;
+  }
+
+  #search-icon {
+    color: darkgrey;
+  }
+
+  .elbi-search {
+    position: relative;
+  }
+</style>
+
+<body>
+
+  <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search...">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+  </script>
+</body>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Homepage</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/programming">programming</a>
+          
+        </div>
+      </div>
+      <a href="/games">Games</a>
+      <a href="/authors/paulius/">About</a>
+      <div class="toggle">
     <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
         <g id="sun" transform="translate(-2 -2)">
             <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
@@ -75,115 +269,118 @@
         </g>
     </svg>
 </div>
-  </div>
-</nav>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
 
-
-<script src="/js/dropdownmenu.js"></script>
+</html>
 
     
+
 <div class="list">
   
-    
   
-     
-      <div class="listItem">
-        <a href="https://pauliusuk.github.io/posts/2024/how-to-add-copy-button-to-hugo-site/">
-          <img src="/images/2024-thumbs/2.png" alt="How to Add a Copy Code Button to Hugo Static Site?" class="listItemImage" loading="lazy" />
-        </a>
-        <div class="listItemTexts">
-          <h1 class="listItemTitle">
-            <a href="https://pauliusuk.github.io/posts/2024/how-to-add-copy-button-to-hugo-site/">How to Add a Copy Code Button to Hugo Static Site?</a>
-          </h1>
+  
+   
+  <div class="listItem">
+    <a href="https://pauliusuk.github.io/posts/2024/how-to-add-copy-button-to-hugo-site/">
+      <img src="/images/2024-thumbs/2.png" alt="How to Add a Copy Code Button to Hugo Static Site?" class="listItemImage" loading="lazy" />
+    </a>
+    <div class="listItemTexts">
+      <h1 class="listItemTitle">
+        <a href="https://pauliusuk.github.io/posts/2024/how-to-add-copy-button-to-hugo-site/">How to Add a Copy Code Button to Hugo Static Site?</a>
+      </h1>
+      
+      <p class="listItemDesc">How to add a copy-button to your hugo site? 1. Let&rsquo;s create css file in …</p>
+      
+      <div class="readtime">
+        &nbsp;2 min read
+      </div>
+      <div class="listItemDetail">
+        <img src="/images/avatar.webp" loading="lazy" alt="" class="listItemAvatar" />
+        <time class="timeContainer">12 Mar, 2024</time>
+        <span>
           
-            <p class="listItemDesc">How to add a copy-button to your hugo site? 1. Let&rsquo;s create css file in …</p>
+          <a href="https://pauliusuk.github.io/authors/paulius/"></a>
           
-          <div class="readtime">
-            &nbsp;2 min read
-          </div>
-          <div class="listItemDetail">
-            <img src="/images/avatar.webp" loading="lazy" alt="" class="listItemAvatar" />
-            <time class="timeContainer">12 Mar, 2024</time>
-            <span>
-              
-              <a href="https://pauliusuk.github.io/authors/paulius/"></a>
-              
-            </span>
-            <div class="listItemCategories">
-              
-              <a class="listItemCategory" href="https://pauliusuk.github.io/categories/programming/">Programming</a>
-              
-            </div>
-          </div>
+        </span>
+        <div class="listItemCategories">
+          
+          <a class="listItemCategory" href="https://pauliusuk.github.io/categories/programming/">Programming</a>
+          
         </div>
       </div>
-    
+    </div>
+  </div>
   
-     
-      <div class="listItem">
-        <a href="https://pauliusuk.github.io/posts/2024/chmod/">
-          <img src="/images/2024-thumbs/chmod1.png" alt="Exploring Linux &#34;chmod&#34; commands" class="listItemImage" loading="lazy" />
-        </a>
-        <div class="listItemTexts">
-          <h1 class="listItemTitle">
-            <a href="https://pauliusuk.github.io/posts/2024/chmod/">Exploring Linux &#34;chmod&#34; commands</a>
-          </h1>
+  
+   
+  <div class="listItem">
+    <a href="https://pauliusuk.github.io/posts/2024/chmod/">
+      <img src="/images/2024-thumbs/chmod1.png" alt="Exploring Linux &#34;chmod&#34; commands" class="listItemImage" loading="lazy" />
+    </a>
+    <div class="listItemTexts">
+      <h1 class="listItemTitle">
+        <a href="https://pauliusuk.github.io/posts/2024/chmod/">Exploring Linux &#34;chmod&#34; commands</a>
+      </h1>
+      
+      <p class="listItemDesc">Understanding Permissions (400, 600, 644, 700, 777) and the &#34;s&#34; Bit.</p>
+      
+      <div class="readtime">
+        &nbsp;3 min read
+      </div>
+      <div class="listItemDetail">
+        <img src="/images/avatar.webp" loading="lazy" alt="" class="listItemAvatar" />
+        <time class="timeContainer">09 Mar, 2024</time>
+        <span>
           
-            <p class="listItemDesc">Understanding Permissions (400, 600, 644, 700, 777) and the &#34;s&#34; Bit.</p>
+          <a href="https://pauliusuk.github.io/authors/paulius/"></a>
           
-          <div class="readtime">
-            &nbsp;3 min read
-          </div>
-          <div class="listItemDetail">
-            <img src="/images/avatar.webp" loading="lazy" alt="" class="listItemAvatar" />
-            <time class="timeContainer">09 Mar, 2024</time>
-            <span>
-              
-              <a href="https://pauliusuk.github.io/authors/paulius/"></a>
-              
-            </span>
-            <div class="listItemCategories">
-              
-              <a class="listItemCategory" href="https://pauliusuk.github.io/categories/linux/">Linux</a>
-              
-            </div>
-          </div>
+        </span>
+        <div class="listItemCategories">
+          
+          <a class="listItemCategory" href="https://pauliusuk.github.io/categories/linux/">Linux</a>
+          
         </div>
       </div>
-    
+    </div>
+  </div>
   
-     
-      <div class="listItem">
-        <a href="https://pauliusuk.github.io/posts/2024/bandit-overthewire.org/">
-          <img src="/images/2024-thumbs/bandit.webp" alt="Bandit overthewire.org" class="listItemImage" loading="lazy" />
-        </a>
-        <div class="listItemTexts">
-          <h1 class="listItemTitle">
-            <a href="https://pauliusuk.github.io/posts/2024/bandit-overthewire.org/">Bandit overthewire.org</a>
-          </h1>
+  
+   
+  <div class="listItem">
+    <a href="https://pauliusuk.github.io/posts/2024/bandit-overthewire.org/">
+      <img src="/images/2024-thumbs/bandit.webp" alt="Bandit overthewire.org" class="listItemImage" loading="lazy" />
+    </a>
+    <div class="listItemTexts">
+      <h1 class="listItemTitle">
+        <a href="https://pauliusuk.github.io/posts/2024/bandit-overthewire.org/">Bandit overthewire.org</a>
+      </h1>
+      
+      <p class="listItemDesc">OverTheWire.org Bandit Wargame Walkthrough. Bandit is a beginner-friendly wargame designed to …</p>
+      
+      <div class="readtime">
+        &nbsp;10 min read
+      </div>
+      <div class="listItemDetail">
+        <img src="/images/avatar.webp" loading="lazy" alt="" class="listItemAvatar" />
+        <time class="timeContainer">07 Mar, 2024</time>
+        <span>
           
-            <p class="listItemDesc">OverTheWire.org Bandit Wargame Walkthrough. Bandit is a beginner-friendly wargame designed to …</p>
+          <a href="https://pauliusuk.github.io/authors/paulius/"></a>
           
-          <div class="readtime">
-            &nbsp;10 min read
-          </div>
-          <div class="listItemDetail">
-            <img src="/images/avatar.webp" loading="lazy" alt="" class="listItemAvatar" />
-            <time class="timeContainer">07 Mar, 2024</time>
-            <span>
-              
-              <a href="https://pauliusuk.github.io/authors/paulius/"></a>
-              
-            </span>
-            <div class="listItemCategories">
-              
-              <a class="listItemCategory" href="https://pauliusuk.github.io/categories/cybersecurity/">Cybersecurity</a>
-              
-            </div>
-          </div>
+        </span>
+        <div class="listItemCategories">
+          
+          <a class="listItemCategory" href="https://pauliusuk.github.io/categories/cybersecurity/">Cybersecurity</a>
+          
         </div>
       </div>
-    
+    </div>
+  </div>
+  
   
   
 </div>
