@@ -512,7 +512,7 @@
         &nbsp;
 
         <i class="fa-solid fa-calendar-day"></i>
-        Posted 15 days ago
+        Posted 16 days ago
 
       </div>
     </div>
@@ -557,6 +557,8 @@
 <h2 id="s-bit---rws------">&ldquo;s&rdquo; Bit — <code>-rws------</code></h2>
 <p>Additionally, the &ldquo;s&rdquo; bit, when set in the permission of a file, indicates the setuid or setgid permission. When setuid is applied to a file, it allows users to execute the file with the permissions of its owner. Similarly, setgid allows users to execute the file with the permissions of its group. This can be particularly useful for certain system programs that need elevated privileges to run effectively.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +s filename
+</span></span></code></pre></div><p>you can also find and check which files have setgid permissions enabled by running</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find / -user username1 -perm -4000 2&gt;/dev/null
 </span></span></code></pre></div><p><br>
  <br>
 </p>

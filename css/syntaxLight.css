@@ -1,5 +1,5 @@
 /* Background */ .bg { color: #191919; background-color: #FAFAFA; }
-/* PreWrapper */ .chroma { color: #191919; background-color: #FAFAFA; border:1px solid #11111310;}
+/* PreWrapper */ .chroma { color: #191919; background-color: #FAFAFA;}
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err { color: #FF2424 }
 /* CodeLine */ .chroma .cl {  }
