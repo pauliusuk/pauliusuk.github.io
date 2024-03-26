@@ -9,10 +9,17 @@
     <lastBuildDate>Wed, 20 Mar 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://pauliusuk.github.io/games/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Drum Kit Game</title>
+      <title>Drum Kit</title>
       <link>https://pauliusuk.github.io/games/drum-kit/</link>
       <pubDate>Wed, 20 Mar 2024 00:00:00 +0000</pubDate>
       <guid>https://pauliusuk.github.io/games/drum-kit/</guid>
+      <description>Play Drum Kit Game</description>
+    </item>
+    <item>
+      <title>Simon (Memory)</title>
+      <link>https://pauliusuk.github.io/games/memory-game/</link>
+      <pubDate>Wed, 20 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/games/memory-game/</guid>
       <description>Play Drum Kit Game</description>
     </item>
   </channel>

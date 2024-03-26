@@ -238,6 +238,7 @@
       <div class="dropdown">
         <a href="#" class="dropdown-toggle">Categories</a>
         <div class="dropdown-menu">
+            <a href="/tags">tags</a>
           
           
           <a href="/categories/cybersecurity">cybersecurity</a>
@@ -512,7 +513,7 @@
         &nbsp;
 
         <i class="fa-solid fa-calendar-day"></i>
-        Posted 13 days ago
+        Posted 14 days ago
 
       </div>
     </div>
@@ -542,14 +543,14 @@
 </span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">z-index</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span> <span class="mi">0</span><span class="kt">px</span> <span class="mi">40</span><span class="kt">px</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="mi">0</span><span class="kt">px</span> <span class="mi">40</span><span class="kt">px</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">highlight</span><span class="o">&gt;</span><span class="p">.</span><span class="nc">chroma</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">font-size</span><span class="p">:</span> <span class="mi">85</span><span class="kt">%</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">line-height</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">padding-left</span><span class="p">:</span> <span class="mi">40</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">/* padding-left: 40px; */</span>
 </span></span><span class="line"><span class="cl">  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">static</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">z-index</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
@@ -1178,10 +1179,68 @@
     
   </div>
   <div class="socialFooter">
-    <p>© 2024</p>
+    <p>Copyright © 2024&nbsp; paulius.uk</p>
   </div>
 </div>
 </div>
+
+
+<style>
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: #343740;
+    z-index: 1000;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .copyright {
+    margin-left: 10px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+</style>
 
   </div>
   <script src="/js/toggle.js"></script>

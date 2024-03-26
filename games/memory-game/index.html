@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Cyber | Paulius.uk</title>
+  <title>Simon (Memory) | Paulius.uk</title>
   <link rel="canonical" href="https://pauliusuk.github.io/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,7 +19,7 @@
   <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
   <link rel="stylesheet" href="/css/copy-code-button.css">
   <link rel="icon" href="/images/icon.ico" />
-  <title>cyber</title>
+  <title>Simon (Memory)</title>
 </head>
 
 <body>
@@ -279,140 +279,255 @@
 
     
 <style>
-  .tag-javascript,
-  .tag-js {
-    background: #f0db4f;
+  .single-page-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    padding-left: 5px;
+    padding-right: 10px;
+  }
+
+  .singleHead {
+    margin-top: 80px;
+    margin-left: 15.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .singleHeadTexts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 9px;
+    margin-right: 56px;
+  }
+
+  .singleHeadTitle {
+    font-size: 36px;
+    display: flex;
+    max-width: 600px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .singleHeadDesc {
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  .singleHeadDetail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .singleCategory {
+    padding: 5px;
+    border-radius: 25px;
+    background-color: var(--bgSoft);
+    color: #F9F9F9;
+    font-size: 16px;
+  }
+
+  .singleHeadImg {
+    flex: 1;
+    max-height: 200px;
+    max-width: 300px;
+    object-fit: 100 cover;
+  }
+
+  table {
+    z-index: 0;
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  th,
+  td {
+    font-family: 'Segoe UI', 'Arial', 'sans-serif';
+    font-size: 16px;
+    border: 1px solid #dddddd44;
+    padding: 6px 13px;
+    text-align: left;
+    background-color: #24292F;
+  }
+
+  th {
+    background-color: #0D1117;
+  }
+
+  .light th,
+  .light td {
+    border-color: #575757;
+    color: black;
+    background-color: #DEE4EB66;
+  }
+
+  .light th {
+    background-color: #43498650;
     color: black;
   }
 
-  .tag-typescript {
-    background: #2775c3;
-    color: white;
+  .singleContent {
+    margin-top: 29px;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 3;
+    font-size: 19px;
+    line-height: 32px;
+    max-width: 900px;
+    padding-bottom: 0%;
+    background-color: #24273A;
+    padding: 1% 3% 2% 3%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
-  .tag-python {
-    color: #ffda5d;
-    background: #3879ab;
+  .light .singleContent {
+    background-color: #EFF1F5;
+    color: black;
   }
 
-  .tag-cyber {
-    color: #34D149;
-    background: #000000;
+
+
+  .singleContent h1 {
+    padding: 10px;
+    line-height: 43px;
   }
 
-  .tag-css {
-    color: #000000;
-    background: #2862E9;
+  .singleContent h3 {
+    padding: 20px 0px 0 0;
   }
 
-  .tag-html {
-    color: #E4E4E4;
-    background: #E96228;
+  .singleContent h2 {
+    padding: 20px 0 0 0;
   }
 
-  .tag-github {
-    color: #fff;
-    background: #24292e;
+  .singleContent p {
+    margin: 10px 0px 5px 0px;
+    font-size: 18px;
   }
 
-  .tag-docker {
-    color: #ffffff;
-    background: #2496ed;
+
+  .singleContent img {
+    width: 100%;
+    object-fit: cover;
   }
 
- 
-.tagsList {
-  margin-top: 100px;
-  width: 80%;
-  margin-right: 0%;
-  margin-left: 5%;
-  height: 70vh;
-}
+  .singleContent pre {
+    width: 100%;
+    padding: 20px;
+  }
 
-.tag-name {
-  display: inline-block;
-  flex-direction: row;
-  color: green;
-}
+  .singleAuthor {
+    display: flex;
+    font-size: 18px;
+    padding-right: 19px;
+    border: 2px solid white;
+  }
 
-.tag-label {
-  display: row;
-  align-content: center;
-  align-items: center;
-}
+  .singleAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
-.tagTitle {
-  display: flex;
-  flex-direction: row;
-  display: inline-block;
-   
-}
+  .singleAuthor a {
+    text-decoration: none;
+     
+  }
 
-.tagItemTitle {
-  margin-right: 6px;
-  background-color: black;
-  border: 2px solid #7C0000;
-  display: inline-block;
-  text-decoration: none;
-  padding: 6px;
-  font-size: 20px;
-  width: auto;
-  gap: 20px;
-  color: #D8D8D9;
-}
+  .singleAuthor a:hover {
+    text-decoration: underline;
+     
+  }
 
-.tagItemTitle:hover {
-  border-color: darkgreen;
-  color: #99C794;
-}
+  .singleCategory:hover {
+    background-color: darkcyan;
+  }
 
-.light .tagItemTitle {
-  color: white;
-}
+  .singleTags {
+    margin-left: 12%;
+    margin-top: 4%;
+    margin-bottom: 20px;
+    right: 0;
+    padding: 5px;
+    display: inline-block;
+    font-size: 19px;
+    width: 100%;
+    max-width: 400px;
+    word-wrap: break-word;
+  }
 
-.light .tagItemTitle:hover {
-  color: #99C794;
-  font-family: sans, serif;
-}
+  .singleTag {
+    color: #99C794;
+  }
 
-.tag-page-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 25px;
-}
+  .light .singleTag {
+    color: green;
+  }
 
- 
+  .singleTag:hover {
+    text-decoration: underline;
+  }
+
+  .tagsText {
+    color: #CDD4DC;
+    font-style: initial;
+    font-weight: bold;
+  }
+
+  .light .tagsText {
+    color: black;
+  }
 </style>
 
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Simon (Memory)</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+        <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+        <div class="singleAuthor">
+          
+        </div>
+        <time>20-March-2024</time>
+        
 
+        <i class="fa-solid fa-book-open"></i>
+        </svg>
+        1 min read
+        &nbsp;
 
-<div class="tagsList" data-pagefind-ignore>
-  
-    <div class="tag-page-title">
-      
-      
-      <h1><span class="tag-label">Tag:&nbsp;</span><span class="tag-name">#cyber</span></h1>
-      
+        <i class="fa-solid fa-calendar-day"></i>
+        Posted 7 days ago
+
+      </div>
     </div>
-    
-    <div class="tagTitle">
-      <h1 class="tagItemTitle">
-
-        <a href="/posts/2024/chmod/"><span class="tag tag-exploring-linux-chmod-commands tag-lg">#exploring-linux-chmod-commands</span></a>
-      </h1>
-    </div>
-    
-    <div class="tagTitle">
-      <h1 class="tagItemTitle">
-
-        <a href="/posts/2024/bandit-overthewire.org/"><span class="tag tag-bandit-overthewireorg tag-lg">#bandit-overthewireorg</span></a>
-      </h1>
-    </div>
-    
+    <img src="/images/drum-kit/tom1.png" alt="Simon (Memory)" class="singleHeadImg">
   </div>
+  <div class="singleContent">
+    <p><a href="/games/memory-game.html">Play Drum Kit Game</a></p>
+
+  </div>
+  
+  
 
   
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
     <div class="footer">
   <div class="footerLinks">
     

@@ -238,6 +238,7 @@
       <div class="dropdown">
         <a href="#" class="dropdown-toggle">Categories</a>
         <div class="dropdown-menu">
+            <a href="/tags">tags</a>
           
           
           <a href="/categories/cybersecurity">cybersecurity</a>
@@ -277,24 +278,134 @@
 </html>
 
     
+<style>
+  .tag-javascript,
+  .tag-js {
+    background: #f0db4f;
+    color: black;
+  }
+
+  .tag-typescript {
+    background: #2775c3;
+    color: white;
+  }
+
+  .tag-python {
+    color: #ffda5d;
+    background: #3879ab;
+  }
+
+  .tag-cyber {
+    color: #34D149;
+    background: #000000;
+  }
+
+  .tag-css {
+    color: #000000;
+    background: #2862E9;
+  }
+
+  .tag-html {
+    color: #E4E4E4;
+    background: #E96228;
+  }
+
+  .tag-github {
+    color: #fff;
+    background: #24292e;
+  }
+
+  .tag-docker {
+    color: #ffffff;
+    background: #2496ed;
+  }
+
+ 
+.tagsList {
+  margin-top: 100px;
+  width: 80%;
+  margin-right: 0%;
+  margin-left: 5%;
+  height: 70vh;
+}
+
+.tag-name {
+  display: inline-block;
+  flex-direction: row;
+  color: green;
+}
+
+.tag-label {
+  display: row;
+  align-content: center;
+  align-items: center;
+}
+
+.tagTitle {
+  display: flex;
+  flex-direction: row;
+  display: inline-block;
+   
+}
+
+.tagItemTitle {
+  margin-right: 6px;
+  background-color: black;
+  border: 2px solid #7C0000;
+  display: inline-block;
+  text-decoration: none;
+  padding: 6px;
+  font-size: 20px;
+  width: auto;
+  gap: 20px;
+  color: #D8D8D9;
+}
+
+.tagItemTitle:hover {
+  border-color: darkgreen;
+  color: #99C794;
+}
+
+.light .tagItemTitle {
+  color: white;
+}
+
+.light .tagItemTitle:hover {
+  color: #99C794;
+  font-family: sans, serif;
+}
+
+.tag-page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25px;
+}
+
+ 
+</style>
+
+
 
 <div class="tagsList" data-pagefind-ignore>
-
-  <div class="tag-page-title">
-    
+  
+    <div class="tag-page-title">
+      
       
       <h1><span class="tag-label">Tag:&nbsp;</span><span class="tag-name">#javascript</span></h1>
+      
+    </div>
+    
+    <div class="tagTitle">
+      <h1 class="tagItemTitle">
+
+        <a href="/posts/2024/how-to-add-copy-button-to-hugo-site/"><span class="tag tag-how-to-add-a-copy-code-button-to-hugo-static-site tag-lg">#how-to-add-a-copy-code-button-to-hugo-static-site</span></a>
+      </h1>
+    </div>
     
   </div>
-  
-  <div class="tagTitle">
-    <h1 class="tagItemTitle">
-      <a href="https://pauliusuk.github.io/posts/2024/how-to-add-copy-button-to-hugo-site/">How to Add a Copy Code Button to Hugo Static Site?</a>
-    </h1>
-  </div>
-  
-</div>
 
+  
     <div class="footer">
   <div class="footerLinks">
     
@@ -302,10 +413,68 @@
     
   </div>
   <div class="socialFooter">
-    <p>© 2024</p>
+    <p>Copyright © 2024&nbsp; paulius.uk</p>
   </div>
 </div>
 </div>
+
+
+<style>
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: #343740;
+    z-index: 1000;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .copyright {
+    margin-left: 10px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+</style>
 
   </div>
   <script src="/js/toggle.js"></script>
