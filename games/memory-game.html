@@ -4,12 +4,11 @@
 <head>
   <meta charset="utf-8">
   <title>Simon Game</title>
-  <link rel="stylesheet" href="/css/memory-game.css">
 </head>
 
 <body>
   <button class="goback" onclick="window.history.back()">Go back</button>
-  <button class="reload" id="playButton" onclick="playgame()">Play Game</button>
+  <button class="playbutton" id="playButton" onclick="playgame()">Play Game</button>
   <h1 id="level-title">Press Play Game button or any Keyboard Key to Start</h1>
 
   <div class="button-container">
@@ -40,18 +39,44 @@
     background-color: #0E1529;
   }
 
-  .hiddenbtn {
-    display: none;
+  @media (max-width: 768px) {
+    .playbutton {
+      margin-top: 30px;
+      padding: 20px 30px;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 368px) {
+    .goback {
+      display: none;
+    }
+
+    .hiddenbtn {
+      display: none;
+    }
   }
 
   .goback {
     position: absolute;
     background-color: #FEF6E0;
     left: 0;
+    top: 0;
+    margin-top: 0px;
+    position: absolute;
+    left: 0;
     margin-top: 45px;
+    padding: 5px 10px;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
   }
 
-  .reload {
+  .playbutton {
     margin-top: 20px;
     padding: 5px 12px;
     background: linear-gradient(to right, #6c757d, #adb5bd);
@@ -64,7 +89,7 @@
     transition: all 0.3s ease;
   }
 
-  .reload:hover {
+  .playbutton:hover {
     background: linear-gradient(to right, #495057, #adb5bd);
   }
 
@@ -79,11 +104,10 @@
   }
 
   #level-title {
-    width: 900px;
     justify-content: center;
     font-family: "arial";
     font-size: 3rem;
-    margin: 25px auto 3%;
+    margin: 25px auto;
     color: white;
   }
 
