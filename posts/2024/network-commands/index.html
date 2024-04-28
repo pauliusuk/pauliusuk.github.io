@@ -313,7 +313,7 @@
         <div class="minRead">
           <i class="fa-solid fa-book-open"></i>
           </svg>
-          4 min read
+          8 min read
         </div>
 
       </div>
@@ -469,6 +469,198 @@
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
+<details><summary>Read more about netstat and <code>netstat -ano</code> commands</summary>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netstat</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<p>NETSTAT displays active network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.</p>
+<p>When you run <code>netstat</code> without any options, it provides a list of active connections along with the corresponding protocols (TCP/UDP), local and foreign addresses, and their status.</p>
+<p>Example output of <code>netstat</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Local Address</th>
+<th>Foreign Address</th>
+<th>State</th>
+<th>PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:135</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:445</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:3389</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>9012</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this table:</p>
+<ul>
+<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
+<li><code>Local Address</code>: Local IP address and port.</li>
+<li><code>Foreign Address</code>: Remote IP address and port.</li>
+<li><code>State</code>: Connection state (e.g., LISTENING, ESTABLISHED).</li>
+<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
+</ul>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netstat -ano</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<p>Now, let&rsquo;s look at the <code>netstat -ano</code> command and explain its components:</p>
+<ul>
+<li><code>a</code>: This option displays all connections and listening ports.</li>
+<li><code>n</code>: This option displays addresses and port numbers in numerical form, rather than resolving hostnames and service names.</li>
+<li><code>o</code>: This option displays the owning process ID associated with each connection.</li>
+</ul>
+<p>Example output of <code>netstat -ano</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Local Address</th>
+<th>Foreign Address</th>
+<th>State</th>
+<th>PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:135</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:445</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:3389</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>9012</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this table:</p>
+<ul>
+<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
+<li><code>Local Address</code>: Local IP address and port.</li>
+<li><code>Foreign Address</code>: Remote IP address and port.</li>
+<li><code>State</code>: Connection state (e.g., LISTENING, ESTABLISHED).</li>
+<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
+</ul>
+<p>This information can be useful for identifying which processes are using network resources, troubleshooting network issues, or identifying potentially unwanted or malicious connections.</p>
+<p>Remember, on Windows systems, the PID can be cross-referenced with the Task Manager to identify the specific process that&rsquo;s using a particular network connection.</p>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>netstat -ano | findstr "LISTENING"</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<p>Another useful way to filter the <code>netstat -ano</code> output is by using the <code>findstr</code> command to specifically look for listening ports. This can help you quickly identify which processes are listening for incoming connections.</p>
+<p>The <code>findstr &quot;LISTENING&quot;</code> command filters the output to show only the connections that are in the <code>LISTENING</code> state.</p>
+<p>Example output after filtering:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Local Address</th>
+<th>Foreign Address</th>
+<th>State</th>
+<th>PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:135</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:445</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>5678</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>0.0.0.0:3389</td>
+<td>0.0.0.0:0</td>
+<td>LISTENING</td>
+<td>9012</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this filtered output:</p>
+<ul>
+<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
+<li><code>Local Address</code>: Local IP address and port.</li>
+<li><code>Foreign Address</code>: Remote IP address and port.</li>
+<li><code>State</code>: Connection state (e.g., LISTENING).</li>
+<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
+</ul>
+<br><br>
+<hr><hr><hr><hr>
+</details>
+<p><br><br></p>
 <h3 id="tracert">TRACERT</h3>
 <p>TRACERT is used to trace the route taken by packets across an IP network to a specific destination.</p>
 
@@ -553,6 +745,98 @@
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
+<details><summary>Read more about <code>lsof</code> command</summary>
+<div class="highlight-wrapper">
+  <div class="highlight">
+    <pre><code>sudo lsof -i -P -n | grep LISTEN</code></pre>
+    
+    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<h4 id="lsof---list-open-files-command">LSOF - LIST OPEN FILES COMMAND</h4>
+<p>In Linux, the <code>lsof</code> command (short for &ldquo;list open files&rdquo;) is used to list information about files that are open by processes. When combined with specific options, it can also provide information about network connections.</p>
+<p>The command: <br><code>sudo lsof -i -P -n | grep LISTEN</code><br> lists all open files (-i) that are network-related, including sockets and ports (-i), in a numeric format (-P), and with host names turned off (-n). The output is then filtered using <code>grep LISTEN</code> to only show the entries where the connection state is &ldquo;LISTENING&rdquo;.</p>
+<p>Example output after filtering:</p>
+<table>
+<thead>
+<tr>
+<th>COMMAND</th>
+<th>PID</th>
+<th>USER</th>
+<th>FD</th>
+<th>TYPE</th>
+<th>DEVICE</th>
+<th>SIZE/OFF</th>
+<th>NODE</th>
+<th>NAME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sshd</td>
+<td>1234</td>
+<td>root</td>
+<td>3u</td>
+<td>IPv4</td>
+<td>1234</td>
+<td>0t0</td>
+<td>TCP</td>
+<td>*:22 (LISTEN)</td>
+</tr>
+<tr>
+<td>nginx</td>
+<td>5678</td>
+<td>www-data</td>
+<td>6u</td>
+<td>IPv4</td>
+<td>5678</td>
+<td>0t0</td>
+<td>TCP</td>
+<td>*:80 (LISTEN)</td>
+</tr>
+<tr>
+<td>apache</td>
+<td>9012</td>
+<td>apache</td>
+<td>4u</td>
+<td>IPv6</td>
+<td>9012</td>
+<td>0t0</td>
+<td>TCP</td>
+<td>*:443 (LISTEN)</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>In this table:</p>
+<ul>
+<li><code>COMMAND</code>: Process name or command associated with the open file.</li>
+<li><code>PID</code>: Process ID of the application or service.</li>
+<li><code>USER</code>: User associated with the process.</li>
+<li><code>FD</code>: File descriptor associated with the file.</li>
+<li><code>TYPE</code>: Type of file (e.g., IPv4, IPv6).</li>
+<li><code>DEVICE</code>: Device number associated with the file.</li>
+<li><code>SIZE/OFF</code>: Size or offset of the file.</li>
+<li><code>NODE</code>: Node associated with the file.</li>
+<li><code>NAME</code>: Name of the file.</li>
+</ul>
+<p>This command is useful for identifying which processes are listening on network ports, such as SSH, web servers, or other network services.</p>
+<br>
+<hr><hr><hr><hr>
+</details>
+<br><br>
 <h3 id="traceroute">TRACEROUTE</h3>
 <p>TRACEROUTE is used to display the route packets take to network host.</p>
 

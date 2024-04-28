@@ -333,6 +333,8 @@
 <h1 id="network-ports-and-protocols">Network Ports and Protocols</h1>
 <p>Ports are crucial endpoints in network communication, facilitating the transfer of data between devices. They allow different services and applications to operate concurrently on a network device by assigning specific numbers to each service. This organization ensures accurate routing of data packets based on predefined protocols. Ports enable essential network functions like web browsing, email, and remote access, making them vital for effective network management and troubleshooting.<br></p>
 <h2 id="most-common-ports">Most Common ports</h2>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
@@ -525,7 +527,73 @@
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <h2 id="database-and-other-ports">Database and other ports</h2>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
@@ -592,6 +660,70 @@
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <br>
 <h1 id="well-known-ports">Well-known ports:</h1>
 <ul>

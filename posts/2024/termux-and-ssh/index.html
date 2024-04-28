@@ -309,7 +309,7 @@
         <div class="minRead">
           <i class="fa-solid fa-book-open"></i>
           </svg>
-          5 min read
+          6 min read
         </div>
 
       </div>
@@ -356,6 +356,8 @@
 </p>
 <h1 id="what-is-termux">What is Termux?</h1>
 <p>Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.</p>
+<h1 id="what-is-termux-api">What is Termux-api?</h1>
+<p>Termux-api is a python module to access the termux-api This provides a way to get native access in Python to Android device functionality as API.</p>
 <h1 id="what-is-ssh">What is SSH?</h1>
 <p>SSH stands for Secure Shell. It is a cryptographic network protocol that allows secure communication between two devices over an insecure network. SSH is commonly used for remote login to a server or computer, allowing users to access a command-line interface and execute commands on a remote machine securely.</p>
 <br>
@@ -466,13 +468,15 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?</li>
   });
 </script>
 </p>
-<h1 id="why-port-8022-and-not-22">Why port 8022 and not 22?</h1>
+<h1 id="why-did-we-use-port-8022-and-not-22-for-ssh">Why did we use port 8022 and not 22 for ssh?</h1>
 <p>Port 8022 is not the default SSH port, which is 22. Changing the SSH port from the default 22 to a different port, like 8022, can be a security measure. Using a non-standard port can make it harder for unauthorized users or automated bots to find and potentially exploit your SSH server.</p>
 <br>
 <h1 id="termux-api-command-table">TERMUX API Command Table</h1>
 <p>additional dependencies:<br>
 apt install x11-rep	root-repo unstable-repo</p>
 <p>Let&rsquo;s see what commands we can run using Termux API:</p>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
@@ -527,6 +531,70 @@ apt install x11-rep	root-repo unstable-repo</p>
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <h3 id="additional-termux-api-implementations">Additional Termux API implementations:</h3>
 <p>You can find additional information and full list of termux api commands on the official page of the Termux API:</p>
 
@@ -551,10 +619,15 @@ sftp://192.168.1.228:8022/      <br><br>
 <br>
 <ul>
 <li>using client: <br>
-FileZilla is one of the most popular SFTP clients, known for its user-friendly interface and robust features. It supports secure file transfers via SFTP, making it a preferred choice for both beginners and professionals.</li>
-</ul>
-<ul>
-<li><a href="https://filezilla-project.org/">filezilla</a></li>
+FileZilla is one of the most popular SFTP clients, known for its user-friendly interface and robust features. It supports secure file transfers via SFTP, making it a preferred choice for both beginners and professionals. <br>
+
+
+
+
+
+<a href="https://filezilla-project.org/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">filezilla</a>
+
+</li>
 </ul>
 <p><br><br></p>
 <h1 id="sudo-termux">SUDO TERMUX</h1>
@@ -589,7 +662,6 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 </ol>
 <p><br><br></p>
 <h1 id="screensharing-via-ssh">SCREENSHARING via SSH</h1>
-<h4 id="heading"></h4>
 
 
 
@@ -615,8 +687,8 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 </style>
 
 
-<p>YouTube&rsquo;s walkthrough video by Kris Occhipinti
-<br></p>
+<p>YouTube&rsquo;s walkthrough video by Kris Occhipinti</p>
+<br>
 <div class="admonition warning"><div class="admonition-content" >Some of the commands below might not work, so feel free to experiment:</div>
 </div>
 
@@ -672,7 +744,7 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 <h4 id="or-run-as-on-liner-on-desktop">Or run as on liner on desktop:</h4>
 <p><code>(busybox nc -lp 8022|ffplay - 2&gt;/dev/null)&amp;(adb shell screenrecord --output-format=h264 -|busybox nc &lt;DESKTOP IP&gt; 8022)</code></p>
 <p><br><br></p>
-<h1 id="screensharing-via-scrcpy">SCREENSHARING via SCRCPY</h1>
+<h2 id="screensharing-via-scrcpy">SCREENSHARING via SCRCPY</h2>
 <h3 id="what-is-scrcpy">What is Scrcpy?</h3>
 <p>SCRCPY is a free and open-source application that allows you to display and control Android devices connected via USB or TCP/IP. It provides a way to mirror and control your Android device from a computer, offering features like screen mirroring, file transfer, and remote control of the Android device from the computer.</p>
 <br>
@@ -752,7 +824,8 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 <!--  ./adb devices <br> -->
 <!-- List of devices attached <br> -->
 <!-- db3683d8        unauthorized <br> -->
-<h3 id="scrcpy-installation-for-windows-hahahugoshortcode16s13hbhb">SCRCPY installation for Windows 
+<h2 id="scrcpy-installation-for-windows">SCRCPY installation for Windows</h2>
+
 
 
 
@@ -760,7 +833,7 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
     <img src="https://skillicons.dev/icons?i=windows" alt="Icon" style="width:50px;">
 
 
-</h3>
+
 <!-- 1. Download android <a href="https://developer.android.com/tools/releases/platform-tools#downloads" target="_blank">***`platform tools`***</a> <br> -->
 <!-- 2. extract and go inside platform-tools directory and open terminal, type: --> 
 <!-- ``` -->
@@ -768,7 +841,14 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 <!-- ``` -->
 <ol>
 <li>
-<p>download <a href="https://github.com/Genymobile/scrcpy/releases" target="_blank"><em><strong><code>SCRCPY</code></strong></em></a> Choose from Assets appropriate version mine is 64 bit so (scrcpy-win64-v2.4.zip) extract and go inside directory.</p>
+<p>download 
+
+
+
+
+<a href="https://github.com/Genymobile/scrcpy/releases" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">SCRCPY</a>
+
+. Choose from Assets appropriate version mine is windows 64 bit so (scrcpy-win64-v2.4.zip) extract and go inside directory.</p>
 </li>
 <li>
 <p>Once you&rsquo;re in the scrcpy directory, open terminal and execute the following command:</p>
@@ -1197,6 +1277,7 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
     <nav id="TableOfContents">
   <ul>
     <li><a href="#what-is-termux">What is Termux?</a></li>
+    <li><a href="#what-is-termux-api">What is Termux-api?</a></li>
     <li><a href="#what-is-ssh">What is SSH?</a></li>
     <li><a href="#ssh-to-android-phone">SSH TO ANDROID PHONE</a>
       <ul>
@@ -1207,7 +1288,7 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
         </li>
       </ul>
     </li>
-    <li><a href="#why-port-8022-and-not-22">Why port 8022 and not 22?</a></li>
+    <li><a href="#why-did-we-use-port-8022-and-not-22-for-ssh">Why did we use port 8022 and not 22 for ssh?</a></li>
     <li><a href="#termux-api-command-table">TERMUX API Command Table</a>
       <ul>
         <li>
@@ -1234,16 +1315,12 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
             <li></li>
           </ul>
         </li>
-      </ul>
-    </li>
-    <li><a href="#screensharing-via-scrcpy">SCREENSHARING via SCRCPY</a>
-      <ul>
-        <li>
+        <li><a href="#screensharing-via-scrcpy">SCREENSHARING via SCRCPY</a>
           <ul>
             <li><a href="#what-is-scrcpy">What is Scrcpy?</a></li>
-            <li><a href="#scrcpy-installation-for-windows-hahahugoshortcode16s13hbhb">SCRCPY installation for Windows HAHAHUGOSHORTCODE16s13HBHB</a></li>
           </ul>
         </li>
+        <li><a href="#scrcpy-installation-for-windows">SCRCPY installation for Windows</a></li>
       </ul>
     </li>
     <li><a href="#conclusion">Conclusion</a></li>

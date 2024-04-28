@@ -464,6 +464,8 @@
 <li><strong>Cat7 &amp; Cat7a</strong> — High-performance cables, but overkill for most applications.</li>
 <li><strong>Cat8</strong> — The latest Ethernet cable standard, supports <strong>up to 40 Gbps</strong> speeds.</li>
 </ul>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
@@ -512,6 +514,70 @@
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <br>
 <p>Ethernet Connectors:</p>
 <ul>
@@ -633,7 +699,8 @@
   }
 </style>
 
-<br>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
@@ -676,6 +743,70 @@
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <br>
 <p>The choice of Ethernet cable and connector type depends on the required data rate, cable length, and network architecture. Proper compatibility and shielding are important considerations when integrating different Ethernet components.</p>
 <br>
@@ -738,6 +869,8 @@
 
 <br>
 <h2 id="single-vs-multimode-fiber">Single vs Multimode Fiber</h2>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
@@ -784,6 +917,70 @@
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <p>Single-mode Fiber:</p>
 <ul>
 <li>Designed for long-distance communication.</li>

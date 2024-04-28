@@ -397,75 +397,167 @@
 <h2 id="the-future-80211be-and-beyond">The Future: 802.11be and Beyond</h2>
 <p>The future of WiFi is even brighter, with the introduction of 802.11be, also known as WiFi 7. This cutting-edge standard, set to be released in the coming years, promises to push the boundaries of wireless performance even further. With a maximum theoretical speed of 46 Gbps and support for up to 16x16 MIMO, 802.11be will redefine the way we experience wireless connectivity.</p>
 <p>As we look back on the evolution of WiFi, it&rsquo;s clear that the journey has been nothing short of remarkable. From the humble beginnings of 11 Mbps to the lightning-fast speeds of 46 Gbps, the advancements in WiFi technology have transformed the way we live, work, and play. The future of wireless connectivity is indeed bright, and we can&rsquo;t wait to see what the next chapter holds.</p>
-<h2 id="ieee-80211-wifi-standards-table">IEEE 802.11 Wifi Standards Table</h2>
+<h1 id="ieee-80211-wifi-standards-table">IEEE 802.11 Wifi Standards Table</h1>
+<div class="searchable-table">
+    <input type="text" class="search-input" placeholder="Search...">
 <table>
 <thead>
 <tr>
-<th>Wifi Version</th>
+<th>Wi-fi Generation</th>
 <th>WiFi Standard</th>
 <th>Frequency Range</th>
 <th>Maximum Theoretical Speed</th>
 <th>MIMO  (Multiple Input Multiple Output)</th>
+<th>Year</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td>Wifi 0</td>
+<td>802.11</td>
+<td>2.4 GHz</td>
+<td>2 Mbps</td>
+<td>No MIMO</td>
+<td>1997</td>
+</tr>
+<tr>
+<td>Wifi 1</td>
 <td>802.11b</td>
 <td>2.4 GHz</td>
 <td>11 Mbps</td>
 <td>No MIMO</td>
+<td>1999</td>
 </tr>
 <tr>
-<td>2</td>
+<td>Wifi 2</td>
 <td>802.11a</td>
 <td>5 GHz</td>
 <td>54 Mbps</td>
 <td>No MIMO</td>
+<td>1999</td>
 </tr>
 <tr>
-<td>3</td>
+<td>Wifi 3</td>
 <td>802.11g</td>
 <td>2.4 GHz</td>
 <td>54 Mbps</td>
 <td>No MIMO</td>
+<td>2003</td>
 </tr>
 <tr>
-<td>4</td>
+<td>Wifi 4</td>
 <td>802.11n</td>
 <td>2.4 GHz, 5 GHz</td>
 <td>600 Mbps</td>
 <td>Up to 4x4 MIMO</td>
+<td>2008</td>
 </tr>
 <tr>
-<td>5</td>
+<td>Wifi 5</td>
 <td>802.11ac</td>
 <td>5 GHz</td>
 <td>6.9 Gbps (6,933 Mbps)</td>
 <td>Up to 8x8 MIMO, DL MU-MIMO</td>
+<td>2014</td>
 </tr>
 <tr>
-<td>6</td>
+<td>Wifi 6</td>
 <td>802.11ax</td>
 <td>2.4 GHz, 5 GHz, 6 GHz</td>
 <td>9.6 Gbps (9,608 Mbps)</td>
 <td>Up to 8x8 MIMO, UL/DL MU-MIMO</td>
+<td>2019</td>
 </tr>
 <tr>
-<td>7</td>
+<td>Wifi 7</td>
 <td>802.11be</td>
 <td>2.4 GHz, 5 GHz, 6 GHz</td>
 <td>46 Gbps (46,000 Mbps)</td>
 <td>Up to 16x16 MIMO, UL/DL MU-MIMO</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>Wifi 8</td>
+<td>802.11bn</td>
+<td>2.4 GHz, 5 GHz, 6 GHz, 7 GHz</td>
+<td>100 Gbps</td>
+<td>Up to 42.5x42.5 MIMO, UL/DL MU-MIMO</td>
+<td>2028</td>
 </tr>
 </tbody>
 </table>
+</div>
+<style>
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding: 5px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-size: 18px;
+        width: 300px;
+        box-shadow: 0 0 2px #575757;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .searchable-table .search-input::placeholder {
+        color: black;
+        font-size: 16px;
+    }
+    @media (max-width: 632px) {
+    .search-input {
+         width: 100%;
+      }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('.search-input');
+        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
+        console.log("Table Rows:", tableRows);
+
+        searchInput.addEventListener('input', function() {
+            var searchText = this.value.trim().toLowerCase();
+            console.log("Search Text:", searchText);
+            
+            tableRows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                console.log("Row Cells:", cells);
+
+                var matchFound = Array.from(cells).some(function(cell) {
+                    return cell.textContent.toLowerCase().includes(searchText);
+                });
+                console.log("Match Found:", matchFound);
+
+                row.style.display = matchFound ? '' : 'none';
+            });
+        });
+    });
+</script>
 <br>
-<h2 id="non-overlapping-wifi-channels">Non-overlapping wifi channels</h2>
+<h2 id="non-overlapping-wifi-channels-1-6-and-11">Non-overlapping wifi channels 1, 6 and 11</h2>
 <p>Non-overlapping channels are specific channels within the Wi-Fi frequency spectrum that do not overlap with each other. This design helps to minimize interference between neighboring Wi-Fi networks operating in close proximity. In the 2.4 GHz frequency band, which is commonly used by older Wi-Fi standards such as 802.11b/g/n, there are three non-overlapping channels: <strong>channels 1, 6, and 11.</strong></p>
 <p>By configuring nearby Wi-Fi networks to operate on non-overlapping channels, network administrators can reduce co-channel interference, which occurs when signals from different networks operating on the same channel interfere with each other, degrading overall network performance.</p>
 <p>In the 5 GHz frequency band, which is utilized by newer Wi-Fi standards such as 802.11a/ac/ax, there are many more non-overlapping channels available. The exact number of non-overlapping channels in the 5 GHz band varies depending on regulatory domains and specific regional regulations.</p>
 <p>Using non-overlapping channels effectively can help optimize Wi-Fi network performance in environments with multiple access points or neighboring networks, leading to improved reliability and throughput for wireless devices.</p>
+<h2 id="optimizing-wi-fi-channels-when-traveling-us-vs-uk">Optimizing Wi-Fi Channels When Traveling: US vs. UK</h2>
+<p>In the US, Wi-Fi channels 1, 6, and 11 are ideal for minimizing interference in the 2.4 GHz band. However, in the UK, channels 12 and 13 are also options. Americans traveling to the UK should consider these additional channels for optimal Wi-Fi performance.</p>
 <!-- ## Walkthrough Video -->
 <!-- 
 
@@ -844,8 +936,12 @@
         <li><a href="#the-breakthrough-80211g-and-80211n">The Breakthrough: 802.11g and 802.11n</a></li>
         <li><a href="#the-gigabit-era-80211ac-and-80211ax">The Gigabit Era: 802.11ac and 802.11ax</a></li>
         <li><a href="#the-future-80211be-and-beyond">The Future: 802.11be and Beyond</a></li>
-        <li><a href="#ieee-80211-wifi-standards-table">IEEE 802.11 Wifi Standards Table</a></li>
-        <li><a href="#non-overlapping-wifi-channels">Non-overlapping wifi channels</a></li>
+      </ul>
+    </li>
+    <li><a href="#ieee-80211-wifi-standards-table">IEEE 802.11 Wifi Standards Table</a>
+      <ul>
+        <li><a href="#non-overlapping-wifi-channels-1-6-and-11">Non-overlapping wifi channels 1, 6 and 11</a></li>
+        <li><a href="#optimizing-wi-fi-channels-when-traveling-us-vs-uk">Optimizing Wi-Fi Channels When Traveling: US vs. UK</a></li>
       </ul>
     </li>
   </ul>
