@@ -29,5 +29,12 @@
       <guid>https://paulius.uk/posts/2024/chmod/</guid>
       <description>Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit. In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage.</description>
     </item>
+    <item>
+      <title>Bandit overthewire.org</title>
+      <link>https://paulius.uk/posts/2024/bandit-overthewire.org/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/bandit-overthewire.org/</guid>
+      <description>Level Solution Description Password Level 0 ssh bandit0@bandit.labs.overthewire.org -p 2220 ssh into server with port 2220. show pass bandit0 Level 0 → Level 1 cat readme The password for the next level is stored in a file called readme. show pass NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL Level 1 → Level 2 cat ./- The password for the next level is stored in a file called - located in the home directory. show pass rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi Level 2 → Level 3 cat &amp;ldquo;spaces in this filename&amp;rdquo; The password for the next level is stored in a file called spaces in this filename located in the home directory.</description>
+    </item>
   </channel>
 </rss>

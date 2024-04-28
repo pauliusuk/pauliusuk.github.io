@@ -217,6 +217,8 @@
           
           <a href="/categories/networking">networking</a>
           
+          <a href="/categories/configuration">configuration</a>
+          
           <a href="/categories/linux">linux</a>
           
           <a href="/categories/web-development">web development</a>
@@ -225,7 +227,11 @@
           
           <a href="/categories/android">android</a>
           
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
           <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
           
           <a href="/games">Games</a>
         </div>
@@ -360,7 +366,7 @@
 
 
 
-<a href="https://f-droid.org/en/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">f-droid</a>
+<a href="https://f-droid.org/en/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">f-droid</a>
 
 </p>
 <p>• 
@@ -368,7 +374,7 @@
 
 
 
-<a href="https://f-droid.org/en/packages/com.termux/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Termux</a>
+<a href="https://f-droid.org/en/packages/com.termux/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux</a>
 
 </p>
 <p>•
@@ -376,7 +382,7 @@
 
 
 
-<a href="https://f-droid.org/en/packages/com.termux.api/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Termux-api</a>
+<a href="https://f-droid.org/en/packages/com.termux.api/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux-api</a>
 
 </p>
 <br>
@@ -528,7 +534,7 @@ apt install x11-rep	root-repo unstable-repo</p>
 
 
 
-<a href="https://wiki.termux.com/wiki/Termux:API" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Termux:API wiki</a>
+<a href="https://wiki.termux.com/wiki/Termux:API" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux:API wiki</a>
 
 
 <p><br><br></p>
@@ -746,7 +752,7 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 <!--  ./adb devices <br> -->
 <!-- List of devices attached <br> -->
 <!-- db3683d8        unauthorized <br> -->
-<h3 id="scrcpy-installation-for-windows-hahahugoshortcode10s13hbhb">SCRCPY installation for Windows 
+<h3 id="scrcpy-installation-for-windows-hahahugoshortcode15s13hbhb">SCRCPY installation for Windows 
 
 
 
@@ -828,17 +834,20 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
   });
 </script>
 </p>
-<p><br><br>
-<div class="admonition tip"><div class="admonition-content" ><p>💡 Easy tip: Ways to retrieve your public IP address using the curl command in the command line:</p>
-<p><code>curl ifconfig.me </code>
 <br>
-or
-<br>
-<code>curl ipinfo.io/ip </code>
-<br></p>
+<!-- <div class="admonition tip"><div class="admonition-content" ><p>&ndash;&gt;</p>
+<!-- 💡 Easy tip: Ways to retrieve your public IP address using the curl command in the command line: -->
+<!-- `curl ifconfig.me -->
+<!-- ` -->
+<!-- <br> -->
+<!-- or -->
+<!-- <br> -->
+<!-- `curl ipinfo.io/ip -->
+<!-- ` -->
+<!-- <br> -->
+<!--</div>
 </div>
-</div>
-</p>
+ -->
 <h1 id="conclusion">Conclusion</h1>
 <p>Termux offers a powerful Linux environment on Android devices, enabling users to run command-line programs, SSH into their devices, and manage various tasks efficiently. With the Termux API, users can further extend the functionality by accessing shared storage, controlling device sensors, sending SMS, and more, all from the command line. Additionally, tools like SFTP, sudo for elevated privileges, and screen sharing options like SCRCPY and SSH-based methods provide comprehensive control and flexibility for Android users, bridging the gap between mobile and desktop computing. Whether you&rsquo;re a tech enthusiast or a developer, Termux opens up a world of possibilities for Android device customization and remote management.</p>
 
@@ -1232,7 +1241,7 @@ or
         <li>
           <ul>
             <li><a href="#what-is-scrcpy">What is Scrcpy?</a></li>
-            <li><a href="#scrcpy-installation-for-windows-hahahugoshortcode10s13hbhb">SCRCPY installation for Windows HAHAHUGOSHORTCODE10s13HBHB</a></li>
+            <li><a href="#scrcpy-installation-for-windows-hahahugoshortcode15s13hbhb">SCRCPY installation for Windows HAHAHUGOSHORTCODE15s13HBHB</a></li>
           </ul>
         </li>
       </ul>
@@ -1260,24 +1269,33 @@ or
 
   
   
-  <style>
-        .related {
-                border-top: 1px dashed var(--fg);
-                margin-top: 0rem;
-        }
-        </style>
+  
+    <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
 
-        <div class="related">
-                
-        </div>
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
 
-        <script src="https://utteranc.es/client.js"
-                repo=pauliusuk/comments
-                issue-term="pathname"
-                theme="github-dark"
-                crossorigin="anonymous"
-                async>
-        </script>
   
 
   

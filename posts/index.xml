@@ -6,8 +6,29 @@
     <description>Recent content in Posts on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Apr 2024 15:26:55 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
     <atom:link href="https://paulius.uk/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Automate Your GitHub Profile With Markscribe</title>
+      <link>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</link>
+      <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</guid>
+      <description>Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
+    </item>
+    <item>
+      <title>Top 10 Web Browser Extensions for Chrome and Firefox</title>
+      <link>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</link>
+      <pubDate>Sun, 28 Apr 2024 15:39:22 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</guid>
+      <description>What is an Extension/Add-on? A browser extension, often referred to as an add-on, is a small software program designed to enhance and customize the functionality of web browsers such as Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. These extensions can add new features, modify existing ones, or even block unwanted content.&#xA;Whether it&amp;rsquo;s blocking ads for a cleaner browsing experience, managing passwords securely, or accelerating downloads, browser extensions offer users a way to tailor their browsing experience to their needs and preferences.</description>
+    </item>
+    <item>
+      <title>Self host YouTube</title>
+      <link>https://paulius.uk/posts/2024/yt-local/</link>
+      <pubDate>Tue, 23 Apr 2024 22:19:39 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/yt-local/</guid>
+      <description>What is yt-local and Why would you want to install it? yt-local is a browser-based client written in Python for watching YouTube anonymously and without the lag of the slow page used by YouTube. One of the primary features is that all requests are routed through Tor, except for the video file at googlevideo.com. Tor has high latency, so this will not be as fast network-wise as regular YouTube. However, using Tor is optional; when not routing through Tor, video pages may load faster than they do with YouTube&amp;rsquo;s page depending on your browser.</description>
+    </item>
     <item>
       <title>Termux, Termux-api and SSH</title>
       <link>https://paulius.uk/posts/2024/termux-and-ssh/</link>
@@ -77,6 +98,13 @@
       <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
       <guid>https://paulius.uk/posts/2024/chmod/</guid>
       <description>Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit. In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage.</description>
+    </item>
+    <item>
+      <title>Bandit overthewire.org</title>
+      <link>https://paulius.uk/posts/2024/bandit-overthewire.org/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/posts/2024/bandit-overthewire.org/</guid>
+      <description>Level Solution Description Password Level 0 ssh bandit0@bandit.labs.overthewire.org -p 2220 ssh into server with port 2220. show pass bandit0 Level 0 → Level 1 cat readme The password for the next level is stored in a file called readme. show pass NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL Level 1 → Level 2 cat ./- The password for the next level is stored in a file called - located in the home directory. show pass rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi Level 2 → Level 3 cat &amp;ldquo;spaces in this filename&amp;rdquo; The password for the next level is stored in a file called spaces in this filename located in the home directory.</description>
     </item>
   </channel>
 </rss>

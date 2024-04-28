@@ -6,13 +6,13 @@
     <description>Recent content in GitHub on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Apr 2024 19:34:43 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
     <atom:link href="https://paulius.uk/categories/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>GitHub Readme Automation with markscribe &amp; GitHub Actions</title>
-      <link>https://paulius.uk/posts/2024/automate-your-github-profile-with-markscribe/</link>
-      <pubDate>Sat, 27 Apr 2024 19:34:43 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/automate-your-github-profile-with-markscribe/</guid>
+      <title>How to Automate Your GitHub Profile With Markscribe</title>
+      <link>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</link>
+      <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</guid>
       <description>Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
     </item>
   </channel>

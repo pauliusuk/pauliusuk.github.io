@@ -6,8 +6,50 @@
     <description>Recent content in Tags on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Apr 2024 15:26:55 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
     <atom:link href="https://paulius.uk/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github</title>
+      <link>https://paulius.uk/tags/github/</link>
+      <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
+      <guid>https://paulius.uk/tags/github/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Workflow</title>
+      <link>https://paulius.uk/tags/workflow/</link>
+      <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
+      <guid>https://paulius.uk/tags/workflow/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Chrome</title>
+      <link>https://paulius.uk/tags/chrome/</link>
+      <pubDate>Sun, 28 Apr 2024 15:39:22 +0100</pubDate>
+      <guid>https://paulius.uk/tags/chrome/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Firefox</title>
+      <link>https://paulius.uk/tags/firefox/</link>
+      <pubDate>Sun, 28 Apr 2024 15:39:22 +0100</pubDate>
+      <guid>https://paulius.uk/tags/firefox/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Self-Host</title>
+      <link>https://paulius.uk/tags/self-host/</link>
+      <pubDate>Tue, 23 Apr 2024 22:19:39 +0100</pubDate>
+      <guid>https://paulius.uk/tags/self-host/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows</title>
+      <link>https://paulius.uk/tags/windows/</link>
+      <pubDate>Tue, 23 Apr 2024 22:19:39 +0100</pubDate>
+      <guid>https://paulius.uk/tags/windows/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Android</title>
       <link>https://paulius.uk/tags/android/</link>
@@ -58,13 +100,6 @@
       <description></description>
     </item>
     <item>
-      <title>Windows</title>
-      <link>https://paulius.uk/tags/windows/</link>
-      <pubDate>Sun, 31 Mar 2024 18:30:32 +0100</pubDate>
-      <guid>https://paulius.uk/tags/windows/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Css</title>
       <link>https://paulius.uk/tags/css/</link>
       <pubDate>Thu, 28 Mar 2024 20:41:34 +0000</pubDate>
@@ -90,6 +125,20 @@
       <link>https://paulius.uk/tags/linux/</link>
       <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
       <guid>https://paulius.uk/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cyber</title>
+      <link>https://paulius.uk/tags/cyber/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/tags/cyber/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Overthewire.org</title>
+      <link>https://paulius.uk/tags/overthewire.org/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/tags/overthewire.org/</guid>
       <description></description>
     </item>
   </channel>

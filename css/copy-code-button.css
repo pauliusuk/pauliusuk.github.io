@@ -139,7 +139,12 @@
   color: white;
 }
 
-.highlight pre code[class*='language-yml']::before,
+.highlight pre code[class*='language-yml']::before {
+  content: 'yml';
+  background: #f71e6a;
+  color: white;
+}
+
 .highlight pre code[class*='language-yaml']::before {
   content: 'yaml';
   background: #f71e6a;
@@ -179,9 +184,9 @@
   color: #080808;
 }
 
-.highlight pre code[class*='language-md']::before,
+.highlight pre code[class*='language-markdown']::before,
 .highlight pre code[class*='language-md']::before {
-  content: 'Markdown';
+  content: 'md';
   background: royalblue;
   color: whitesmoke;
 }

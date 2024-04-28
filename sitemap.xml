@@ -2,17 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://paulius.uk/</loc>
-    <lastmod>2024-04-23T22:19:39+01:00</lastmod>
-  </url><url>
-    <loc>https://paulius.uk/posts/</loc>
-    <lastmod>2024-04-23T22:19:39+01:00</lastmod>
-  </url><url>
     <loc>https://paulius.uk/authors/paulius/</loc>
-    <lastmod>2024-04-17T15:26:55+01:00</lastmod>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
   </url><url>
     <loc>https://paulius.uk/years/2024/</loc>
-    <lastmod>2024-04-17T15:26:55+01:00</lastmod>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/authors/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/categories/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/github/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/categories/github/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/posts/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/workflow/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/years/</loc>
+    <lastmod>2024-04-28T15:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/chrome/</loc>
+    <lastmod>2024-04-28T15:39:22+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/categories/configuration/</loc>
+    <lastmod>2024-04-28T15:39:22+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/firefox/</loc>
+    <lastmod>2024-04-28T15:39:22+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</loc>
+    <lastmod>2024-04-28T15:39:22+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/posts/2024/yt-local/</loc>
+    <lastmod>2024-04-23T22:19:39+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/self-host/</loc>
+    <lastmod>2024-04-23T22:19:39+01:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/windows/</loc>
+    <lastmod>2024-04-23T22:19:39+01:00</lastmod>
   </url><url>
     <loc>https://paulius.uk/tags/android/</loc>
     <lastmod>2024-04-17T15:26:55+01:00</lastmod>
@@ -20,22 +65,10 @@
     <loc>https://paulius.uk/categories/android/</loc>
     <lastmod>2024-04-17T15:26:55+01:00</lastmod>
   </url><url>
-    <loc>https://paulius.uk/authors/</loc>
-    <lastmod>2024-04-17T15:26:55+01:00</lastmod>
-  </url><url>
-    <loc>https://paulius.uk/categories/</loc>
-    <lastmod>2024-04-17T15:26:55+01:00</lastmod>
-  </url><url>
-    <loc>https://paulius.uk/tags/</loc>
-    <lastmod>2024-04-17T15:26:55+01:00</lastmod>
-  </url><url>
     <loc>https://paulius.uk/tags/termux/</loc>
     <lastmod>2024-04-17T15:26:55+01:00</lastmod>
   </url><url>
     <loc>https://paulius.uk/posts/2024/termux-and-ssh/</loc>
-    <lastmod>2024-04-17T15:26:55+01:00</lastmod>
-  </url><url>
-    <loc>https://paulius.uk/years/</loc>
     <lastmod>2024-04-17T15:26:55+01:00</lastmod>
   </url><url>
     <loc>https://paulius.uk/tags/docker/</loc>
@@ -80,9 +113,6 @@
     <loc>https://paulius.uk/tags/ports/</loc>
     <lastmod>2024-04-04T02:27:31+01:00</lastmod>
   </url><url>
-    <loc>https://paulius.uk/tags/windows/</loc>
-    <lastmod>2024-03-31T18:30:32+01:00</lastmod>
-  </url><url>
     <loc>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</loc>
     <lastmod>2024-03-31T18:30:32+01:00</lastmod>
   </url><url>
@@ -118,6 +148,18 @@
   </url><url>
     <loc>https://paulius.uk/tags/linux/</loc>
     <lastmod>2024-03-09T14:15:12+00:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/posts/2024/bandit-overthewire.org/</loc>
+    <lastmod>2024-03-07T16:12:50+00:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/cyber/</loc>
+    <lastmod>2024-03-07T16:12:50+00:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/categories/cybersecurity/</loc>
+    <lastmod>2024-03-07T16:12:50+00:00</lastmod>
+  </url><url>
+    <loc>https://paulius.uk/tags/overthewire.org/</loc>
+    <lastmod>2024-03-07T16:12:50+00:00</lastmod>
   </url><url>
     <loc>https://paulius.uk/contact/</loc>
   </url>

@@ -6,8 +6,22 @@
     <description>Recent content in Categories on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Apr 2024 15:26:55 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
     <atom:link href="https://paulius.uk/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHub</title>
+      <link>https://paulius.uk/categories/github/</link>
+      <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
+      <guid>https://paulius.uk/categories/github/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Configuration</title>
+      <link>https://paulius.uk/categories/configuration/</link>
+      <pubDate>Sun, 28 Apr 2024 15:39:22 +0100</pubDate>
+      <guid>https://paulius.uk/categories/configuration/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Android</title>
       <link>https://paulius.uk/categories/android/</link>
@@ -48,6 +62,13 @@
       <link>https://paulius.uk/categories/web-development/</link>
       <pubDate>Thu, 28 Mar 2024 20:41:34 +0000</pubDate>
       <guid>https://paulius.uk/categories/web-development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cybersecurity</title>
+      <link>https://paulius.uk/categories/cybersecurity/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://paulius.uk/categories/cybersecurity/</guid>
       <description></description>
     </item>
   </channel>

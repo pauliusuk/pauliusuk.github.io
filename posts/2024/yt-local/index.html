@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <title>Self Host YouTube | Paulius.uk</title>
-  <link rel="canonical" href="http://localhost:1313/">
+  <link rel="canonical" href="https://paulius.uk/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -217,6 +217,8 @@
           
           <a href="/categories/networking">networking</a>
           
+          <a href="/categories/configuration">configuration</a>
+          
           <a href="/categories/linux">linux</a>
           
           <a href="/categories/web-development">web development</a>
@@ -225,11 +227,11 @@
           
           <a href="/categories/android">android</a>
           
-          <a href="/categories/configuration">configuration</a>
-          
           <a href="/categories/cybersecurity">cybersecurity</a>
           
           <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
           
           <a href="/games">Games</a>
         </div>
@@ -274,7 +276,7 @@
 
         <div class="authorDetails">
           
-          <a href="http://localhost:1313/authors/paulius/">
+          <a href="https://paulius.uk/authors/paulius/">
             
             <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
           </a>
@@ -282,13 +284,13 @@
 
         <div class="singleAuthor">
           
-          <a href="http://localhost:1313/authors/paulius/"> Paulius</a>
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
           
         </div>
 
 
         
-        <a href="http://localhost:1313/categories/configuration/" class="singleCategory">Configuration</a>
+        <a href="https://paulius.uk/categories/configuration/" class="singleCategory">Configuration</a>
          &nbsp;
 
         
@@ -362,17 +364,18 @@
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">git clone https://git.sr.ht/~heckyel/yt-local</span></span></code></pre></div>
-<p>or <br>
-Download directly from the source:
-<a href="https://git.sr.ht/~heckyel/yt-local" target="_blank" style="font-family: monospace; text-decoration: underline #3395FF 2px; font-weight: 700;">heckyel&rsquo;s website</a></p>
+<p>or if you dont have git installed,<br></p>
+<p>Then download latest release .tar.gz save it to your download&rsquo;s folder extract and rename it to yt-local:
+<a href="https://git.sr.ht/~heckyel/yt-local/refs" target="_blank" style="font-family: monospace; text-decoration: underline #3395FF 2px; font-weight: 700;">heckyel&rsquo;s website</a></p>
 <h2 id="step-2">STEP 2</h2>
 <p>Commands to run in the Terminal. I&rsquo;m on Windows, so I&rsquo;ll be using PowerShell.
 <br>1.<br>
 <code>cd yt-local</code>
 <br>2.<br>
-<code>python -m venv venv</code>              or: <code>virtualenv -p python3 venv</code>
+<code>python -m venv venv</code> <br> or: <code>virtualenv -p python3 venv</code>
 <br>3.<br>
-<code>.\venv\Scripts\activate</code>      or: <code>source venv/bin/activate</code>
+<code>.\venv\Scripts\activate</code> <br>
+or: <code>source venv/bin/activate</code>
 <br>4.<br>
 <code>pip install -r requirements.txt</code>
 <br>5.<br>
@@ -498,24 +501,44 @@ Download directly from the source:
 <br>
 <h1 id="step-4-redirector-optional-but-recommended">STEP 4 <strong>Redirector</strong> (OPTIONAL but Recommended)</h1>
 <h3 id="donwload-and-set-up-redirector-extension">Donwload and Set up Redirector extension:</h3>
-<h4 id="-redirector-is-an-extension-that-redirects-all-youtube-links-to-a-locally-hosted-youtube-yt-local">↪️ Redirector is an extension that redirects all YouTube links to a locally hosted YouTube (yt-local).</h4>
-<p>Download Redirector for Chrome:</p>
+<h4 id="-redirector-is-an-extension-that-redirects-all-youtube-links-to-a-locally-hosted-youtube-yt-local-download-extension-for-your-browser">↪️ Redirector is an extension that redirects all YouTube links to a locally hosted YouTube (yt-local). Download extension for your browser:</h4>
 <p>• 
 
 
 
 
-<a href="https://chromewebstore.google.com/detail/redirector/ocgpenflpmgnfapjedencafcfakcekcd" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Chrome&#39;s Redirector Extension</a>
+
+
+<a href="https://chromewebstore.google.com/detail/redirector/ocgpenflpmgnfapjedencafcfakcekcd" target="_blank" style="text-decoration: none;">
+    <span style="font-family: var(--mono-font);font-style: normal; text-decoration: underline yellow 2px; font-weight: 600; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Chrome&#39;s Redirector Extension</span>
+    <img src="/images/top10/chromestore.webp" alt="Chrome&#39;s Redirector Extension" style="width: 20px; margin-left: 5px;">
+</a>
 
 </p>
-<br>
-<p>Download Redirector for Firefox:</p>
 <p>• 
 
 
 
 
-<a href="https://addons.mozilla.org/en-GB/firefox/addon/redirector/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Firefox&#39;s Redirector Extension</a>
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/redirector/" target="_blank" style="text-decoration: none;">
+    <span style="font-family: var(--mono-font);font-style: normal; text-decoration: underline yellow 2px; font-weight: 600; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Firefox&#39;s Redirector Extension</span>
+    <img src="/images/top10/firefox.webp" alt="Firefox&#39;s Redirector Extension" style="width: 20px; margin-left: 5px;">
+</a>
+
+</p>
+<p>• 
+
+
+
+
+
+
+<a href="https://microsoftedge.microsoft.com/addons/detail/redirector/jdhdjbcalnfbmfdpfggcogaegfcjdcfp" target="_blank" style="text-decoration: none;">
+    <span style="font-family: var(--mono-font);font-style: normal; text-decoration: underline yellow 2px; font-weight: 600; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Edge&#39;s Redirector Extension</span>
+    <img src="/images/top10/edge.webp" alt="Edge&#39;s Redirector Extension" style="width: 20px; margin-left: 5px;">
+</a>
 
 </p>
 <br>
@@ -613,9 +636,9 @@ Download directly from the source:
   <div class="singleTags">
     <span class="tagsText">Tags:&nbsp;</span>
     
-    <a href="http://localhost:1313/tags/windows/" class="singleTag">#windows</a>
+    <a href="https://paulius.uk/tags/windows/" class="singleTag">#windows</a>
     
-    <a href="http://localhost:1313/tags/self-host/" class="singleTag">#self-host</a>
+    <a href="https://paulius.uk/tags/self-host/" class="singleTag">#self-host</a>
     
   </div>
   
@@ -1002,24 +1025,33 @@ Download directly from the source:
 
   
   
-  <style>
-        .related {
-                border-top: 1px dashed var(--fg);
-                margin-top: 0rem;
-        }
-        </style>
+  
+    <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
 
-        <div class="related">
-                
-        </div>
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
 
-        <script src="https://utteranc.es/client.js"
-                repo=pauliusuk/comments
-                issue-term="pathname"
-                theme="github-dark"
-                crossorigin="anonymous"
-                async>
-        </script>
   
 
   

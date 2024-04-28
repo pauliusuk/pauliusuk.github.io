@@ -217,6 +217,8 @@
           
           <a href="/categories/networking">networking</a>
           
+          <a href="/categories/configuration">configuration</a>
+          
           <a href="/categories/linux">linux</a>
           
           <a href="/categories/web-development">web development</a>
@@ -225,7 +227,11 @@
           
           <a href="/categories/android">android</a>
           
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
           <a href="/categories/docker">docker</a>
+          
+          <a href="/categories/github">github</a>
           
           <a href="/games">Games</a>
         </div>
@@ -495,7 +501,29 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="p">{{</span> <span class="k">if</span> <span class="p">(</span><span class="nx">findRE</span> <span class="s">&#34;&lt;pre&#34;</span> <span class="p">.</span><span class="nx">Content</span> <span class="mi">1</span><span class="p">)</span> <span class="p">}}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="p">=</span><span class="s">&#34;/js/copy-code-button.js&#34;</span><span class="p">&gt;&lt;</span><span class="o">/</span><span class="nx">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span></span></span></code></pre></div>
-<!-- ### 4. Usage -->
+<h3 id="4-usage">4. usage</h3>
+<p>Hugo will automatically add copy button when you use code fences. <br><br>
+Example:<br>
+```cmd <br>
+your code goes here <br>
+``` <br>
+<br>
+<p>
+<p>Check out HUGO doc for: <br>
+
+
+
+
+
+  <a href="https://gohugo.io/documentation/" target="_blank">
+
+    <img src="https://www.svgrepo.com/show/376327/hugo.svg" alt="Icon" style="width:20px;">
+
+  </a>
+
+
+ <a href="https://gohugo.io/content-management/syntax-highlighting/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Hugo Syntax highlighting</a></p>
+</p>
 <!-- ## Walkthrough Video -->
 <!-- 
 
@@ -873,6 +901,7 @@
             <li><a href="#1-lets-create-css-file-in-staticcsscopy-code-buttoncss">1. Let&rsquo;s create css file in /static/css/copy-code-button.css:</a></li>
             <li><a href="#2-now-lets-create-a-javascript-file-called-copy-code-buttonjs-in-staticjscopy-code-buttonjs">2. Now let&rsquo;s create a javascript file called: copy-code-button.js in /static/js/copy-code-button.js</a></li>
             <li><a href="#3-finally-lets-add-our-go-command-to-our-layouts_defaultbaseofhtml-for-it-to-lazy-load">3. Finally lets add our <code>Go</code> command to our /layouts/_default/baseof.html for it to lazy load.</a></li>
+            <li><a href="#4-usage">4. usage</a></li>
           </ul>
         </li>
       </ul>
@@ -899,24 +928,33 @@
 
   
   
-  <style>
-        .related {
-                border-top: 1px dashed var(--fg);
-                margin-top: 0rem;
-        }
-        </style>
+  
+    <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
+            data-repo="pauliusuk/giscus-comments"
+            data-repo-id="R_kgDOLy0CjA"
+            data-category="General"
+            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_protanopia"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script></div>
 
-        <div class="related">
-                
-        </div>
+<style>
+@media (max-width: 624px) {
+    .giscusContainer {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+</style>
 
-        <script src="https://utteranc.es/client.js"
-                repo=pauliusuk/comments
-                issue-term="pathname"
-                theme="github-dark"
-                crossorigin="anonymous"
-                async>
-        </script>
   
 
   
