@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Games on Paulius.uk</title>
-    <link>https://paulius.uk/games/</link>
+    <link>http://localhost:1313/games/</link>
     <description>Recent content in Games on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 20 Mar 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://paulius.uk/games/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/games/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Drum Kit</title>
-      <link>https://paulius.uk/games/drum-kit/</link>
+      <link>http://localhost:1313/games/drum-kit/</link>
       <pubDate>Wed, 20 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/games/drum-kit/</guid>
+      <guid>http://localhost:1313/games/drum-kit/</guid>
       <description>Play Drum Kit Game</description>
     </item>
     <item>
       <title>Simon</title>
-      <link>https://paulius.uk/games/memory-game/</link>
+      <link>http://localhost:1313/games/memory-game/</link>
       <pubDate>Wed, 20 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/games/memory-game/</guid>
+      <guid>http://localhost:1313/games/memory-game/</guid>
       <description>Play Drum Kit Game</description>
     </item>
   </channel>

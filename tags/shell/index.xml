@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shell on Paulius.uk</title>
-    <link>https://paulius.uk/tags/shell/</link>
+    <link>http://localhost:1313/tags/shell/</link>
     <description>Recent content in Shell on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Apr 2024 12:55:56 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing Docker Containers</title>
-      <link>https://paulius.uk/posts/2024/managing-docker-containers/</link>
+      <link>http://localhost:1313/posts/2024/managing-docker-containers/</link>
       <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/managing-docker-containers/</guid>
+      <guid>http://localhost:1313/posts/2024/managing-docker-containers/</guid>
       <description>Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more. Here&amp;rsquo;s a comprehensive guide to Docker management from cleanup to creation.&#xA;Table of Contents&#xA;1. Removing Docker Containers, Images, and Volumes&#xA;2. Creating Docker Images&#xA;3. Initializing Docker Projects&#xA;4. Using Docker Compose&#xA;Removing Docker Containers, Images, and Volumes If you&amp;rsquo;re looking to clean up your Docker environment by removing containers, images, and volumes, using the command line, here&amp;rsquo;s how you can do it:</description>
     </item>
     <item>
       <title>Networking Commands and Troubleshooting</title>
-      <link>https://paulius.uk/posts/2024/network-commands/</link>
+      <link>http://localhost:1313/posts/2024/network-commands/</link>
       <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/network-commands/</guid>
+      <guid>http://localhost:1313/posts/2024/network-commands/</guid>
       <description>Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, and managing network-related issues on both Windows and Linux systems. Here, we&amp;rsquo;ll explore some commonly used networking commands and their usage on both platforms, as well as troubleshooting steps to resolve common network problems.&#xA;Network Troubleshooting Steps Check Hardware Use ipconfig (or ifconfig) Use ping and tracert (traceroute) Perform DNS check Check for Virus/Malware Review Database Logs Contact ISP (Internet Service Provider) Additional Steps:</description>
     </item>
     <item>
       <title>Exploring Linux &#34;chmod&#34; commands</title>
-      <link>https://paulius.uk/posts/2024/chmod/</link>
+      <link>http://localhost:1313/posts/2024/chmod/</link>
       <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
-      <guid>https://paulius.uk/posts/2024/chmod/</guid>
+      <guid>http://localhost:1313/posts/2024/chmod/</guid>
       <description>Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit. In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage.</description>
     </item>
     <item>
       <title>Bandit overthewire.org</title>
-      <link>https://paulius.uk/posts/2024/bandit-overthewire.org/</link>
+      <link>http://localhost:1313/posts/2024/bandit-overthewire.org/</link>
       <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
-      <guid>https://paulius.uk/posts/2024/bandit-overthewire.org/</guid>
+      <guid>http://localhost:1313/posts/2024/bandit-overthewire.org/</guid>
       <description>Level Solution Description Password Level 0 ssh bandit0@bandit.labs.overthewire.org -p 2220 ssh into server with port 2220. show pass bandit0 Level 0 → Level 1 cat readme The password for the next level is stored in a file called readme. show pass NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL Level 1 → Level 2 cat ./- The password for the next level is stored in a file called - located in the home directory. show pass rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi Level 2 → Level 3 cat &amp;ldquo;spaces in this filename&amp;rdquo; The password for the next level is stored in a file called spaces in this filename located in the home directory.</description>
     </item>
   </channel>

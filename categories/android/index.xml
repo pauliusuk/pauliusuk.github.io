@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android on Paulius.uk</title>
-    <link>https://paulius.uk/categories/android/</link>
+    <link>http://localhost:1313/categories/android/</link>
     <description>Recent content in Android on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Apr 2024 15:26:55 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/android/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Termux, Termux-api and SSH</title>
-      <link>https://paulius.uk/posts/2024/termux-and-ssh/</link>
+      <link>http://localhost:1313/posts/2024/termux-and-ssh/</link>
       <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/termux-and-ssh/</guid>
+      <guid>http://localhost:1313/posts/2024/termux-and-ssh/</guid>
       <description>What is Termux? Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.&#xA;What is SSH? SSH stands for Secure Shell. It is a cryptographic network protocol that allows secure communication between two devices over an insecure network.</description>
     </item>
   </channel>

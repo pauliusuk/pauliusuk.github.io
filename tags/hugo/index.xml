@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo on Paulius.uk</title>
-    <link>https://paulius.uk/tags/hugo/</link>
+    <link>http://localhost:1313/tags/hugo/</link>
     <description>Recent content in Hugo on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 12 Mar 2024 18:32:12 +0000</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Add a Copy Code Button to Hugo Static Website?</title>
-      <link>https://paulius.uk/posts/2024/how-to-add-copy-button-to-hugo-site/</link>
+      <link>http://localhost:1313/posts/2024/how-to-add-copy-button-to-hugo-site/</link>
       <pubDate>Tue, 12 Mar 2024 18:32:12 +0000</pubDate>
-      <guid>https://paulius.uk/posts/2024/how-to-add-copy-button-to-hugo-site/</guid>
+      <guid>http://localhost:1313/posts/2024/how-to-add-copy-button-to-hugo-site/</guid>
       <description>How to add a copy-button to your Hugo static website? 1. Let&amp;rsquo;s create css file in /static/css/copy-code-button.css: .highlight-wrapper { display: block; } .highlight-wrapper .lntd pre { padding: 0; } .chroma .lntd pre { border: 0px solid #ccc; padding-right: 0px; padding-left: 0px; padding-top: 30px; padding-bottom: 18px; } .highlight { position: relative; z-index: 0; padding: 0; margin: 25px 0px 40px 0px; border-radius: 4px; } .highlight&amp;gt;.chroma { font-size: 85%; line-height: 25px; /* padding-left: 40px; */ margin-bottom: 30px; position: static; z-index: 1; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; overflow: auto; } .</description>
     </item>
   </channel>

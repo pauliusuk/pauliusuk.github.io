@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on Paulius.uk</title>
-    <link>https://paulius.uk/tags/docker/</link>
+    <link>http://localhost:1313/tags/docker/</link>
     <description>Recent content in Docker on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Apr 2024 12:55:56 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing Docker Containers</title>
-      <link>https://paulius.uk/posts/2024/managing-docker-containers/</link>
+      <link>http://localhost:1313/posts/2024/managing-docker-containers/</link>
       <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/managing-docker-containers/</guid>
+      <guid>http://localhost:1313/posts/2024/managing-docker-containers/</guid>
       <description>Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more. Here&amp;rsquo;s a comprehensive guide to Docker management from cleanup to creation.&#xA;Table of Contents&#xA;1. Removing Docker Containers, Images, and Volumes&#xA;2. Creating Docker Images&#xA;3. Initializing Docker Projects&#xA;4. Using Docker Compose&#xA;Removing Docker Containers, Images, and Volumes If you&amp;rsquo;re looking to clean up your Docker environment by removing containers, images, and volumes, using the command line, here&amp;rsquo;s how you can do it:</description>
     </item>
   </channel>
