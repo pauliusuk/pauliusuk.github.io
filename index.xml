@@ -13,7 +13,7 @@
       <link>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</link>
       <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
       <guid>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</guid>
-      <description>Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
+      <description>see generated README.md ↓&#xA;Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
     </item>
     <item>
       <title>Top 10 Web Browser Extensions for Chrome and Firefox</title>
