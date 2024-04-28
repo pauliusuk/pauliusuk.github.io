@@ -19,33 +19,6 @@
   <link rel="stylesheet" href="/css/admonition.css">
   <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
   <link rel="stylesheet" href="/css/copy-code-button.css">
-  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <link rel="icon" href="/images/icon.ico" />
   <title>Termux, Termux-api and SSH</title>
 </head>
@@ -258,8 +231,6 @@
           
           <a href="/categories/docker">docker</a>
           
-          <a href="/categories/github">github</a>
-          
           <a href="/games">Games</a>
         </div>
       </div>
@@ -336,7 +307,7 @@
         <div class="minRead">
           <i class="fa-solid fa-book-open"></i>
           </svg>
-          6 min read
+          5 min read
         </div>
 
       </div>
@@ -383,10 +354,6 @@
 </p>
 <h1 id="what-is-termux">What is Termux?</h1>
 <p>Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.</p>
-<br>
-<h1 id="what-is-termux-api">What is Termux-api?</h1>
-<p>Termux-api is a python module to access the termux-api This provides a way to get native access in Python to Android device functionality as API. Most of the termux-api implementations are directly available.</p>
-<br>
 <h1 id="what-is-ssh">What is SSH?</h1>
 <p>SSH stands for Secure Shell. It is a cryptographic network protocol that allows secure communication between two devices over an insecure network. SSH is commonly used for remote login to a server or computer, allowing users to access a command-line interface and execute commands on a remote machine securely.</p>
 <br>
@@ -397,7 +364,7 @@
 
 
 
-<a href="https://f-droid.org/en/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">f-droid</a>
+<a href="https://f-droid.org/en/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">f-droid</a>
 
 </p>
 <p>• 
@@ -405,7 +372,7 @@
 
 
 
-<a href="https://f-droid.org/en/packages/com.termux/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux</a>
+<a href="https://f-droid.org/en/packages/com.termux/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Termux</a>
 
 </p>
 <p>•
@@ -413,7 +380,7 @@
 
 
 
-<a href="https://f-droid.org/en/packages/com.termux.api/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux-api</a>
+<a href="https://f-droid.org/en/packages/com.termux.api/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Termux-api</a>
 
 </p>
 <br>
@@ -497,15 +464,13 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?</li>
   });
 </script>
 </p>
-<h1 id="why-did-we-use-port-8022-and-not-22">Why did we use port 8022 and not 22?</h1>
+<h1 id="why-port-8022-and-not-22">Why port 8022 and not 22?</h1>
 <p>Port 8022 is not the default SSH port, which is 22. Changing the SSH port from the default 22 to a different port, like 8022, can be a security measure. Using a non-standard port can make it harder for unauthorized users or automated bots to find and potentially exploit your SSH server.</p>
 <br>
 <h1 id="termux-api-command-table">TERMUX API Command Table</h1>
 <p>additional dependencies:<br>
 apt install x11-rep	root-repo unstable-repo</p>
 <p>Let&rsquo;s see what commands we can run using Termux API:</p>
-<div class="searchable-table">
-    <input type="text" class="search-input" placeholder="Search... ">
 <table>
 <thead>
 <tr>
@@ -560,70 +525,6 @@ apt install x11-rep	root-repo unstable-repo</p>
 </tr>
 </tbody>
 </table>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var searchInput = document.querySelector('.search-input');
-        var tableRows = document.querySelectorAll('.searchable-table tbody tr');
-        console.log("Table Rows:", tableRows);
-
-        searchInput.addEventListener('input', function() {
-            var searchText = this.value.trim().toLowerCase();
-            console.log("Search Text:", searchText);
-            
-            tableRows.forEach(function(row) {
-                var cells = row.querySelectorAll('td');
-                console.log("Row Cells:", cells);
-
-                var matchFound = Array.from(cells).some(function(cell) {
-                    return cell.textContent.toLowerCase().includes(searchText);
-                });
-                console.log("Match Found:", matchFound);
-
-                row.style.display = matchFound ? '' : 'none';
-            });
-        });
-    });
-</script>
-<style>
-    .search-container {
-        position: relative;
-    }
-
-    .search-input {
-        padding: 5px 15px;
-        border: none;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: var(--text);
-        font-size: 18px;
-        width: 300px;
-        box-shadow: 0 0 2px #575757;
-        transition: box-shadow 0.3s ease;
-    }
-
-    .search-input:focus {
-        outline: none;
-    }
-
-     
-    .search-input::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .search-input:focus::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    .searchable-table .search-input::placeholder {
-        color: black;
-        font-size: 16px;
-    }
-    @media (max-width: 632px) {
-    .search-input {
-         width: 100%;
-      }
-    }
-</style>
 <h3 id="additional-termux-api-implementations">Additional Termux API implementations:</h3>
 <p>You can find additional information and full list of termux api commands on the official page of the Termux API:</p>
 
@@ -631,7 +532,7 @@ apt install x11-rep	root-repo unstable-repo</p>
 
 
 
-<a href="https://wiki.termux.com/wiki/Termux:API" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">Termux:API wiki</a>
+<a href="https://wiki.termux.com/wiki/Termux:API" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Termux:API wiki</a>
 
 
 <p><br><br></p>
@@ -648,15 +549,10 @@ sftp://192.168.1.228:8022/      <br><br>
 <br>
 <ul>
 <li>using client: <br>
-FileZilla is one of the most popular SFTP clients, known for its user-friendly interface and robust features. It supports secure file transfers via SFTP, making it a preferred choice for both beginners and professionals. <br>
-•
-
-
-
-
-<a href="https://filezilla-project.org/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">filezilla</a>
-
-</li>
+FileZilla is one of the most popular SFTP clients, known for its user-friendly interface and robust features. It supports secure file transfers via SFTP, making it a preferred choice for both beginners and professionals.</li>
+</ul>
+<ul>
+<li><a href="https://filezilla-project.org/">filezilla</a></li>
 </ul>
 <p><br><br></p>
 <h1 id="sudo-termux">SUDO TERMUX</h1>
@@ -854,7 +750,7 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 <!--  ./adb devices <br> -->
 <!-- List of devices attached <br> -->
 <!-- db3683d8        unauthorized <br> -->
-<h3 id="scrcpy-installation-for-windows-hahahugoshortcode13s15hbhb">SCRCPY installation for Windows 
+<h3 id="scrcpy-installation-for-windows-hahahugoshortcode12s13hbhb">SCRCPY installation for Windows 
 
 
 
@@ -938,11 +834,11 @@ FileZilla is one of the most popular SFTP clients, known for its user-friendly i
 </p>
 <p><br><br>
 <div class="admonition tip"><div class="admonition-content" ><p>💡 Easy tip: Ways to retrieve your public IP address using the curl command in the command line:</p>
-<p><code>curl ifconfig.me </code>
+<p><code>curl ifconfig.me </code>
 <br>
 or
 <br>
-<code>curl ipinfo.io/ip </code>
+<code>curl ipinfo.io/ip </code>
 <br></p>
 </div>
 </div>
@@ -1296,7 +1192,6 @@ or
     <nav id="TableOfContents">
   <ul>
     <li><a href="#what-is-termux">What is Termux?</a></li>
-    <li><a href="#what-is-termux-api">What is Termux-api?</a></li>
     <li><a href="#what-is-ssh">What is SSH?</a></li>
     <li><a href="#ssh-to-android-phone">SSH TO ANDROID PHONE</a>
       <ul>
@@ -1307,7 +1202,7 @@ or
         </li>
       </ul>
     </li>
-    <li><a href="#why-did-we-use-port-8022-and-not-22">Why did we use port 8022 and not 22?</a></li>
+    <li><a href="#why-port-8022-and-not-22">Why port 8022 and not 22?</a></li>
     <li><a href="#termux-api-command-table">TERMUX API Command Table</a>
       <ul>
         <li>
@@ -1341,7 +1236,7 @@ or
         <li>
           <ul>
             <li><a href="#what-is-scrcpy">What is Scrcpy?</a></li>
-            <li><a href="#scrcpy-installation-for-windows-hahahugoshortcode13s15hbhb">SCRCPY installation for Windows HAHAHUGOSHORTCODE13s15HBHB</a></li>
+            <li><a href="#scrcpy-installation-for-windows-hahahugoshortcode12s13hbhb">SCRCPY installation for Windows HAHAHUGOSHORTCODE12s13HBHB</a></li>
           </ul>
         </li>
       </ul>
@@ -1369,34 +1264,24 @@ or
 
   
   
-  
-  
-  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
-            data-repo="pauliusuk/giscus-comments"
-            data-repo-id="R_kgDOLy0CjA"
-            data-category="General"
-            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
-            data-mapping="pathname"
-            data-strict="1"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="dark_protanopia"
-            data-lang="en"
-            data-loading="lazy"
-            crossorigin="anonymous"
-            async>
-        </script></div>
+  <style>
+        .related {
+                border-top: 1px dashed var(--fg);
+                margin-top: 0rem;
+        }
+        </style>
 
-<style>
-@media (max-width: 624px) {
-    .giscusContainer {
-        padding-left: 4px;
-        padding-right: 4px;
-    }
-}
-</style>
+        <div class="related">
+                
+        </div>
 
+        <script src="https://utteranc.es/client.js"
+                repo=pauliusuk/comments
+                issue-term="pathname"
+                theme="github-dark"
+                crossorigin="anonymous"
+                async>
+        </script>
   
 
   

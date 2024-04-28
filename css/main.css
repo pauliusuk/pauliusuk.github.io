@@ -822,9 +822,9 @@ a {
 }
 
 @media (max-width: 368px) {
-  /* .container { */
+  .container {
     /* max-width: 475px; */
-  /* } */
+  }
 
   .listItem {
     margin-top: 170px;

@@ -6,35 +6,28 @@
     <description>Recent content on Paulius.uk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Apr 2024 19:34:43 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 23 Apr 2024 22:19:39 +0100</lastBuildDate>
     <atom:link href="https://paulius.uk/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>GitHub Readme Automation with markscribe &amp; GitHub Actions</title>
-      <link>https://paulius.uk/posts/2024/automate-your-github-profile-with-markscribe/</link>
-      <pubDate>Sat, 27 Apr 2024 19:34:43 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/automate-your-github-profile-with-markscribe/</guid>
-      <description>Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
-    </item>
-    <item>
-      <title>Top 10 Web-Browser Extensions for Chrome and Firefox</title>
-      <link>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</link>
-      <pubDate>Wed, 24 Apr 2024 13:15:38 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/top-10-web-browser-extensions-for-chrome-and-firefox/</guid>
-      <description>What is an Extension/Add-on? A browser extension, often referred to as an add-on, is a small software program designed to enhance and customize the functionality of web browsers such as Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. These extensions can add new features, modify existing ones, or even block unwanted content.&#xA;Whether it&amp;rsquo;s blocking ads for a cleaner browsing experience, managing passwords securely, or accelerating downloads, browser extensions offer users a way to tailor their browsing experience to their needs and preferences.</description>
+      <title>Self host YouTube</title>
+      <link>https://paulius.uk/posts/2024/yt-local/</link>
+      <pubDate>Tue, 23 Apr 2024 22:19:39 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/yt-local/</guid>
+      <description>What is yt-local and Why would you want to install it? yt-local is a browser-based client written in Python for watching YouTube anonymously and without the lag of the slow page used by YouTube. One of the primary features is that all requests are routed through Tor, except for the video file at googlevideo.com. Tor has high latency, so this will not be as fast network-wise as regular YouTube. However, using Tor is optional; when not routing through Tor, video pages may load faster than they do with YouTube&amp;rsquo;s page depending on your browser.</description>
     </item>
     <item>
       <title>Termux, Termux-api and SSH</title>
       <link>https://paulius.uk/posts/2024/termux-and-ssh/</link>
       <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
       <guid>https://paulius.uk/posts/2024/termux-and-ssh/</guid>
-      <description>What is Termux? Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.&#xA;What is Termux-api? Termux-api is a python module to access the termux-api This provides a way to get native access in Python to Android device functionality as API.</description>
+      <description>What is Termux? Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs and scripts on your Android device. It provides a full Linux environment with package management using APT, allowing you to install and use various tools and utilities on your Android device.&#xA;What is SSH? SSH stands for Secure Shell. It is a cryptographic network protocol that allows secure communication between two devices over an insecure network.</description>
     </item>
     <item>
       <title>Managing Docker Containers</title>
-      <link>https://paulius.uk/posts/2024/docker-containers/</link>
+      <link>https://paulius.uk/posts/2024/managing-docker-containers/</link>
       <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/docker-containers/</guid>
-      <description>What is Docker? Docker is a platform that allows developers to create, deploy, and run applications in containers. These containers encapsulate the application and its dependencies, ensuring consistent and reproducible environments across different systems. With Docker, developers can easily share and deploy applications without worrying about compatibility issues or complex setup processes.&#xA;Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more.</description>
+      <guid>https://paulius.uk/posts/2024/managing-docker-containers/</guid>
+      <description>Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more. Here&amp;rsquo;s a comprehensive guide to Docker management from cleanup to creation.&#xA;Table of Contents&#xA;1. Removing Docker Containers, Images, and Volumes&#xA;2. Creating Docker Images&#xA;3. Initializing Docker Projects&#xA;4. Using Docker Compose&#xA;Removing Docker Containers, Images, and Volumes If you&amp;rsquo;re looking to clean up your Docker environment by removing containers, images, and volumes, using the command line, here&amp;rsquo;s how you can do it:</description>
     </item>
     <item>
       <title>Wifi Standards</title>

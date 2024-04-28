@@ -68,10 +68,7 @@ body.light ol code {
   border-radius: 5px !important;
 }
 
-.chroma .hl .lnt {
-  color: darkorange;
-  background-color: #00000057;
-}
+
 
 
 /* Background */ .bg { color: #e2e4e5; background-color: #191A25; }
@@ -81,9 +78,9 @@ body.light ol code {
 /* CodeLine */ .chroma .cl {  }
 /* LineLink */ .chroma .lnlinks { outline: none; text-decoration: none; color: inherit }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin-right: 0; border: 0; }
-/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 2px; margin: 0; border: 0; border-left: 4px solid green; border-radius: 5px;}
-/* LineHighlight */ .chroma .hl { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.0em; background-color: #3a3f4a }
-/* LineNumbersTable */ .chroma .lnt { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.0em; padding: 0 7px 0 0.3em;color: #7f7f7f; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 2px; margin: 0; border: 0; }
+/* LineHighlight */ .chroma .hl { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.0em; padding: 0 0em 0 0.0em;background-color: #3d3f4a }
+/* LineNumbersTable */ .chroma .lnt { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.0em; padding: 0 0.0em 0 0.0em;color: #7f7f7f }
 /* LineNumbers */ .chroma .ln { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.0em; padding: 0 0.0em 0 0.0em;color: #7f7f7f }
 /* Line */ .chroma .line { display: flex; padding-left: 3px; border-radius:3px; }
 /* Keyword */ .chroma .k { color: #009E77 }

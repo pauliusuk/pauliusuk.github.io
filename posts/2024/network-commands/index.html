@@ -19,33 +19,6 @@
   <link rel="stylesheet" href="/css/admonition.css">
   <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
   <link rel="stylesheet" href="/css/copy-code-button.css">
-  <link rel="stylesheet" href="https://paulius.uk/css/themes/number1.css">
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <link rel="icon" href="/images/icon.ico" />
   <title>Networking Commands and Troubleshooting</title>
 </head>
@@ -258,8 +231,6 @@
           
           <a href="/categories/docker">docker</a>
           
-          <a href="/categories/github">github</a>
-          
           <a href="/games">Games</a>
         </div>
       </div>
@@ -340,7 +311,7 @@
         <div class="minRead">
           <i class="fa-solid fa-book-open"></i>
           </svg>
-          8 min read
+          4 min read
         </div>
 
       </div>
@@ -460,9 +431,15 @@
 </p>
 </p>
 <p><br><br></p>
-<div class="windows-header">
-<h1 id="img-srchttpsskilliconsdeviconsiwindows-stylewidth-30px-height-30px-windows-networking-commands"><img src="https://skillicons.dev/icons?i=windows" style="width: 30px; height: 30px;"> Windows Networking Commands</h1>
-</div>
+<h1>
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows" alt="Icon" style="width:50px;">
+
+
+ Windows Networking Commands</h1>
 <h3 id="ipconfig">IPCONFIG</h3>
 <p>IPCONFIG is used to display the current TCP/IP network configuration values assigned to network interfaces on Windows systems.</p>
 
@@ -490,197 +467,6 @@
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
-<details><summary>Read more about netstat and <code>netstat -ano</code> commands</summary>
-<div class="highlight-wrapper">
-  <div class="highlight">
-    <pre><code>netstat </code></pre>
-    
-    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
-  </div>
-</div>
-
-NETSTAT displays active network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.
-<p>When you run <code>netstat</code> without any options, it provides a list of active connections along with the corresponding protocols (TCP/UDP), local and foreign addresses, and their status.</p>
-<p>Example output of <code>netstat</code>:</p>
-<table>
-<thead>
-<tr>
-<th>Protocol</th>
-<th>Local Address</th>
-<th>Foreign Address</th>
-<th>State</th>
-<th>PID</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:135</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>1234</td>
-</tr>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:445</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>5678</td>
-</tr>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:3389</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>9012</td>
-</tr>
-<tr>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-</tr>
-</tbody>
-</table>
-<p>In this table:</p>
-<ul>
-<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
-<li><code>Local Address</code>: Local IP address and port.</li>
-<li><code>Foreign Address</code>: Remote IP address and port.</li>
-<li><code>State</code>: Connection state (e.g., LISTENING, ESTABLISHED).</li>
-<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
-</ul>
-<div class="highlight-wrapper">
-  <div class="highlight">
-    <pre><code>netstat -ano</code></pre>
-    
-    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
-  </div>
-</div>
-
-<p>Now, let&rsquo;s look at the <code>netstat -ano</code> command and explain its components:</p>
-<ul>
-<li><code>a</code>: This option displays all connections and listening ports.</li>
-<li><code>n</code>: This option displays addresses and port numbers in numerical form, rather than resolving hostnames and service names.</li>
-<li><code>o</code>: This option displays the owning process ID associated with each connection.</li>
-</ul>
-<p>Example output of <code>netstat -ano</code>:</p>
-<table>
-<thead>
-<tr>
-<th>Protocol</th>
-<th>Local Address</th>
-<th>Foreign Address</th>
-<th>State</th>
-<th>PID</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:135</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>1234</td>
-</tr>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:445</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>5678</td>
-</tr>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:3389</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>9012</td>
-</tr>
-<tr>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-</tr>
-</tbody>
-</table>
-<p>In this table:</p>
-<ul>
-<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
-<li><code>Local Address</code>: Local IP address and port.</li>
-<li><code>Foreign Address</code>: Remote IP address and port.</li>
-<li><code>State</code>: Connection state (e.g., LISTENING, ESTABLISHED).</li>
-<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
-</ul>
-<p>This information can be useful for identifying which processes are using network resources, troubleshooting network issues, or identifying potentially unwanted or malicious connections.</p>
-<p>Remember, on Windows systems, the PID can be cross-referenced with the Task Manager to identify the specific process that&rsquo;s using a particular network connection.</p>
-<div class="highlight-wrapper">
-  <div class="highlight">
-    <pre><code>netstat -ano | findstr "LISTENING"</code></pre>
-    
-    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
-  </div>
-</div>
-
-<p>Another useful way to filter the <code>netstat -ano</code> output is by using the <code>findstr</code> command to specifically look for listening ports. This can help you quickly identify which processes are listening for incoming connections.</p>
-<p>The <code>findstr &quot;LISTENING&quot;</code> command filters the output to show only the connections that are in the <code>LISTENING</code> state.</p>
-<p>Example output after filtering:</p>
-<table>
-<thead>
-<tr>
-<th>Protocol</th>
-<th>Local Address</th>
-<th>Foreign Address</th>
-<th>State</th>
-<th>PID</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:135</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>1234</td>
-</tr>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:445</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>5678</td>
-</tr>
-<tr>
-<td>TCP</td>
-<td>0.0.0.0:3389</td>
-<td>0.0.0.0:0</td>
-<td>LISTENING</td>
-<td>9012</td>
-</tr>
-<tr>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-</tr>
-</tbody>
-</table>
-<p>In this filtered output:</p>
-<ul>
-<li><code>Protocol</code>: Protocol used by the connection (e.g., TCP).</li>
-<li><code>Local Address</code>: Local IP address and port.</li>
-<li><code>Foreign Address</code>: Remote IP address and port.</li>
-<li><code>State</code>: Connection state (e.g., LISTENING).</li>
-<li><code>PID</code>: Process ID of the application or service associated with the connection.</li>
-</ul>
-<br>
-<hr>
-</details>
-<br><br>
 <h3 id="tracert">TRACERT</h3>
 <p>TRACERT is used to trace the route taken by packets across an IP network to a specific destination.</p>
 
@@ -720,9 +506,15 @@ NETSTAT displays active network connections, routing tables, interface statistic
 <p>When you run this command in the Command Prompt, it will display the ARP table with the IP addresses and corresponding MAC addresses of devices on the local network.</p>
 <br />
 <hr />
-<div class="linux-header">
-<h1 id="img-srchttpsskilliconsdeviconsilinux-stylewidth-30px-height-30px-linux-networking-commands"><img src="https://skillicons.dev/icons?i=linux" style="width: 30px; height: 30px;"> Linux Networking Commands</h1>
-</div>
+<h1>
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=linux" alt="Icon" style="width:50px;">
+
+
+ Linux Networking Commands</h1>
 <h3 id="ip-addr">IP ADDR</h3>
 <p>IP ADDR is used to display or manipulate routing, network devices, interfaces, and tunnels.</p>
 
@@ -759,97 +551,6 @@ NETSTAT displays active network connections, routing tables, interface statistic
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">netstat</span></span></code></pre></div>
-<details><summary>Read more about <code>lsof</code> command</summary>
-<div class="highlight-wrapper">
-  <div class="highlight">
-    <pre><code>sudo lsof -i -P -n | grep LISTEN</code></pre>
-    
-    <button class="copy-code-button" onclick="copyCode(this)">Copy</button>
-  </div>
-</div>
-
-<h4 id="lsof---list-open-files-command">LSOF - LIST OPEN FILES COMMAND</h4>
-<p>In Linux, the <code>lsof</code> command (short for &ldquo;list open files&rdquo;) is used to list information about files that are open by processes. When combined with specific options, it can also provide information about network connections.</p>
-<p>The command: <br><code>sudo lsof -i -P -n | grep LISTEN</code><br> lists all open files (-i) that are network-related, including sockets and ports (-i), in a numeric format (-P), and with host names turned off (-n). The output is then filtered using <code>grep LISTEN</code> to only show the entries where the connection state is &ldquo;LISTENING&rdquo;.</p>
-<p>Example output after filtering:</p>
-<table>
-<thead>
-<tr>
-<th>COMMAND</th>
-<th>PID</th>
-<th>USER</th>
-<th>FD</th>
-<th>TYPE</th>
-<th>DEVICE</th>
-<th>SIZE/OFF</th>
-<th>NODE</th>
-<th>NAME</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sshd</td>
-<td>1234</td>
-<td>root</td>
-<td>3u</td>
-<td>IPv4</td>
-<td>1234</td>
-<td>0t0</td>
-<td>TCP</td>
-<td>*:22 (LISTEN)</td>
-</tr>
-<tr>
-<td>nginx</td>
-<td>5678</td>
-<td>www-data</td>
-<td>6u</td>
-<td>IPv4</td>
-<td>5678</td>
-<td>0t0</td>
-<td>TCP</td>
-<td>*:80 (LISTEN)</td>
-</tr>
-<tr>
-<td>apache</td>
-<td>9012</td>
-<td>apache</td>
-<td>4u</td>
-<td>IPv6</td>
-<td>9012</td>
-<td>0t0</td>
-<td>TCP</td>
-<td>*:443 (LISTEN)</td>
-</tr>
-<tr>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-<td>&hellip;</td>
-</tr>
-</tbody>
-</table>
-<p>In this table:</p>
-<ul>
-<li><code>COMMAND</code>: Process name or command associated with the open file.</li>
-<li><code>PID</code>: Process ID of the application or service.</li>
-<li><code>USER</code>: User associated with the process.</li>
-<li><code>FD</code>: File descriptor associated with the file.</li>
-<li><code>TYPE</code>: Type of file (e.g., IPv4, IPv6).</li>
-<li><code>DEVICE</code>: Device number associated with the file.</li>
-<li><code>SIZE/OFF</code>: Size or offset of the file.</li>
-<li><code>NODE</code>: Node associated with the file.</li>
-<li><code>NAME</code>: Name of the file.</li>
-</ul>
-<p>This command is useful for identifying which processes are listening on network ports, such as SSH, web servers, or other network services.</p>
-<br>
-<hr>
-</details>
-<br><br>
 <h3 id="traceroute">TRACEROUTE</h3>
 <p>TRACEROUTE is used to display the route packets take to network host.</p>
 
@@ -963,13 +664,6 @@ NETSTAT displays active network connections, routing tables, interface statistic
 <br>
 <h2 id="conclusion">Conclusion</h2>
 <p>There are many more commands and ways to troubleshoot networks. Understanding and mastering these networking commands can greatly enhance your ability to troubleshoot and manage network-related issues on both Windows and Linux systems. Whether you&rsquo;re a system administrator, network engineer, or simply a curious user, familiarity with these commands is invaluable in maintaining a healthy and efficient network environment.</p>
-<br>
-<a onclick="document.querySelector('.windows-header').scrollIntoView({ behavior: 'smooth' }); return false;">
-    <kbd>Windows 🡅</kbd>
-</a>
-<a onclick="document.querySelector('.linux-header').scrollIntoView({ behavior: 'smooth' }); return false;">
-    <kbd>Linux 🡅</kbd>
-</a>
 <!-- ## Walkthrough Video -->
 <!-- 
 
@@ -1344,12 +1038,7 @@ NETSTAT displays active network connections, routing tables, interface statistic
   <ul>
     <li><a href="#networking-commands-for-windows-and-linux">Networking Commands for Windows and Linux</a>
       <ul>
-        <li><a href="#network-troubleshooting-steps">Network Troubleshooting Steps</a></li>
-      </ul>
-    </li>
-    <li><a href="#img-srchttpsskilliconsdeviconsiwindows-stylewidth-30px-height-30px-windows-networking-commands"><img src="https://skillicons.dev/icons?i=windows" style="width: 30px; height: 30px;"> Windows Networking Commands</a>
-      <ul>
-        <li>
+        <li><a href="#network-troubleshooting-steps">Network Troubleshooting Steps</a>
           <ul>
             <li><a href="#ipconfig">IPCONFIG</a></li>
             <li><a href="#ping">PING</a></li>
@@ -1358,14 +1047,6 @@ NETSTAT displays active network connections, routing tables, interface statistic
             <li><a href="#nslookup">NSLOOKUP</a></li>
             <li><a href="#getmac">getmac</a></li>
             <li><a href="#arp">arp</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#img-srchttpsskilliconsdeviconsilinux-stylewidth-30px-height-30px-linux-networking-commands"><img src="https://skillicons.dev/icons?i=linux" style="width: 30px; height: 30px;"> Linux Networking Commands</a>
-      <ul>
-        <li>
-          <ul>
             <li><a href="#ip-addr">IP ADDR</a></li>
             <li><a href="#ifconfig">IFCONFIG</a></li>
             <li><a href="#ping-1">PING</a></li>
@@ -1402,34 +1083,24 @@ NETSTAT displays active network connections, routing tables, interface statistic
 
   
   
-  
-  
-  <div class="giscusContainer" style="max-width: 600px; margin: 0 auto;padding-bottom: 50px;padding-top: 20px;"><script src="https://giscus.app/client.js"
-            data-repo="pauliusuk/giscus-comments"
-            data-repo-id="R_kgDOLy0CjA"
-            data-category="General"
-            data-category-id="DIC_kwDOLy0CjM4Ce7X-"
-            data-mapping="pathname"
-            data-strict="1"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="dark_protanopia"
-            data-lang="en"
-            data-loading="lazy"
-            crossorigin="anonymous"
-            async>
-        </script></div>
+  <style>
+        .related {
+                border-top: 1px dashed var(--fg);
+                margin-top: 0rem;
+        }
+        </style>
 
-<style>
-@media (max-width: 624px) {
-    .giscusContainer {
-        padding-left: 4px;
-        padding-right: 4px;
-    }
-}
-</style>
+        <div class="related">
+                
+        </div>
 
+        <script src="https://utteranc.es/client.js"
+                repo=pauliusuk/comments
+                issue-term="pathname"
+                theme="github-dark"
+                crossorigin="anonymous"
+                async>
+        </script>
   
 
   
@@ -1530,12 +1201,12 @@ NETSTAT displays active network connections, routing tables, interface statistic
   <h5>See also:</h5>
   <div class="relatedcontainer">
     
-    <a class="relateditem" href="/posts/2024/docker-containers/">
+    <a class="relateditem" href="/posts/2024/managing-docker-containers/">
       <div class="card-info">
         <h6>Managing Docker Containers</h6>
         <p>
           
-        <p class="relatedItemDesc">What is Docker? Docker is a platform that allows developers to create, deploy, and run applications in …</p>
+        <p class="relatedItemDesc">Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and …</p>
         
         </p>
       </div>

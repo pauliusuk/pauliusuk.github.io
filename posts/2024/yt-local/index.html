@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Self Host YouTube | Paulius.uk</title>
+  <link rel="canonical" href="https://paulius.uk/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" id="fp-font-awesome-css"
+    href="https://149909199.v2.pressablecdn.com/wp-content/themes/waitbutwhy/css/fonts/font-awesome/css/font-awesome.min.css?ver=6.4.3"
+    type="text/css" media="all">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/fontawesome.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admonition.css">
+  <link id="syntax-css" rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/copy-code-button.css">
+  <link rel="icon" href="/images/icon.ico" />
+  <title>Self host YouTube</title>
+</head>
+
+<body>
+  <div class="container">
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">paulius.uk</a>
+    </div>
+
+    <div class="navbar-search">
+        <div class="elbi-search" style="position: relative;">
+    <input type="text" id="elbi-input" placeholder="  Search... [ctrl + x]">
+    <i id="search-icon" class="fas fa-search elbi-search-icon"></i>
+    <ul id="elbi-results"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("elbi-input");
+    const searchIcon = document.querySelector(".elbi-search-icon");
+    const results = document.getElementById("elbi-results");
+    const request = new Request("/index.json");
+    let selectedResultIndex = -1;
+    let mouseOver = false;
+
+    fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        let pages = data;
+
+        function clearResults() {
+          results.innerHTML = "";
+          selectedResultIndex = -1;
+        }
+
+        input.addEventListener("input", function () {
+          let filteredPages = pages;
+          clearResults();
+
+          if (input.value != "") {
+            let searchterms = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ");
+
+            searchterms.forEach(function (term) {
+              filteredPages = filteredPages.filter(function (page) {
+                let description = JSON.stringify(page);
+                return description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(term) !== -1;
+              });
+            });
+
+            filteredPages.forEach(function (page, index) {
+              const resultItem = document.createElement("li");
+              resultItem.classList.add("elbi-results-item");
+              resultItem.innerHTML = "<h2 style='font-size: 1.5rem;'><a href='" + page.permalink + "'>" + page.title + "</a></h2><p>" + page.summary + "</p><p style='margin-top: 5px'></p>";
+
+
+              resultItem.addEventListener("mouseover", function () {
+                mouseOver = true;
+                resultItem.style.backgroundColor = "#ACB2C4";
+                selectedResultIndex = -1;
+                removeAutoSelectedBackgroundColor();
+              });
+
+              resultItem.addEventListener("mouseout", function () {
+                mouseOver = false;
+                if (selectedResultIndex !== index) {
+                  resultItem.style.backgroundColor = "white";
+                }
+              });
+
+              results.appendChild(resultItem);
+
+              resultItem.addEventListener("click", function () {
+                if (!mouseOver) {
+                  selectedResultIndex = index;
+                }
+              });
+            });
+            selectedResultIndex = 0;
+            const arrowDownEvent = new KeyboardEvent('keydown', {key: 'ArrowDown'});
+            document.dispatchEvent(arrowDownEvent);
+          }
+
+          if (input.value === "") {
+            searchIcon.style.display = "block";
+          } else {
+            searchIcon.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          const resultsItems = results.querySelectorAll(".elbi-results-item");
+
+          if (event.key === "Escape") {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          } else if (event.key === "ArrowDown") {
+            if (selectedResultIndex < resultsItems.length - 1) {
+              selectedResultIndex++;
+            }
+          } else if (event.key === "ArrowUp") {
+            if (selectedResultIndex > 0) {
+              selectedResultIndex--;
+            }
+          } else if (event.key === "Enter") {
+            if (selectedResultIndex !== -1) {
+              window.location.href = resultsItems[selectedResultIndex].querySelector("a").href;
+            }
+          }
+
+          resultsItems.forEach((item, index) => {
+            if (index === selectedResultIndex) {
+              item.style.backgroundColor = "#ACB2C4";
+            } else {
+              item.style.backgroundColor = "white";
+            }
+          });
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".elbi-search")) {
+            input.value = "";
+            clearResults();
+            searchIcon.style.display = "block";
+          }
+        });
+
+        window.addEventListener("scroll", function () {
+          clearResults();
+          searchIcon.style.display = "block";
+        });
+
+        function removeAutoSelectedBackgroundColor() {
+          const autoSelectedResult = results.querySelector(".elbi-results-item:nth-child(" + (selectedResultIndex + 1) + ")");
+          if (autoSelectedResult) {
+            autoSelectedResult.style.backgroundColor = "#FFFFFF";
+          }
+        }
+      });
+
+
+    document.addEventListener("keydown", function (event) {
+      
+      if (event.ctrlKey && event.key === "x") {
+        
+        input.focus();
+        
+        input.value = "";
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      function updatePlaceholder() {
+        const input = document.getElementById("elbi-input");
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth <= 760) {
+          input.placeholder = '  Search...';
+        } else {
+          input.placeholder = '  Search... [ctrl + x]';
+        }
+      }
+
+      
+      updatePlaceholder();
+
+      
+      window.addEventListener('resize', updatePlaceholder);
+    });
+  </script>
+
+    </div>
+
+
+    <div class="links">
+      <a href="/">Blog</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Categories</a>
+        <div class="dropdown-menu">
+          
+          
+          <a href="/categories/networking">networking</a>
+          
+          <a href="/categories/linux">linux</a>
+          
+          <a href="/categories/web-development">web development</a>
+          
+          <a href="/categories/windows">windows</a>
+          
+          <a href="/categories/android">android</a>
+          
+          <a href="/categories/configuration">configuration</a>
+          
+          <a href="/categories/cybersecurity">cybersecurity</a>
+          
+          <a href="/categories/docker">docker</a>
+          
+          <a href="/games">Games</a>
+        </div>
+      </div>
+      <a href="/tags">Tags</a>
+      <a href="/authors/paulius/">About</a>
+      
+      <div class="toggle">
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="sun" transform="translate(-2 -2)">
+            <circle id="secondary" fill="#ffe01b" cx="4" cy="4" r="4" transform="translate(8 8)"></circle>
+            <path id="primary"
+                d="M12,3V4M5.64,5.64l.7.7M3,12H4m1.64,6.36.7-.7M12,21V20m6.36-1.64-.7-.7M21,12H20M18.36,5.64l-.7.7M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                fill="none" stroke="#ffe01b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            </path>
+        </g>
+    </svg>
+    <div class="ball"></div>
+    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="#000000">
+        <g id="moon-alt" transform="translate(-4 -2)">
+            <path id="secondary" fill="#ffe01b"
+                d="M21,12A9,9,0,0,1,3.25,14.13,6.9,6.9,0,0,0,8,16,7,7,0,0,0,11.61,3H12a9,9,0,0,1,9,9Z"></path>
+        </g>
+    </svg>
+</div>
+    </div>
+  </nav>
+  
+  <script src="/js/dropdownmenu.js"></script>
+</body>
+
+</html>
+
+    
+<link rel="stylesheet" href="/css/singlePage.css">
+<div class="single-page-container">
+  <div class="singleHead">
+    <div class="singleHeadTexts">
+      <h1 class="singleHeadTitle">Self host YouTube</h1>
+      <p class="singleHeadDesc"></p>
+      <div class="singleHeadDetail">
+
+        <div class="authorDetails">
+          
+          <a href="https://paulius.uk/authors/paulius/">
+            
+            <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
+          </a>
+        </div>
+
+        <div class="singleAuthor">
+          
+          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          
+        </div>
+
+
+        
+        <a href="https://paulius.uk/categories/configuration/" class="singleCategory">Configuration</a>
+         &nbsp;
+
+        
+        
+        
+        
+        
+        
+        
+
+        <div class="calendarDay">
+          <i class="fa-solid fa-calendar-day"></i>
+          <time>23-April-2024</time>
+        </div> &nbsp;
+
+        <div class="minRead">
+          <i class="fa-solid fa-book-open"></i>
+          </svg>
+          3 min read
+        </div>
+
+      </div>
+    </div>
+    <img src="/images/2024-thumbs/yt.webp" alt="Self host YouTube" class="singleHeadImg">
+  </div>
+  <div class="singleContent">
+    <p>
+
+
+
+
+  <a href="https://git.sr.ht/~heckyel/yt-local" target="_blank">
+
+    <img src="/images/2024-thumbs/yticon.png" alt="Icon" style="width:50px;">
+
+  </a>
+
+
+
+
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows" alt="Icon" style="width:50px;">
+
+
+</p>
+<h1 id="what-is-yt-local-and-why-would-you-want-to-install-it">What is yt-local and Why would you want to install it?</h1>
+<p>yt-local is a browser-based client written in Python for watching YouTube <strong>anonymously</strong> and <strong>without the lag</strong> of the slow page used by YouTube. One of the primary features is that all requests are routed through Tor, except for the video file at googlevideo.com. Tor has high latency, so this will not be as fast network-wise as regular YouTube. However, using Tor is optional; when not routing through Tor, video pages may load faster than they do with YouTube&rsquo;s page depending on your browser.</p>
+<br>
+
+
+
+
+
+    <img src="https://skillicons.dev/icons?i=windows" alt="Icon" style="width:50px;">
+
+
+
+<h1 id="installation">Installation</h1>
+<div class="admonition warning"><div class="admonition-content" >Make sure you have Python and pip installed on your system.</div>
+</div>
+
+<h2 id="step-1">STEP 1</h2>
+<p>Go to your Downloads folder, open a terminal, and run this command:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">git clone https://git.sr.ht/~heckyel/yt-local</span></span></code></pre></div>
+<p>or <br>
+Download directly from the source:
+<a href="https://git.sr.ht/~heckyel/yt-local" target="_blank" style="font-family: monospace; text-decoration: underline #3395FF 2px; font-weight: 700;">heckyel&rsquo;s website</a></p>
+<h2 id="step-2">STEP 2</h2>
+<p>Commands to run in the Terminal. I&rsquo;m on Windows, so I&rsquo;ll be using PowerShell.
+<br>1.<br>
+<code>cd yt-local</code>
+<br>2.<br>
+<code>python -m venv venv</code>              or: <code>virtualenv -p python3 venv</code>
+<br>3.<br>
+<code>.\venv\Scripts\activate</code>      or: <code>source venv/bin/activate</code>
+<br>4.<br>
+<code>pip install -r requirements.txt</code>
+<br>5.<br>
+<code>python server.py</code>
+<br>6.<br> Open the link displayed in your terminal by holding <strong>ctrl</strong> and clicking:</p>
+<p><a href="http://127.0.0.1:9010/" target="_blank">http://127.0.0.1:9010/</a></p>
+<br>
+<div class="admonition success"><div class="admonition-content" >Congratulations, you have now installed yt-local.</div>
+</div>
+
+
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="/images/configs/yt-local.webp" alt="" style="width:820px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<hr>
+<br>
+<h1 id="launching-yt-local-after-installation">Launching yt-local after Installation</h1>
+<p>Now everytime you want to use yt-local you will need to go inside yt-local directory and run these two commands:
+<br>1.<br>
+<code>.\venv\Scripts\activate</code>
+<br>2.<br>
+<code>python server.py</code></p>
+<br>
+<h3 id="open-your-browser">Open your browser:</h3>
+<p><a href="http://127.0.0.1:9010/" target="_blank">http://127.0.0.1:9010/</a></p>
+<br>
+<h1 id="step-3-shortcut-optional-but-recommended">STEP 3 <strong>Shortcut</strong> (OPTIONAL but Recommended)</h1>
+<h4>  We will create a Windows .bat shortcut so we don't have to manually enter those two commands from above, which will make it simpler to use. </h4>
+<div class="admonition tip"><div class="admonition-content" >If you downloaded or git cloned yt-local to a directory other than &ldquo;DOWNLOADS&rdquo;, then don&rsquo;t forget to change the path to where yt-local is located.</div>
+</div>
+
+<p>Below is a shortcut to launch yt-local without needing to open the terminal every time you want to open up YouTube locally. Just create a new file yt-local.bat on your desktop, right-click, then edit and paste the command below, or simply download the .bat file.</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">start</span> /min firefox http://localhost:9010/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">timeout /t 1.5 <span class="p">&gt;</span>nul
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">start</span> /min powershell.exe -Command <span class="s2">&#34;Set-Location \&#34;</span>$env:userprofile\Downloads\yt-local\venv\Scripts\<span class="s2">&#34;; Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; .\activate; pip install gevent; cd \&#34;</span>$env:userprofile\Downloads\yt-local\<span class="s2">&#34;; python server.py&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">exit</span></span></code></pre></div>
+<p>yt-local.bat: <div class="download-container">
+    <a href="/uploads/yt-local.bat" download="" class="download-button">Download</a>
+</div>
+
+<style>
+.download-container {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.download-button {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: var(--text);
+  border: 2px solid #3498db; 
+  border-radius: 2px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.download-button:hover {
+  background-color: rgba(52, 152, 219, 0.2);
+  border-color: rgba(52, 152, 219, 0.5);
+  box-shadow: 0px 6px 10px rgba(52, 152, 219, 0.4);
+}
+
+.download-button:active {
+  transform: translateY(1px);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+</p>
+<br>
+<h1 id="step-4-redirector-optional-but-recommended">STEP 4 <strong>Redirector</strong> (OPTIONAL but Recommended)</h1>
+<h3 id="donwload-and-set-up-redirector-extension">Donwload and Set up Redirector extension:</h3>
+<h4 id="-redirector-is-an-extension-that-redirects-all-youtube-links-to-a-locally-hosted-youtube-yt-local">↪️ Redirector is an extension that redirects all YouTube links to a locally hosted YouTube (yt-local).</h4>
+<p>Download Redirector for Chrome:</p>
+<p>• 
+
+
+
+
+<a href="https://chromewebstore.google.com/detail/redirector/ocgpenflpmgnfapjedencafcfakcekcd" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Chrome&#39;s Redirector Extension</a>
+
+</p>
+<br>
+<p>Download Redirector for Firefox:</p>
+<p>• 
+
+
+
+
+<a href="https://addons.mozilla.org/en-GB/firefox/addon/redirector/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: white;" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='white'">Firefox&#39;s Redirector Extension</a>
+
+</p>
+<br>
+<h4 id="to-configure-redirector-click-on-extension-at-the-top-bar-of-your-browser-and-click-on-edit-redirects">To configure Redirector click on extension at the top bar of your browser and click on (edit redirects):</h4>
+<p>Description:
+<code>redirect Youtube</code></p>
+<p>Example URL:
+<code>https://www.youtube.com/watch?v=eB6txyhHFF4</code></p>
+<p>Include pattern:
+<code>^(https?://(?:[a-zA-Z0-9_-]*\.)?(?:youtube\.com|youtu\.be|youtube-nocookie\.com)/.*)</code></p>
+<p>Redirect to:
+<code>http://localhost:9010/$1</code></p>
+<p>Pattern type:
+<code>🔵 Regular Expression</code></p>
+<p>Pattern Description:
+<code>yt-local redirect</code></p>
+<p>Example result:
+<code>http://localhost:9010/https://www.youtube.com/watch?v=eB6txyhHFF4</code></p>
+<br>
+<div class="admonition success"><div class="admonition-content" >A fully configured Redirector for yt-local should look like this:</div>
+</div>
+
+
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="/images/configs/redirector.webp" alt="" style="width:800px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<br>
+<h1 id="conclusion">Conclusion</h1>
+<p>yt-local offers a unique way to watch YouTube anonymously and without the typical lag. Although we haven&rsquo;t incorporated TOR due to my focus on speed, it remains an excellent choice for those concerned about privacy. By routing requests through Tor and hosting videos locally, it provides a faster and more private YouTube experience. With the added convenience of a Windows shortcut and browser redirector extension, accessing your locally hosted YouTube becomes even more seamless.</p>
+<!-- ## Walkthrough Video -->
+<!-- 
+
+
+
+
+<div class="responsive-embed">
+  <div class="embed video-player" style="text-align: ;">
+    <iframe class="youtube-player" type="text/html" width="400px" height="220px"
+      src="https://www.youtube.com/embed/11111111111" allowfullscreen frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  .responsive-embed {
+    max-width: 100%;
+  }
+
+  .responsive-embed iframe {
+    display: block;
+    max-width: 100%;
+  }
+</style>
+
+ -->
+
+  </div>
+  
+  <div class="singleTags">
+    <span class="tagsText">Tags:&nbsp;</span>
+    
+    <a href="https://paulius.uk/tags/windows/" class="singleTag">#windows</a>
+    
+    <a href="https://paulius.uk/tags/self-host/" class="singleTag">#self-host</a>
+    
+  </div>
+  
+<style>
+  .leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 8%;
+    height: 100%;
+  }
+
+  .toc {
+    max-height: 400px;
+    background-color: #24273A90;
+    color: darkgrey;
+    display: inline-block;
+    position: relative;
+    padding-left: 13px;
+    padding-right: 3px;
+    overflow-y: auto;
+    width: auto;
+    box-shadow: 0 0.1rem 0.1rem 0 rgba(1, 0, 0, 0.5);
+    word-wrap: break-word;
+  }
+
+   
+  .toc::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    background: #A9A9A9;
+  }
+
+  .light .toc::-webkit-scrollbar-track {
+    background: #DEE4EB;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    background: #777;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .light .toc {
+    background-color: #20232A44;
+  }
+
+  .toc h2 {
+    font-size: 1.1em;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .toc-title {
+    padding-top: 3px;
+  }
+
+  .toc-title::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #474793;
+    ;
+    bottom: 0;
+    left: 0;
+    max-width: auto;
+    padding-left: 0%;
+  }
+
+  .light .toc-title::after {
+    background-color: #DEE4EB;
+    max-width: 500px;
+  }
+
+  .light .toc-title {
+    color: #0B1529;
+  }
+
+  .toc ul {
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 15px;
+  }
+
+  .toc ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+    position: relative;
+  }
+
+  .toc ul li::before {
+    content: "\2022";
+    color: darkorange;
+    position: absolute;
+    left: -12px;
+    font-size: 21px;
+    line-height: 22px;
+  }
+
+  .toc ul ul li:before {
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+
+  .toc li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.0em;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s;
+  }
+
+  .light .toc a {
+    color: white;
+  }
+
+  .toc a:hover {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  .toc ul ul {
+    margin-left: 12px;
+  }
+
+  .toc ul ul ul {
+    margin-left: 0;
+  }
+
+  .toc a.selected {
+    color: darkgrey;
+    text-decoration: underline;
+  }
+
+  .toc li::marker {
+    color: darkorange;
+  }
+
+  .advertisement {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .advertisement-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #313131;
+    padding: 4px;
+  }
+
+  .light .advertisement-image {
+    background-color: #C7C7C7;
+  }
+
+
+   
+  @media screen and (max-width: 1350px) {
+    .leftbar {
+      width: 100%;
+      position: relative;
+      margin-top: 5px;
+    }
+
+    #TableOfContents ul {
+      font-size: 16px;
+    }
+
+    .toc ul li::before {
+      content: "\2022";
+      color: darkorange;
+      position: absolute;
+      font-size: 24px;
+      line-height: 24px;
+      left: -15px;
+    }
+
+    .toc {
+      padding: 0px 25px;
+    }
+
+    .toc-title::after {
+      height: 3px;
+      width: 145px;
+      max-width: 100%;
+    }
+
+    .toc h2 {
+      font-size: 1em;
+    }
+
+    .advertisement {
+      width: 15%;
+      margin: 20px 20px;
+    }
+  }
+
+  .toggle-toc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #20232A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .light .toggle-toc {
+    background: #33353D66;
+  }
+
+  .toggle-label {
+    font-size: 18px;
+    color: darkgray;
+    display: flex;
+    align-items: center;
+     
+  }
+
+  .light .toggle-label {
+    color: #DEE4EB;
+  }
+
+  .collapsed .toggle-label {
+    margin-right: 20px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: #313131;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+
+  .toggle-toc:hover {
+    background: #55555588;
+  }
+
+  .toc.hidden {
+    display: none;
+  }
+
+  .toggle-toc.collapsed {
+    width: 153px;
+  }
+
+  .toc.collapsed {
+    display: none;
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    flex-grow: 1;
+  }
+
+  .side-panel-toggle {
+    margin-top: 20px;
+    width: 35px;
+    height: 40px;
+    flex-shrink: 1;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #674CC4;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .side-panel-toggle:hover {
+    background: #674CC488;
+  }
+
+  .sp-icon-close {
+    display: none !important;
+  }
+
+  .side-panel {
+    display: none;
+    width: 200px;
+    flex-shrink: 0;
+    padding: 0px;
+    color: #ffffff;
+  }
+
+  .side-panel-open .side-panel {
+    display: initial;
+  }
+
+  .side-panel-open .sp-icon-open {
+    display: none !important;
+  }
+
+  .side-panel-open .sp-icon-close {
+    display: initial !important;
+  }
+</style>
+
+
+
+
+<div class="leftbar">
+  <script src="/js/toggleToc.js"></script>
+  
+  <button class="toggle-toc">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <span class="toggle-label">Table of Contents</span>
+  </button>
+  <div class="toc" id="toc">
+    <h2 class="toc-title"></h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-yt-local-and-why-would-you-want-to-install-it">What is yt-local and Why would you want to install it?</a></li>
+    <li><a href="#installation">Installation</a>
+      <ul>
+        <li><a href="#step-1">STEP 1</a></li>
+        <li><a href="#step-2">STEP 2</a></li>
+      </ul>
+    </li>
+    <li><a href="#launching-yt-local-after-installation">Launching yt-local after Installation</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#open-your-browser">Open your browser:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#step-3-shortcut-optional-but-recommended">STEP 3 <strong>Shortcut</strong> (OPTIONAL but Recommended)</a></li>
+    <li><a href="#step-4-redirector-optional-but-recommended">STEP 4 <strong>Redirector</strong> (OPTIONAL but Recommended)</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#donwload-and-set-up-redirector-extension">Donwload and Set up Redirector extension:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+</div>
+
+
+
+  
+  
+  <style>
+        .related {
+                border-top: 1px dashed var(--fg);
+                margin-top: 0rem;
+        }
+        </style>
+
+        <div class="related">
+                
+        </div>
+
+        <script src="https://utteranc.es/client.js"
+                repo=pauliusuk/comments
+                issue-term="pathname"
+                theme="github-dark"
+                crossorigin="anonymous"
+                async>
+        </script>
+  
+
+  
+  <style>
+  .relatedcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0px;
+    margin-bottom: 7%;
+  }
+
+  .relateditem {
+    display: block;
+    color: var(--fg);
+    max-width: 30%;
+
+    padding: 2%;
+    height: auto;
+    margin: 3%;
+
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    border-radius: 0.5rem;
+    background-color: var(--bgRelated);
+  }
+
+  .light .relateditem {
+    background-color: var(--bgRelatedLight);
+  }
+
+  .relateditem:hover {
+    background-color: #1A1F30;
+    color: var(--fg);
+  }
+
+  .light .relateditem:hover {
+    background-color: var(--bgRelatedHoverLight);
+  }
+
+  .relateditem p {
+    text-overflow: ellipsis;
+    margin: 0.5rem;
+    word-wrap: break-word;
+  }
+
+  .relatedItemDesc {
+    font-family: var(--apple-text);
+    font-size: 19px;
+    color: var(--text);
+  }
+
+  .relateditem h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin: 0.5rem;
+    color: #995A32;
+    word-wrap: break-word;
+    font-family: var(--apple-text);
+  }
+
+
+  .related {
+    border-top: 1px dashed var(--fg);
+    margin-top: 1rem;
+    margin-bottom: 0%;
+  }
+
+  .related h5 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 0rem;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+
+  @media only screen and (max-device-width: 640px) {
+    .relateditem {
+      min-width: 60%;
+    }
+  }
+</style>
+
+
+
+
+<div class="related">
+  <h5>See also:</h5>
+  <div class="relatedcontainer">
+    
+    <a class="relateditem" href="/posts/2024/windows-run-command-shortcuts/">
+      <div class="card-info">
+        <h6>Windows Run Commands</h6>
+        <p>
+          
+        <p class="relatedItemDesc">Run Commands for Dialogue Box in Windows The Run dialogue box in Microsoft Windows provides a quick and …</p>
+        
+        </p>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+
+
+  
+
+  <script src="/js/navbar-transition.js" defer></script>
+
+</div>
+
+    <div class="footer">
+  <div class="footerLinks">
+    
+    
+    
+  </div>
+  <div class="backToTopBtn">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+  </div>
+  <div class="socialFooter">
+    <p>© paulius.uk</p>
+  </div>
+  
+</div>
+
+
+<script>
+  
+  let mybutton = document.getElementById("myBtn");
+
+  
+  window.onscroll = function () {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  
+  function topFunction() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+  }
+</script>
+
+
+<style>
+  #myBtn {
+    height: 30px;
+    width: 23px;
+    display: none;
+    position: absolute;
+    border: none;
+    border-top: 2px solid white;
+    right: 5%;
+    z-index: 99;
+    background-color: #191A23;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  .backToTopBtn {
+    opacity: 0.8;
+  }
+
+  .light #myBtn {
+    background-color: #31323A66;
+  }
+
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .footer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 16px;
+    color: #cbd2d9;
+    background-color: rgba(52, 55, 64, 0.9);
+    z-index: 1000;
+    background-position: center;
+  }
+
+  .light .footer {
+    background-color: #cbd2d9;
+    color: black;
+    background-image: none;
+  }
+
+  .footerLinks a {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .footerlinks a:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  .footerlinks a:nth-child(2) {
+    margin-left: 11px;
+  }
+
+  .socialFooter p {
+    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .socialFooter {
+    position: relative;
+  }
+</style>
+
+  </div>
+  <script src="/js/toggle.js"></script>
+   <script src="/js/copy-code-button.js">
+    </script>
+    
+</body>
+
+</html>
