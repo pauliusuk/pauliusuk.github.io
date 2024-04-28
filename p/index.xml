@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ps on Paulius.uk</title>
+    <link>https://paulius.uk/p/</link>
+    <description>Recent content in Ps on Paulius.uk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://paulius.uk/p/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://paulius.uk/p/cookies-policy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://paulius.uk/p/cookies-policy/</guid>
+      <description>title: &amp;ldquo;Cookies Policy&amp;rdquo; date: 2024-04-28T12:00:00Z draft: false Cookies Policy This is the cookies policy of [Your Website Name]. We use cookies on our website to provide you with a better browsing experience. By continuing to use our site, you consent to the use of cookies as described in this policy.&#xA;What are Cookies Cookies are small pieces of data stored on your device (computer or mobile device) when you browse websites.</description>
+    </item>
+  </channel>
+</rss>
