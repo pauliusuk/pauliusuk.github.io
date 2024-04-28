@@ -335,7 +335,7 @@
 <p>Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc., to your GitHub profile README.</p>
 <p>Another good example is HUGO, a static site generator, automatically generates XML files for websites. An example URL would look something like this:<br> - <a href="https://paulius.uk/index.xml" target="_blank" rel="noopener noreferrer"><strong><a href="https://paulius.uk/index.xml">https://paulius.uk/index.xml</a></strong></a></p>
 <p>This is useful if you want to add your recent blog posts or posts from another blog site such as Medium.</p>
-<h1 id="readmegtpl">README.gtpl</h1>
+<h1 id="template-readmegtpl">Template (README.gtpl)</h1>
 <p>If you don&rsquo;t have a README.md file for your profile, create a new repository and name it with your username. Then we will need to create a README.gtpl file. This file will contain a template that will allow you to generate content for your README. Additionally, if you already have a README.md, copy all of your existing README.md file into README.gtpl and then add the content you want to be generated.</p>
 <p>Here are few Examples that you can add to README.gtpl:</p>
 
@@ -392,7 +392,7 @@
 
 </p>
 <br>
-<h1 id="github-automation-actions">GitHub Automation (Actions)</h1>
+<h1 id="github-automation-markscribeyml--github-actions">GitHub Automation (markscribe.yml &amp; GitHub Actions)</h1>
 <p>To Automate generating README.md we gonna use GitHub Actions. For this to work we need to create the following folder structure and file: <br></p>
 <ul>
 <li><code>/.github/workflows/markscribe.yml</code>
@@ -900,8 +900,8 @@ markscribe &gt; Run workflow ▼ &gt; Run workflow</p>
     <nav id="TableOfContents">
   <ul>
     <li><a href="#markscribe">Markscribe</a></li>
-    <li><a href="#readmegtpl">README.gtpl</a></li>
-    <li><a href="#github-automation-actions">GitHub Automation (Actions)</a>
+    <li><a href="#template-readmegtpl">Template (README.gtpl)</a></li>
+    <li><a href="#github-automation-markscribeyml--github-actions">GitHub Automation (markscribe.yml &amp; GitHub Actions)</a>
       <ul>
         <li><a href="#schedule-cron">Schedule cron</a></li>
         <li><a href="#generating-github-token">Generating GitHub token</a></li>
