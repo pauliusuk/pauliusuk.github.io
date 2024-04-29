@@ -309,7 +309,7 @@
         <div class="minRead">
           <i class="fa-solid fa-book-open"></i>
           </svg>
-          3 min read
+          4 min read
         </div>
 
       </div>
@@ -324,7 +324,7 @@
 
   <a href="https://git.sr.ht/~heckyel/yt-local" target="_blank">
 
-    <img src="/images/top10/yticon.webp" alt="Icon" style="width:50px;">
+    <img src="/images/yt-local/yticon.webp" alt="Icon" style="width:50px;">
 
   </a>
 
@@ -593,8 +593,243 @@ or: <code>source venv/bin/activate</code>
 </style>
 
 <br>
+<h1 id="step-5-tor-very-optional-for-privacy">Step 5 <strong>TOR</strong> (very OPTIONAL) for privacy</h1>
+<h3 id="what-is-tor">What is Tor?</h3>
+<p>Tor, short for &ldquo;The Onion Router,&rdquo; is a privacy-focused network that aims to increase users&rsquo; anonymity online. It works by routing internet traffic through a series of encrypted relays, thus obscuring the origin and destination of the data.</p>
+<br>
+<h3 id="installing-and-setting-up-tor-on-windows">Installing and Setting up Tor (on Windows)</h3>
+<p>Once in yt-local https://localhost:9010 go to settings and select these networking settings:</p>
+
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="/images/yt-local/tor.webp" alt="" style="width:500px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<p>Download the Tor Browser if you haven&rsquo;t done so already:<br>
+• 
+
+
+
+
+<a href="https://www.torproject.org/download/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">torproject.org</a>
+
+</p>
+<p>Once Installed navigate to the Tor browser&rsquo;s directory Tor:<br>
+C:\Users\yourUsername\Desktop\Tor Browser\Browser\TorBrowser\Tor <br>
+open up a terminal and run this command:</p>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">.\tor.exe SOCKSPort 9050 ControlPort 9151 <span class="p">|</span> more</span></span></code></pre></div>
+<p><div class="admonition abstract"><div class="admonition-content" >Once you run this command you should see it running in task manager <em><strong>tor.exe</strong></em>.</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/yt-local/tor3.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/yt-local/tor3.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
+<p>Now open your browser settings (mine is Firefox) and search for proxy settings (It&rsquo;s the last option under Network Settings in Firefox. Configure how Firefox connects to the internet).</p>
+<ol>
+<li>click on Settings&hellip; (Under Network Settings in Firefox)<br></li>
+<li>Choose 🔵 Manual proxy configuration <br></li>
+<li>SOCKS Host:  127.0.0.1 or localhost     Port: 9050 <br></li>
+<li>Select 🔵 SOCKS v5 <br></li>
+<li>click OK</li>
+</ol>
+
+
+
+
+
+
+<div style="text-align: center;">
+  <img src="/images/yt-local/tor1.webp" alt="" style="width:500px; display: block; margin: 0 auto;">
+
+  <div class="imageDetails" style="margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;">
+    
+
+    
+  </div>
+</div>
+
+<style>
+  .imageName {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceText {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink {
+    color: var(--text);
+    display: inline;
+    margin: 0;
+  }
+
+  .imageSourceLink:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<br>
+<p><div class="admonition tip"><div class="admonition-content" ><p>You can double check that you correctly applied proxy settings by checking public ip address of your browser by navigating to:</p>
+<p><a href="https://ipchicken.com/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">ip chicken</a></p>
+<p>or</p>
+<p><a href="https://ifconfig.me/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">ifconfig.me</a></p>
+<p>and <em><strong>curl ifconfig.me</strong></em> command from your terminal. The IP address should be different for your configured browser. (Don’t forget to disable the proxy setting in your browser if you’re not using Tor; otherwise, normal website pages will not load.)</p>
+</div>
+</div>
+
+<style>
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #24273A;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: -18px;
+  }
+
+  summary:hover {
+    background-color: #0E1529;
+  }
+
+  summary:active {
+    background-color: #d0d0d0;
+  }
+
+  .light summary {
+    background-color: #EFF1F5;
+  }
+
+  .light summary:hover {
+    background-color: #DEE4EB;
+  }
+</style>
+
+<details >
+  <summary></summary>
+  <div class="summary-content">
+    <p class="markdown-image">
+    <picture>
+        
+        
+        <source srcset="/images/yt-local/ifconfig.webp" type='image/webp'>
+        
+        <img loading="lazy" src="/images/yt-local/ifconfig.webp" alt=""  />
+    </picture>
+</p>
+  </div>
+</details>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('details').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+      });
+    });
+  });
+</script>
+</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>yt-local offers a unique way to watch YouTube anonymously and without the typical lag. Although we haven&rsquo;t incorporated TOR due to focus on speed, it remains an excellent choice for those concerned about privacy. By routing requests through Tor and hosting videos locally, it provides a faster and more private YouTube experience. With the added convenience of a Windows shortcut and browser redirector extension, accessing your locally hosted YouTube becomes even more seamless.</p>
+<p>yt-local offers a unique way to watch YouTube anonymously and without the typical lag. By routing requests through Tor and hosting videos locally, it provides a faster and more private YouTube experience. With the added convenience of a Windows shortcut and browser redirector extension, accessing your locally hosted YouTube becomes even more seamless.</p>
 <!-- ## Walkthrough Video -->
 <!-- 
 
@@ -989,6 +1224,16 @@ or: <code>source venv/bin/activate</code>
         <li>
           <ul>
             <li><a href="#donwload-and-set-up-redirector-extension">Donwload and Set up Redirector extension:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#step-5-tor-very-optional-for-privacy">Step 5 <strong>TOR</strong> (very OPTIONAL) for privacy</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#what-is-tor">What is Tor?</a></li>
+            <li><a href="#installing-and-setting-up-tor-on-windows">Installing and Setting up Tor (on Windows)</a></li>
           </ul>
         </li>
       </ul>
