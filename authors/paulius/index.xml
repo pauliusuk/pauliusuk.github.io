@@ -23,6 +23,13 @@
       <description>What is an Extension/Add-on? A browser extension, often referred to as an add-on, is a small software program designed to enhance and customize the functionality of web browsers such as Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. These extensions can add new features, modify existing ones, or even block unwanted content.&#xA;Whether it&amp;rsquo;s blocking ads for a cleaner browsing experience, managing passwords securely, or accelerating downloads, browser extensions offer users a way to tailor their browsing experience to their needs and preferences.</description>
     </item>
     <item>
+      <title>Self host YouTube</title>
+      <link>https://paulius.uk/posts/2024/yt-local/</link>
+      <pubDate>Tue, 23 Apr 2024 22:19:39 +0100</pubDate>
+      <guid>https://paulius.uk/posts/2024/yt-local/</guid>
+      <description>What is yt-local and Why would you want to install it? yt-local is a browser-based client written in Python for watching YouTube anonymously and without the lag of the slow page used by YouTube. One of the primary features is that all requests are routed through Tor, except for the video file at googlevideo.com. Tor has high latency, so this will not be as fast network-wise as regular YouTube. However, using Tor is optional; when not routing through Tor, video pages may load faster than they do with YouTube&amp;rsquo;s page depending on your browser.</description>
+    </item>
+    <item>
       <title>Termux, Termux-api and SSH</title>
       <link>https://paulius.uk/posts/2024/termux-and-ssh/</link>
       <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
