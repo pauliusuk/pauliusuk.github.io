@@ -357,7 +357,11 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">git clone https://git.sr.ht/~heckyel/yt-local</span></span></code></pre></div>
 <p>or if you dont have git installed,<br></p>
 <p>Then download latest release .tar.gz save it to your download&rsquo;s folder extract it and rename it to: yt-local:
-<a href="https://git.sr.ht/~heckyel/yt-local/refs" target="_blank" style="font-family: monospace; text-decoration: underline #3395FF 2px; font-weight: 700;">heckyel&rsquo;s website</a></p>
+
+
+<a href="https://git.sr.ht/~heckyel/yt-local/refs" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline 2px #3395FF; color: var(--text); font-weight: 700;">heckyel&#39;s website</a>
+
+</p>
 <h2 id="step-2">STEP 2</h2>
 <p>Commands to run in the Terminal. I&rsquo;m on Windows, so I&rsquo;ll be using PowerShell.
 <br>1.<br>
@@ -609,12 +613,9 @@ or: <code>source venv/bin/activate</code>
 <h3 id="installing-and-setting-up-tor-on-windows">Installing and Setting up Tor (on Windows)</h3>
 <p>Once in 
 
+<a href="http://localhost:9010/youtube.com/settings" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline 2px #3395FF; color: var(--text); font-weight: 700;">YT Local settings</a>
 
-
-
-<a href="http://localhost:9010/youtube.com/settings" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">YT Local settings</a>
-
- select these networking settings:</p>
+ enable <strong>Route Tor: On, except video</strong>. Double check these networking settings and click save settings at the bottom of the page:</p>
 
 
 
@@ -655,6 +656,10 @@ or: <code>source venv/bin/activate</code>
   }
 </style>
 
+<div class="admonition tip"><div class="admonition-content" >Don&rsquo;t forget to turn Route Tor: Off if you are not using Tor.</div>
+</div>
+
+<h3 id="tor-browser">Tor Browser</h3>
 <p>Download the Tor Browser if you haven&rsquo;t done so already:<br>
 • 
 
@@ -733,6 +738,7 @@ Open a terminal and run this command:</p>
   });
 </script>
 </p>
+<h3 id="browsers-proxy-configuration">Browser&rsquo;s proxy configuration</h3>
 <p>Now open your browser settings (mine is Firefox) and search for proxy settings (It&rsquo;s the last option under Network Settings in Firefox. Configure how Firefox connects to the internet).</p>
 <ol>
 <li>click on Settings&hellip; (Under Network Settings in Firefox)<br></li>
@@ -786,7 +792,7 @@ Open a terminal and run this command:</p>
 <p><a href="https://ipchicken.com/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">ip chicken</a></p>
 <p>or</p>
 <p><a href="https://ifconfig.me/" target="_blank" style="font-family: monospace; font-style: normal; text-decoration: underline yellow 2px; font-weight: 700; color: var(--text);" onmouseover="this.style.color='darkgreen'" onmouseout="this.style.color='var(--text)'">ifconfig.me</a></p>
-<p>and <em><strong>curl ifconfig.me</strong></em> command from your terminal. The IP address should be different for your configured browser. (Don’t forget to disable the proxy setting in your browser if you’re not using Tor; otherwise, normal website pages will not load.)</p>
+<p>and <em><strong>curl ifconfig.me</strong></em> command from your terminal. The IP address should be different for your configured browser. <br><br> (Don’t forget to disable the proxy setting in your browser if you’re not using Tor; otherwise, normal website pages will not load.)</p>
 </div>
 </div>
 
@@ -1252,6 +1258,8 @@ Open a terminal and run this command:</p>
           <ul>
             <li><a href="#what-is-tor">What is Tor?</a></li>
             <li><a href="#installing-and-setting-up-tor-on-windows">Installing and Setting up Tor (on Windows)</a></li>
+            <li><a href="#tor-browser">Tor Browser</a></li>
+            <li><a href="#browsers-proxy-configuration">Browser&rsquo;s proxy configuration</a></li>
           </ul>
         </li>
       </ul>
