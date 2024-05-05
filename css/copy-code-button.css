@@ -160,8 +160,8 @@
 /* } */
 
 .highlight pre code[class*='language-json']::before {
-  content: 'json';
-  background: dodgerblue;
+  content: '{}json';
+  background: #F1D700;
   color: #000000
 }
 
