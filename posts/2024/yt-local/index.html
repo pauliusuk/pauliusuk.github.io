@@ -493,6 +493,32 @@ or: <code>source venv/bin/activate</code>
 </style>
 
 </p>
+<br/>
+<details><summary><img src="https://skillicons.dev/icons?i=linux" style="width: 35px;"> same script <code>for Linux</code> start-yt-local.sh </summary>
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/Downloads/yt-local/venv/bin/activate
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/Downloads/yt-local <span class="o">||</span> <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">python server.py <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sleep 1.5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">firefox http://localhost:9010/</span></span></code></pre></div>
+
+
+
+
+
+
+<pre tabindex="0"><code>chmod +x start-yt-local.sh
+./start-yt-local.sh</code></pre>
+</details>
 <br>
 <h1 id="step-4-redirector-optional-but-recommended">STEP 4 <strong>Redirector</strong> (OPTIONAL but Recommended)</h1>
 <h3 id="donwload-and-set-up-redirector-extension">Donwload and Set up Redirector extension:</h3>
