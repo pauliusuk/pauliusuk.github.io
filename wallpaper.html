@@ -70,13 +70,13 @@
       max-height: 90vh;
     }
 
-        .wallpapers-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
+    .wallpapers-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
 
     #wallpaper {
       max-height: 80vh;
@@ -130,6 +130,27 @@
       cursor: pointer;
     }
 
+    .download {
+      position: absolute;
+      background-color: #FEF6E0;
+      color: black;
+      left: 0;
+      top: 160px;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .download:hover {
+      background-color: #DDD;
+    }
+
     @media (max-width: 768px) {
       #wallpaper-link {
         width: 100%;
@@ -149,28 +170,28 @@
         width: 12px;
         height: 12px;
       }
+    }
 
-      @media (max-width: 480px) {
-        #wallpaper-link {
-          width: 100%;
-        }
+    @media (max-width: 480px) {
+      #wallpaper-link {
+        width: 100%;
+      }
 
-        #wallpaper {
-          width: 100%;
-          height: auto;
-          max-height: none;
-        }
+      #wallpaper {
+        width: 100%;
+        height: auto;
+        max-height: none;
+      }
 
-        .info {
-          max-width: 100%;
-          font-size: 12px;
-        }
+      .info {
+        max-width: 100%;
+        font-size: 12px;
+      }
 
-        #uploader-avatar {
-          width: 8px;
-          height: 8px;
-
-        }
+      #uploader-avatar {
+        width: 8px;
+      }
+    }
   </style>
 </head>
 
@@ -178,11 +199,12 @@
   <button class="goback" onclick="window.history.back()">←</button>
   <button class="refresh" onclick="window.location.reload()">⟳</button>
   <div class="container">
-    <h1>Wallpaper Gallery - <a href="https://wallhaven.cc">wallhaven.cc</a></h1>
+    <h1>Wallpaper of the Day - <a href="https://wallhaven.cc">wallhaven.cc</a></h1>
     <div class="content">
       <a id="wallpaper-link" href="" target="_blank">
         <img id="wallpaper" src="" alt="Wallpaper">
       </a>
+      <button id="download-button" class="download" title="Fullscreen">⛶</button>
       <div class="info" id="description"></div>
     </div>
   </div>
@@ -218,19 +240,28 @@
         document.getElementById('wallpaper').src = wallpaper.path;
         document.getElementById('wallpaper-link').href = `https://wallhaven.cc/w/${wallpaper.id}`;
         document.getElementById('description').innerHTML = `
-<strong style="color: #85AAAF;">Uploaded by:</strong><img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt="Uploader Avatar"> <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
-<strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
-<strong style="color: #85AAAF;">Category:</strong> ${category} <br>
-<strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
-<strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
-<strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
-<strong style="color: #85AAAF;">Views:</strong> ${views} <br>
-<strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
-<strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
+          <strong style="color: #85AAAF;">Uploaded by:</strong><img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt="Uploader Avatar"> <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
+          <strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
+          <strong style="color: #85AAAF;">Category:</strong> ${category} <br>
+          <strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
+          <strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
+          <strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
+          <strong style="color: #85AAAF;">Views:</strong> ${views} <br>
+          <strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
+          <strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
         `;
 
         document.getElementById('uploader-avatar').addEventListener('click', function () {
           window.open(`https://wallhaven.cc/user/${wallpaper.uploader.username}`);
+        });
+
+        document.getElementById('download-button').addEventListener('click', function () {
+          const link = document.createElement('a');
+          link.href = wallpaper.path;
+          link.download = wallpaper.path.split('/').pop(); // Use the filename from the URL
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         });
       }
 
@@ -247,10 +278,11 @@
           .catch(error => console.error('Error fetching wallpaper details:', error));
       }
 
-      function fetchWallpaperData() {
+      function fetchWallpaperData(pageNumber) {
         const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        const targetUrl = 'https://wallhaven.cc/api/v1/search?sorting=hot&page=2&categories=111&purity=100';
+        const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=hot&order=desc&ai_art_filter=1&page=${pageNumber}`;
         const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
@@ -259,7 +291,7 @@
           .catch(error => console.error('Error fetching wallpaper data:', error));
       }
 
-      fetchWallpaperData();
+      fetchWallpaperData(2);
 
       let page = 1; // Initial page number
       const container = document.querySelector('.wallpapers-container');
@@ -277,7 +309,6 @@
               wallpaperElement.innerHTML = `
                 <img src="${wallpaper.path}" alt="Wallpaper">
                 <p>Uploaded by: ${wallpaper.uploader.username}</p>
-                <!-- Add more details as needed -->
               `;
               container.appendChild(wallpaperElement);
             });
@@ -297,7 +328,6 @@
       fetchMoreWallpapers();
     });
   </script>
-
 </body>
 
 </html>
