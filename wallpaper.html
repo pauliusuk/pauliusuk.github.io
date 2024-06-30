@@ -151,6 +151,16 @@
       background-color: #DDD;
     }
 
+    #download-button {
+      top: 160px;
+      /* Position for fullscreen button */
+    }
+
+    #random-button {
+      top: 220px;
+      /* Position for random button */
+    }
+
     @media (max-width: 768px) {
       #wallpaper-link {
         width: 100%;
@@ -196,8 +206,8 @@
 </head>
 
 <body>
-  <button class="goback" onclick="window.history.back()">←</button>
-  <button class="refresh" onclick="window.location.reload()">⟳</button>
+  <button class="goback" title="Back" onclick="window.history.back()">←</button>
+  <button class="refresh" title="Refresh" onclick="window.location.reload()">⟳</button>
   <div class="container">
     <h1>Wallpaper of the Day - <a href="https://wallhaven.cc">wallhaven.cc</a></h1>
     <div class="content">
@@ -205,12 +215,18 @@
         <img id="wallpaper" src="" alt="Wallpaper">
       </a>
       <button id="download-button" class="download" title="Fullscreen">⛶</button>
+      <button id="random-button" class="download" title="Random Wallpaper">🎲</button>
       <div class="info" id="description"></div>
     </div>
   </div>
+
   <div class="wallpapers-container"></div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      let currentWallpaperId = null; // Track the current wallpaper ID for fullscreen and download actions
+      let page = 1; // Initial page number
+      const container = document.querySelector('.wallpapers-container');
+
       function formatRelativeDate(date) {
         const now = new Date();
         const diffTime = Math.abs(now - date);
@@ -229,6 +245,11 @@
       }
 
       function integrateData(wallpaper) {
+        if (!wallpaper) {
+          console.error('No wallpaper data provided');
+          return;
+        }
+
         const uploadTime = wallpaper.created_at ? formatDate(wallpaper.created_at) : 'Unknown date';
         const category = wallpaper.category || 'Unknown';
         const purity = wallpaper.purity || 'Unknown';
@@ -237,31 +258,44 @@
         const views = wallpaper.views || '0';
         const favorites = wallpaper.favorites || '0';
 
+        // Update the wallpaper image and link
         document.getElementById('wallpaper').src = wallpaper.path;
         document.getElementById('wallpaper-link').href = `https://wallhaven.cc/w/${wallpaper.id}`;
-        document.getElementById('description').innerHTML = `
-          <strong style="color: #85AAAF;">Uploaded by:</strong><img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt="Uploader Avatar"> <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
-          <strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
-          <strong style="color: #85AAAF;">Category:</strong> ${category} <br>
-          <strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
-          <strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
-          <strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
-          <strong style="color: #85AAAF;">Views:</strong> ${views} <br>
-          <strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
-          <strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
-        `;
 
+        // Update the current wallpaper ID
+        currentWallpaperId = wallpaper.id;
+
+        // Update the description
+        document.getElementById('description').innerHTML = `
+      <strong style="color: #85AAAF;">Uploaded by:</strong>
+      <img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt="Uploader Avatar">
+      <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
+      <strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
+      <strong style="color: #85AAAF;">Category:</strong> ${category} <br>
+      <strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
+      <strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
+      <strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
+      <strong style="color: #85AAAF;">Views:</strong> ${views} <br>
+      <strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
+      <strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
+    `;
+
+        // Ensure uploader-avatar and download-button have event listeners
         document.getElementById('uploader-avatar').addEventListener('click', function () {
           window.open(`https://wallhaven.cc/user/${wallpaper.uploader.username}`);
         });
 
         document.getElementById('download-button').addEventListener('click', function () {
-          const link = document.createElement('a');
-          link.href = wallpaper.path;
-          link.download = wallpaper.path.split('/').pop(); // Use the filename from the URL
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          if (currentWallpaperId) {
+            const link = document.createElement('a');
+            link.href = document.getElementById('wallpaper').src;
+            link.download = link.href.split('/').pop(); // Use the filename from the URL
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            console.error('No wallpaper ID available for download.');
+          }
         });
       }
 
@@ -278,6 +312,24 @@
           .catch(error => console.error('Error fetching wallpaper details:', error));
       }
 
+      function fetchRandomWallpaper() {
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=random&order=desc&ai_art_filter=1&page=${Math.floor(Math.random() * 100) + 1}`;
+        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            if (data.data.length > 0) {
+              const randomWallpaperId = data.data[0].id;
+              fetchWallpaperDetails(randomWallpaperId); // Fetch detailed info for the wallpaper
+            } else {
+              console.error('No data returned from random wallpaper request.');
+            }
+          })
+          .catch(error => console.error('Error fetching random wallpaper:', error));
+      }
+
       function fetchWallpaperData(pageNumber) {
         const proxyUrl = 'https://api.allorigins.win/raw?url=';
         const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=hot&order=desc&ai_art_filter=1&page=${pageNumber}`;
@@ -286,15 +338,14 @@
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            fetchWallpaperDetails(data.data[0].id);
+            if (data.data.length > 0) {
+              fetchWallpaperDetails(data.data[0].id);
+            } else {
+              console.error('No data found in fetchWallpaperData.');
+            }
           })
           .catch(error => console.error('Error fetching wallpaper data:', error));
       }
-
-      fetchWallpaperData(2);
-
-      let page = 1; // Initial page number
-      const container = document.querySelector('.wallpapers-container');
 
       function fetchMoreWallpapers() {
         const proxyUrl = 'https://api.allorigins.win/raw?url=';
@@ -307,15 +358,37 @@
             data.data.forEach(wallpaper => {
               const wallpaperElement = document.createElement('div');
               wallpaperElement.innerHTML = `
-                <img src="${wallpaper.path}" alt="Wallpaper">
-                <p>Uploaded by: ${wallpaper.uploader.username}</p>
-              `;
+            <img src="${wallpaper.path}" alt="Wallpaper">
+            <p>Uploaded by: ${wallpaper.uploader.username}</p>
+          `;
               container.appendChild(wallpaperElement);
             });
             page++; // Increment page number for the next fetch
           })
           .catch(error => console.error('Error fetching more wallpapers:', error));
       }
+
+      // Event listener for random button
+      document.getElementById('random-button').addEventListener('click', function () {
+        fetchRandomWallpaper();
+      });
+
+      // Event listener for download button
+      document.getElementById('download-button').addEventListener('click', function () {
+        if (currentWallpaperId) {
+          const link = document.createElement('a');
+          link.href = document.getElementById('wallpaper').src;
+          link.download = link.href.split('/').pop(); // Use the filename from the URL
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          console.error('No wallpaper ID available for download.');
+        }
+      });
+
+      // Initial fetch when the page loads
+      fetchWallpaperData(2);
 
       // Implement infinite scroll
       window.addEventListener('scroll', () => {
@@ -327,7 +400,9 @@
       // Initial fetch when the page loads
       fetchMoreWallpapers();
     });
+
   </script>
+
 </body>
 
 </html>
