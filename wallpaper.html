@@ -6,12 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wallpaper of the Day</title>
   <style>
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: fixed;
+      top: 10px;
+      width: 100%;
+      z-index: 1000;
+    }
+
     .goback,
-    .refresh {
-      position: absolute;
+    .refresh,
+    .download,
+    #random-button {
       background-color: #FEF6E0;
-      left: 0;
-      top: 40px;
       border: none;
       border-radius: 50%;
       width: 40px;
@@ -20,10 +29,109 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      margin-right: 10px;
+      transition: filter 0.5s ease;
+      /* Smooth transition for filter change */
+    }
+
+    #random-button:hover {
+      animation: color-rotate 10s linear infinite alternate;
+      /* Apply hue-rotate animation on hover */
+    }
+
+    @keyframes color-rotate {
+      from {
+        filter: hue-rotate(0deg) saturate(100%);
+        /* Initial color state */
+      }
+
+      to {
+        filter: hue-rotate(720deg) saturate(500%);
+        /* Rotate hue and increase saturation */
+      }
+    }
+
+    .goback {
+      /* Positioning for the 'Back' button */
+    }
+
+    #go-back {
+      background-color: #FEF6E0;
+      /* Base color for the button */
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      /* Smooth transition for background change */
+    }
+
+    #go-back:hover {
+      background: linear-gradient(45deg, #ff6f61, #C10808);
+      /* Gradient background on hover */
+      color: #fff;
+      /* Ensure text/icon color is readable on gradient background */
     }
 
     .refresh {
-      top: 100px;
+      /* Positioning for the 'Refresh' button */
+    }
+
+    #refresh {
+      background-color: #FEF6E0;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #refresh:hover {
+      background: linear-gradient(45deg, #00f0ff, #0047ff);
+      /* Blue gradient background on hover */
+      color: #fff;
+      /* Ensure text/icon color is readable on gradient background */
+    }
+
+
+    .download {
+      /* Positioning for the 'Fullscreen' button */
+    }
+
+    #download-button {
+      background-color: #FEF6E0;
+      /* Base color for the button */
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      /* Smooth transition for background and text color changes */
+    }
+
+    #download-button:hover {
+      background: linear-gradient(45deg, #00ff00, #007700);
+      /* Green gradient background on hover */
+      color: #fff;
+      /* Ensure text/icon color is readable on gradient background */
+    }
+
+
+    #random-button {
+      margin-right: 15px;
+      /* Positioning for the 'Random Wallpaper' button */
     }
 
     body {
@@ -39,7 +147,8 @@
     }
 
     .container {
-      margin-top: 20px;
+      margin-top: 60px;
+      /* Adjust for the fixed button container height */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -130,37 +239,6 @@
       cursor: pointer;
     }
 
-    .download {
-      position: absolute;
-      background-color: #FEF6E0;
-      color: black;
-      left: 0;
-      top: 160px;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .download:hover {
-      background-color: #DDD;
-    }
-
-    #download-button {
-      top: 160px;
-      /* Position for fullscreen button */
-    }
-
-    #random-button {
-      top: 220px;
-      /* Position for random button */
-    }
-
     @media (max-width: 768px) {
       #wallpaper-link {
         width: 100%;
@@ -203,19 +281,23 @@
       }
     }
   </style>
+
 </head>
 
 <body>
-  <button class="goback" title="Back" onclick="window.history.back()">←</button>
-  <button class="refresh" title="Refresh" onclick="window.location.reload()">⟳</button>
+  <div class="button-container">
+    <button id="go-back" class="goback" title="Back" onclick="window.history.back()">←</button>
+    <button id="refresh" class="refresh" title="Refresh" onclick="window.location.reload()">⟳</button>
+    <button id="random-button" class="download" title="Random Wallpaper">🎲</button>
+    <button id="download-button" class="download" title="Fullscreen">⛶</button>
+  </div>
+
   <div class="container">
     <h1>Wallpaper of the Day - <a href="https://wallhaven.cc">wallhaven.cc</a></h1>
     <div class="content">
       <a id="wallpaper-link" href="" target="_blank">
         <img id="wallpaper" src="" alt="Wallpaper">
       </a>
-      <button id="download-button" class="download" title="Fullscreen">⛶</button>
-      <button id="random-button" class="download" title="Random Wallpaper">🎲</button>
       <div class="info" id="description"></div>
     </div>
   </div>
