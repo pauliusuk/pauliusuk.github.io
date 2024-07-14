@@ -134,6 +134,46 @@
       /* Positioning for the 'Random Wallpaper' button */
     }
 
+    /* CSS for the active button rainbow border effect */
+    #random-button.active {
+      border: 5px solid transparent;
+      animation: border-spin 4s linear infinite;
+    }
+
+    @keyframes border-spin {
+      0% {
+        border-color: green;
+      }
+
+      14% {
+        border-color: orange;
+      }
+
+      28% {
+        border-color: yellow;
+      }
+
+      42% {
+        border-color: red;
+      }
+
+      57% {
+        border-color: blue;
+      }
+
+      71% {
+        border-color: indigo;
+      }
+
+      85% {
+        border-color: violet;
+      }
+
+      100% {
+        border-color: red;
+      }
+    }
+
     body {
       display: flex;
       flex-direction: column;
@@ -281,7 +321,6 @@
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -303,11 +342,14 @@
   </div>
 
   <div class="wallpapers-container"></div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      let currentWallpaperId = null; // Track the current wallpaper ID for fullscreen and download actions
-      let page = 1; // Initial page number
+      const randomButton = document.getElementById('random-button');
+      let currentWallpaperId = null;
+      let page = 1;
       const container = document.querySelector('.wallpapers-container');
+      const retryLimit = 3;
 
       function formatRelativeDate(date) {
         const now = new Date();
@@ -326,6 +368,48 @@
         return `${formatRelativeDate(date)}, ${formattedDate}`;
       }
 
+      function loadImageWithRetry(imgElement, linkElement, src, retries = retryLimit) {
+        imgElement.src = src;
+        linkElement.href = src;
+
+        imgElement.onerror = function () {
+          if (retries > 0) {
+            setTimeout(() => {
+              const proxyUrls = [
+                'https://api.allorigins.win/raw?url=',
+                'https://cors-anywhere.herokuapp.com/',
+                'https://cors.bridged.cc/',
+                'https://thingproxy.freeboard.io/fetch/',
+                'https://cors-anywhere.cf/'
+              ];
+              const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(src)}`);
+
+              // Try each proxy in sequence
+              const fetchFromProxy = (index = 0) => {
+                if (index >= apiUrl.length) {
+                  console.error(`Failed to load image after ${retryLimit} attempts.`);
+                  return;
+                }
+
+                fetch(apiUrl[index])
+                  .then(response => response.blob())
+                  .then(blob => {
+                    imgElement.src = URL.createObjectURL(blob);
+                    linkElement.href = src;
+                  })
+                  .catch(() => {
+                    fetchFromProxy(index + 1); // Try the next proxy
+                  });
+              };
+
+              fetchFromProxy(); // Start fetching from the first proxy
+            }, 1000);
+          } else {
+            console.error(`Failed to load image after ${retryLimit} attempts.`);
+          }
+        };
+      }
+
       function integrateData(wallpaper) {
         if (!wallpaper) {
           console.error('No wallpaper data provided');
@@ -340,29 +424,28 @@
         const views = wallpaper.views || '0';
         const favorites = wallpaper.favorites || '0';
 
-        // Update the wallpaper image and link
-        document.getElementById('wallpaper').src = wallpaper.path;
-        document.getElementById('wallpaper-link').href = `https://wallhaven.cc/w/${wallpaper.id}`;
+        const wallpaperImg = document.getElementById('wallpaper');
+        const wallpaperLink = document.getElementById('wallpaper-link');
 
-        // Update the current wallpaper ID
+        loadImageWithRetry(wallpaperImg, wallpaperLink, wallpaper.path);
+        wallpaperLink.href = `https://wallhaven.cc/w/${wallpaper.id}`;
+
         currentWallpaperId = wallpaper.id;
 
-        // Update the description
         document.getElementById('description').innerHTML = `
-      <strong style="color: #85AAAF;">Uploaded by:</strong>
-      <img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt="Uploader Avatar">
-      <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
-      <strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
-      <strong style="color: #85AAAF;">Category:</strong> ${category} <br>
-      <strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
-      <strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
-      <strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
-      <strong style="color: #85AAAF;">Views:</strong> ${views} <br>
-      <strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
-      <strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
-    `;
+          <strong style="color: #85AAAF;">Uploaded by:</strong>
+          <img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt=" ">
+          <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
+          <strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
+          <strong style="color: #85AAAF;">Category:</strong> ${category} <br>
+          <strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
+          <strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
+          <strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
+          <strong style="color: #85AAAF;">Views:</strong> ${views} <br>
+          <strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
+          <strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
+        `;
 
-        // Ensure uploader-avatar and download-button have event listeners
         document.getElementById('uploader-avatar').addEventListener('click', function () {
           window.open(`https://wallhaven.cc/user/${wallpaper.uploader.username}`);
         });
@@ -370,8 +453,8 @@
         document.getElementById('download-button').addEventListener('click', function () {
           if (currentWallpaperId) {
             const link = document.createElement('a');
-            link.href = document.getElementById('wallpaper').src;
-            link.download = link.href.split('/').pop(); // Use the filename from the URL
+            link.href = wallpaperImg.src;
+            link.download = link.href.split('/').pop();
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -382,42 +465,74 @@
       }
 
       function fetchWallpaperDetails(wallpaperId) {
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
         const targetUrl = `https://wallhaven.cc/api/v1/w/${wallpaperId}`;
-        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
 
-        fetch(apiUrl)
+        fetch(apiUrl[0])
           .then(response => response.json())
           .then(data => {
             integrateData(data.data);
           })
-          .catch(error => console.error('Error fetching wallpaper details:', error));
+          .catch(error => {
+            console.error('Error fetching wallpaper details from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                integrateData(data.data);
+              })
+              .catch(error => console.error('Error fetching wallpaper details from second proxy:', error));
+          });
       }
 
       function fetchRandomWallpaper() {
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
         const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=random&order=desc&ai_art_filter=1&page=${Math.floor(Math.random() * 100) + 1}`;
-        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
 
-        fetch(apiUrl)
+        fetch(apiUrl[0])
           .then(response => response.json())
           .then(data => {
             if (data.data.length > 0) {
               const randomWallpaperId = data.data[0].id;
-              fetchWallpaperDetails(randomWallpaperId); // Fetch detailed info for the wallpaper
+              fetchWallpaperDetails(randomWallpaperId);
             } else {
               console.error('No data returned from random wallpaper request.');
             }
           })
-          .catch(error => console.error('Error fetching random wallpaper:', error));
+          .catch(error => {
+            console.error('Error fetching random wallpaper from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                if (data.data.length > 0) {
+                  const randomWallpaperId = data.data[0].id;
+                  fetchWallpaperDetails(randomWallpaperId);
+                } else {
+                  console.error('No data returned from random wallpaper request.');
+                }
+              })
+              .catch(error => {
+                console.error('Error fetching random wallpaper from second proxy:', error);
+              });
+          });
       }
 
       function fetchWallpaperData(pageNumber) {
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
         const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=hot&order=desc&ai_art_filter=1&page=${pageNumber}`;
-        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
 
-        fetch(apiUrl)
+        fetch(apiUrl[0])
           .then(response => response.json())
           .then(data => {
             if (data.data.length > 0) {
@@ -426,64 +541,96 @@
               console.error('No data found in fetchWallpaperData.');
             }
           })
-          .catch(error => console.error('Error fetching wallpaper data:', error));
+          .catch(error => {
+            console.error('Error fetching wallpaper data from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                if (data.data.length > 0) {
+                  fetchWallpaperDetails(data.data[0].id);
+                } else {
+                  console.error('No data found in fetchWallpaperData.');
+                }
+              })
+              .catch(error => console.error('Error fetching wallpaper data from second proxy:', error));
+          });
       }
 
       function fetchMoreWallpapers() {
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
         const targetUrl = `https://wallhaven.cc/api/v1/search?sorting=hot&page=${page}&categories=111&purity=100`;
-        const apiUrl = `${proxyUrl}${encodeURIComponent(targetUrl)}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
 
-        fetch(apiUrl)
+        fetch(apiUrl[0])
           .then(response => response.json())
           .then(data => {
             data.data.forEach(wallpaper => {
               const wallpaperElement = document.createElement('div');
               wallpaperElement.innerHTML = `
-            <img src="${wallpaper.path}" alt="Wallpaper">
-            <p>Uploaded by: ${wallpaper.uploader.username}</p>
-          `;
+                <img src="${wallpaper.path}" alt="Wallpaper">
+                <p>Uploaded by: ${wallpaper.uploader.username}</p>
+              `;
               container.appendChild(wallpaperElement);
             });
-            page++; // Increment page number for the next fetch
+            page++;
           })
-          .catch(error => console.error('Error fetching more wallpapers:', error));
+          .catch(error => {
+            console.error('Error fetching more wallpapers from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                data.data.forEach(wallpaper => {
+                  const wallpaperElement = document.createElement('div');
+                  wallpaperElement.innerHTML = `
+                    <img src="${wallpaper.path}" alt="Wallpaper">
+                    <p>Uploaded by: ${wallpaper.uploader.username}</p>
+                  `;
+                  container.appendChild(wallpaperElement);
+                });
+                page++;
+              })
+              .catch(error => console.error('Error fetching more wallpapers from second proxy:', error));
+          });
       }
 
-      // Event listener for random button
-      document.getElementById('random-button').addEventListener('click', function () {
+      randomButton.addEventListener('click', function () {
         fetchRandomWallpaper();
       });
 
-      // Event listener for download button
-      document.getElementById('download-button').addEventListener('click', function () {
-        if (currentWallpaperId) {
-          const link = document.createElement('a');
-          link.href = document.getElementById('wallpaper').src;
-          link.download = link.href.split('/').pop(); // Use the filename from the URL
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          console.error('No wallpaper ID available for download.');
-        }
-      });
-
-      // Initial fetch when the page loads
       fetchWallpaperData(2);
 
-      // Implement infinite scroll
       window.addEventListener('scroll', () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
           fetchMoreWallpapers();
         }
       });
 
-      // Initial fetch when the page loads
       fetchMoreWallpapers();
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+      const randomButton = document.getElementById('random-button');
+
+      // Event listener to apply active class on button press
+      randomButton.addEventListener('mousedown', function () {
+        this.classList.add('active');
+      });
+
+      // Event listener to remove active class on button release
+      randomButton.addEventListener('mouseup', function () {
+        this.classList.remove('active');
+      });
+
+      // Event listener to remove active class if mouse leaves button
+      randomButton.addEventListener('mouseleave', function () {
+        this.classList.remove('active');
+      });
+    });
   </script>
+
 
 </body>
 
