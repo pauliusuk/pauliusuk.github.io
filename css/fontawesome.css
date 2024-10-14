@@ -27,6 +27,20 @@
   line-height: 9px;
 }
 
+.fa-comment {
+  font-size: 12px;
+  line-height: 9px;
+}
+
+.commentSingle a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
+}
+
+.commentSingle a:hover {
+  color: orange; /* Change color on hover */
+}
+
 .fa-solid.fa-calendar-day::before {
   font-size: 15px;
   line-height: 9px;

@@ -106,7 +106,7 @@
       /* Positioning for the 'Fullscreen' button */
     }
 
-    #download-button {
+    #fullscreen-button {
       background-color: #FEF6E0;
       /* Base color for the button */
       border: none;
@@ -121,7 +121,7 @@
       /* Smooth transition for background and text color changes */
     }
 
-    #download-button:hover {
+    #fullscreen-button:hover {
       background: linear-gradient(45deg, #00ff00, #007700);
       /* Green gradient background on hover */
       color: #fff;
@@ -328,7 +328,7 @@
     <button id="go-back" class="goback" title="Back" onclick="window.history.back()">←</button>
     <button id="refresh" class="refresh" title="Refresh" onclick="window.location.reload()">⟳</button>
     <button id="random-button" class="download" title="Random Wallpaper">🎲</button>
-    <button id="download-button" class="download" title="Fullscreen">⛶</button>
+    <button id="fullscreen-button" class="download" title="Fullscreen">⛶</button>
   </div>
 
   <div class="container">
@@ -377,10 +377,8 @@
             setTimeout(() => {
               const proxyUrls = [
                 'https://api.allorigins.win/raw?url=',
-                'https://cors-anywhere.herokuapp.com/',
-                'https://cors.bridged.cc/',
                 'https://thingproxy.freeboard.io/fetch/',
-                'https://cors-anywhere.cf/'
+                'https://cors-anywhere.herokuapp.com/',
               ];
               const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(src)}`);
 
@@ -450,7 +448,7 @@
           window.open(`https://wallhaven.cc/user/${wallpaper.uploader.username}`);
         });
 
-        document.getElementById('download-button').addEventListener('click', function () {
+        document.getElementById('fullscreen-button').addEventListener('click', function () {
           if (currentWallpaperId) {
             const link = document.createElement('a');
             link.href = wallpaperImg.src;

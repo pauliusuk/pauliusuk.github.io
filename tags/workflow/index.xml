@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Workflow on Paulius.uk</title>
-    <link>https://paulius.uk/tags/workflow/</link>
+    <link>http://localhost:1313/tags/workflow/</link>
     <description>Recent content in Workflow on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/workflow/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/workflow/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Automate Your GitHub Profile With Markscribe</title>
-      <link>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</link>
+      <link>http://localhost:1313/posts/2024/how-to-automate-your-github-profile-with-markscribe/</link>
       <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/how-to-automate-your-github-profile-with-markscribe/</guid>
+      <guid>http://localhost:1313/posts/2024/how-to-automate-your-github-profile-with-markscribe/</guid>
       <description>see generated README.md ↓&#xA;Markscribe Markscribe is a tool that allows you to generate markdown content using templates and interact with GitHub and RSS feeds. It can be run as a GitHub Action and offers various functions like rendering templates, accessing GitHub data, and working with GoodReads API. This is useful if you want to generate a README.md automatically on GitHub. For example you can add things such as: what you are working on,latest projects, recent stars, etc.</description>
     </item>
   </channel>
