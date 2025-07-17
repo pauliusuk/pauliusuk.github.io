@@ -13,7 +13,7 @@
       <link>https://pauliusuk.github.io/posts/2024/common-network-ports/</link>
       <pubDate>Thu, 04 Apr 2024 02:27:31 +0100</pubDate>
       <guid>https://pauliusuk.github.io/posts/2024/common-network-ports/</guid>
-      <description>Network Ports and Protocols Ports are crucial endpoints in network communication, facilitating the transfer of data between devices. They allow different services and applications to operate concurrently on a network device by assigning specific numbers to each service. This organization ensures accurate routing of data packets based on predefined protocols. Ports enable essential network functions like web browsing, email, and remote access, making them vital for effective network management and troubleshooting.</description>
+      <description>&lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers&#34; target=&#34;_blank&#34;&gt;&#xA;&#xA;    &lt;img src=&#34;https://pauliusuk.github.io/images/Network/Binary.webp&#34; alt=&#34;Icon&#34; style=&#34;width:50px;&#34;&gt;&#xA;&#xA;  &lt;/a&gt;&#xA;&#xA;&#xA;&#xA;&lt;h1 id=&#34;network-ports-and-protocols&#34;&gt;Network Ports and Protocols&lt;/h1&gt;&#xA;&lt;p&gt;Ports are crucial endpoints in network communication, facilitating the transfer of data between devices. They allow different services and applications to operate concurrently on a network device by assigning specific numbers to each service. This organization ensures accurate routing of data packets based on predefined protocols. Ports enable essential network functions like web browsing, email, and remote access, making them vital for effective network management and troubleshooting.&lt;br&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
