@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on Paulius.uk</title>
-    <link>https://paulius.uk/tags/network/</link>
+    <link>https://pauliusuk.github.io/tags/network/</link>
     <description>Recent content in Network on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 09 Apr 2024 18:39:08 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pauliusuk.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wifi Standards</title>
-      <link>https://paulius.uk/posts/2024/wifi-standards/</link>
+      <link>https://pauliusuk.github.io/posts/2024/wifi-standards/</link>
       <pubDate>Tue, 09 Apr 2024 18:39:08 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/wifi-standards/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/wifi-standards/</guid>
       <description>The Evolution of WiFi: From Slow to Blazing Fast As technology continues to advance, the world of wireless networking has seen a remarkable transformation. The humble beginnings of WiFi, with its modest 11 Mbps speeds, have given way to lightning-fast connections capable of delivering gigabit-level performance.&#xA;Let&amp;rsquo;s take a journey through the evolution of WiFi standards and explore how they have revolutionized the way we connect to the digital world.</description>
     </item>
     <item>
       <title>Networking Commands and Troubleshooting</title>
-      <link>https://paulius.uk/posts/2024/network-commands/</link>
+      <link>https://pauliusuk.github.io/posts/2024/network-commands/</link>
       <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/network-commands/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/network-commands/</guid>
       <description>Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, and managing network-related issues on both Windows and Linux systems. Here, we&amp;rsquo;ll explore some commonly used networking commands and their usage on both platforms, as well as troubleshooting steps to resolve common network problems.&#xA;Network Troubleshooting Steps Check Hardware Use ipconfig (or ifconfig) Use ping and tracert (traceroute) Perform DNS check Check for Virus/Malware Review Database Logs Contact ISP (Internet Service Provider) Additional Steps:</description>
     </item>
     <item>
       <title>Network Cables and Connectors</title>
-      <link>https://paulius.uk/posts/2024/network-cables-and-connectors/</link>
+      <link>https://pauliusuk.github.io/posts/2024/network-cables-and-connectors/</link>
       <pubDate>Thu, 04 Apr 2024 14:39:37 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/network-cables-and-connectors/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/network-cables-and-connectors/</guid>
       <description>Overview of most commonly used Networking Cables, and Connectors In the modern era of computing, various ports, cables, and connectors are utilized to connect peripherals, transfer data, and facilitate communication between devices. Understanding these components is essential for effectively interfacing different hardware components. Below is an overview of some commonly used Networking cables, and connectors:&#xA;Ethernet: Functionality: Ethernet ports and cables are used for wired network connections, providing reliable and high-speed data transmission between computers, routers, switches, and other networking equipment.</description>
     </item>
     <item>
       <title>Common Network Ports</title>
-      <link>https://paulius.uk/posts/2024/common-network-ports/</link>
+      <link>https://pauliusuk.github.io/posts/2024/common-network-ports/</link>
       <pubDate>Thu, 04 Apr 2024 02:27:31 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/common-network-ports/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/common-network-ports/</guid>
       <description>Network Ports and Protocols Ports are crucial endpoints in network communication, facilitating the transfer of data between devices. They allow different services and applications to operate concurrently on a network device by assigning specific numbers to each service. This organization ensures accurate routing of data packets based on predefined protocols. Ports enable essential network functions like web browsing, email, and remote access, making them vital for effective network management and troubleshooting.</description>
     </item>
   </channel>

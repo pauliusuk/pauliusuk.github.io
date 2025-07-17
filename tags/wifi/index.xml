@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wifi on Paulius.uk</title>
-    <link>https://paulius.uk/tags/wifi/</link>
+    <link>https://pauliusuk.github.io/tags/wifi/</link>
     <description>Recent content in Wifi on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 09 Apr 2024 18:39:08 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/wifi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pauliusuk.github.io/tags/wifi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wifi Standards</title>
-      <link>https://paulius.uk/posts/2024/wifi-standards/</link>
+      <link>https://pauliusuk.github.io/posts/2024/wifi-standards/</link>
       <pubDate>Tue, 09 Apr 2024 18:39:08 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/wifi-standards/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/wifi-standards/</guid>
       <description>The Evolution of WiFi: From Slow to Blazing Fast As technology continues to advance, the world of wireless networking has seen a remarkable transformation. The humble beginnings of WiFi, with its modest 11 Mbps speeds, have given way to lightning-fast connections capable of delivering gigabit-level performance.&#xA;Let&amp;rsquo;s take a journey through the evolution of WiFi standards and explore how they have revolutionized the way we connect to the digital world.</description>
     </item>
   </channel>

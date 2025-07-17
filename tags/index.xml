@@ -2,143 +2,143 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Paulius.uk</title>
-    <link>https://paulius.uk/tags/</link>
+    <link>https://pauliusuk.github.io/tags/</link>
     <description>Recent content in Tags on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pauliusuk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github</title>
-      <link>https://paulius.uk/tags/github/</link>
+      <link>https://pauliusuk.github.io/tags/github/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/github/</guid>
+      <guid>https://pauliusuk.github.io/tags/github/</guid>
       <description></description>
     </item>
     <item>
       <title>Workflow</title>
-      <link>https://paulius.uk/tags/workflow/</link>
+      <link>https://pauliusuk.github.io/tags/workflow/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/workflow/</guid>
+      <guid>https://pauliusuk.github.io/tags/workflow/</guid>
       <description></description>
     </item>
     <item>
       <title>Chrome</title>
-      <link>https://paulius.uk/tags/chrome/</link>
+      <link>https://pauliusuk.github.io/tags/chrome/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/chrome/</guid>
+      <guid>https://pauliusuk.github.io/tags/chrome/</guid>
       <description></description>
     </item>
     <item>
       <title>Firefox</title>
-      <link>https://paulius.uk/tags/firefox/</link>
+      <link>https://pauliusuk.github.io/tags/firefox/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/firefox/</guid>
+      <guid>https://pauliusuk.github.io/tags/firefox/</guid>
       <description></description>
     </item>
     <item>
       <title>Self-Host</title>
-      <link>https://paulius.uk/tags/self-host/</link>
+      <link>https://pauliusuk.github.io/tags/self-host/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/self-host/</guid>
+      <guid>https://pauliusuk.github.io/tags/self-host/</guid>
       <description></description>
     </item>
     <item>
       <title>Windows</title>
-      <link>https://paulius.uk/tags/windows/</link>
+      <link>https://pauliusuk.github.io/tags/windows/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/windows/</guid>
+      <guid>https://pauliusuk.github.io/tags/windows/</guid>
       <description></description>
     </item>
     <item>
       <title>Android</title>
-      <link>https://paulius.uk/tags/android/</link>
+      <link>https://pauliusuk.github.io/tags/android/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/android/</guid>
+      <guid>https://pauliusuk.github.io/tags/android/</guid>
       <description></description>
     </item>
     <item>
       <title>Termux</title>
-      <link>https://paulius.uk/tags/termux/</link>
+      <link>https://pauliusuk.github.io/tags/termux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/termux/</guid>
+      <guid>https://pauliusuk.github.io/tags/termux/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
-      <link>https://paulius.uk/tags/docker/</link>
+      <link>https://pauliusuk.github.io/tags/docker/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/docker/</guid>
+      <guid>https://pauliusuk.github.io/tags/docker/</guid>
       <description></description>
     </item>
     <item>
       <title>Shell</title>
-      <link>https://paulius.uk/tags/shell/</link>
+      <link>https://pauliusuk.github.io/tags/shell/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/shell/</guid>
+      <guid>https://pauliusuk.github.io/tags/shell/</guid>
       <description></description>
     </item>
     <item>
       <title>Network</title>
-      <link>https://paulius.uk/tags/network/</link>
+      <link>https://pauliusuk.github.io/tags/network/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/network/</guid>
+      <guid>https://pauliusuk.github.io/tags/network/</guid>
       <description></description>
     </item>
     <item>
       <title>Wifi</title>
-      <link>https://paulius.uk/tags/wifi/</link>
+      <link>https://pauliusuk.github.io/tags/wifi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/wifi/</guid>
+      <guid>https://pauliusuk.github.io/tags/wifi/</guid>
       <description></description>
     </item>
     <item>
       <title>Ports</title>
-      <link>https://paulius.uk/tags/ports/</link>
+      <link>https://pauliusuk.github.io/tags/ports/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/ports/</guid>
+      <guid>https://pauliusuk.github.io/tags/ports/</guid>
       <description></description>
     </item>
     <item>
       <title>Css</title>
-      <link>https://paulius.uk/tags/css/</link>
+      <link>https://pauliusuk.github.io/tags/css/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/css/</guid>
+      <guid>https://pauliusuk.github.io/tags/css/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>https://paulius.uk/tags/hugo/</link>
+      <link>https://pauliusuk.github.io/tags/hugo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/hugo/</guid>
+      <guid>https://pauliusuk.github.io/tags/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Bash</title>
-      <link>https://paulius.uk/tags/bash/</link>
+      <link>https://pauliusuk.github.io/tags/bash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/bash/</guid>
+      <guid>https://pauliusuk.github.io/tags/bash/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://paulius.uk/tags/linux/</link>
+      <link>https://pauliusuk.github.io/tags/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/linux/</guid>
+      <guid>https://pauliusuk.github.io/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>Cyber</title>
-      <link>https://paulius.uk/tags/cyber/</link>
+      <link>https://pauliusuk.github.io/tags/cyber/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/cyber/</guid>
+      <guid>https://pauliusuk.github.io/tags/cyber/</guid>
       <description></description>
     </item>
     <item>
       <title>Overthewire.org</title>
-      <link>https://paulius.uk/tags/overthewire.org/</link>
+      <link>https://pauliusuk.github.io/tags/overthewire.org/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/tags/overthewire.org/</guid>
+      <guid>https://pauliusuk.github.io/tags/overthewire.org/</guid>
       <description></description>
     </item>
   </channel>

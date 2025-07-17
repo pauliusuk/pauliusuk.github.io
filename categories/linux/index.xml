@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Paulius.uk</title>
-    <link>https://paulius.uk/categories/linux/</link>
+    <link>https://pauliusuk.github.io/categories/linux/</link>
     <description>Recent content in Linux on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 04 Apr 2024 16:20:46 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pauliusuk.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Networking Commands and Troubleshooting</title>
-      <link>https://paulius.uk/posts/2024/network-commands/</link>
+      <link>https://pauliusuk.github.io/posts/2024/network-commands/</link>
       <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/network-commands/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/network-commands/</guid>
       <description>Networking Commands for Windows and Linux Networking commands are essential for diagnosing, troubleshooting, and managing network-related issues on both Windows and Linux systems. Here, we&amp;rsquo;ll explore some commonly used networking commands and their usage on both platforms, as well as troubleshooting steps to resolve common network problems.&#xA;Network Troubleshooting Steps Check Hardware Use ipconfig (or ifconfig) Use ping and tracert (traceroute) Perform DNS check Check for Virus/Malware Review Database Logs Contact ISP (Internet Service Provider) Additional Steps:</description>
     </item>
     <item>
       <title>Exploring Linux &#34;chmod&#34; commands</title>
-      <link>https://paulius.uk/posts/2024/chmod/</link>
+      <link>https://pauliusuk.github.io/posts/2024/chmod/</link>
       <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
-      <guid>https://paulius.uk/posts/2024/chmod/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/chmod/</guid>
       <description>Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit. In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage.</description>
     </item>
   </channel>
