@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bash on Paulius.uk</title>
-    <link>https://pauliusuk.github.io/tags/bash/</link>
+    <link>http://localhost:1313/tags/bash/</link>
     <description>Recent content in Bash on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 09 Mar 2024 14:15:12 +0000</lastBuildDate>
-    <atom:link href="https://pauliusuk.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/bash/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exploring Linux &#34;chmod&#34; commands</title>
-      <link>https://pauliusuk.github.io/posts/2024/chmod/</link>
+      <link>http://localhost:1313/posts/2024/chmod/</link>
       <pubDate>Sat, 09 Mar 2024 14:15:12 +0000</pubDate>
-      <guid>https://pauliusuk.github.io/posts/2024/chmod/</guid>
-      <description>&lt;img src=&#34;https://skillicons.dev/icons?i=linux,bash&#34; alt=&#34;Icon&#34; style=&#34;width:120px;&#34;&gt;&#xA;&#xA;&#xA;&#xA;&lt;h1 id=&#34;lets-explore-linux-chmod-commands-400-600-644-700-777-and-the-s-bit&#34;&gt;Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit.&lt;/h1&gt;&#xA;&lt;p&gt;In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage. &lt;br&gt;&lt;br&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/2024/chmod/</guid>
+      <description>Let&amp;rsquo;s Explore Linux chmod Commands: 400, 600, 644, 700, 777, and the &amp;ldquo;s&amp;rdquo; Bit. In the Linux operating system, file permissions are crucial for controlling access to files and directories. The chmod command is used to modify these permissions. Understanding the numeric values associated with file permissions is essential for managing security effectively. Here, we&amp;rsquo;ll delve into six common chmod commands: 400, 600, 644, 700, and 777, and introduce the significance of the &amp;ldquo;s&amp;rdquo; bit, explaining its usage.</description>
     </item>
   </channel>
 </rss>

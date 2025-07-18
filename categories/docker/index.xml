@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on Paulius.uk</title>
-    <link>https://pauliusuk.github.io/categories/docker/</link>
+    <link>http://localhost:1313/categories/docker/</link>
     <description>Recent content in Docker on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Apr 2024 12:55:56 +0100</lastBuildDate>
-    <atom:link href="https://pauliusuk.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing Docker Containers</title>
-      <link>https://pauliusuk.github.io/posts/2024/managing-docker-containers/</link>
+      <link>http://localhost:1313/posts/2024/managing-docker-containers/</link>
       <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
-      <guid>https://pauliusuk.github.io/posts/2024/managing-docker-containers/</guid>
-      <description>&lt;!-- &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&lt;div style=&#34;text-align: center;&#34;&gt;&#xA;  &lt;img src=&#34;https://cdn2.webdamdb.com/1280_YH3X6z6na1S1.jpg?1625707082&#34; alt=&#34;&#34; style=&#34;width:300px; display: block; margin: 0 auto;&#34;&gt;&#xA;&#xA;  &lt;div class=&#34;imageDetails&#34; style=&#34;margin: 10px 0px 5px 0px; font-size: 19px; text-align: center;&#34;&gt;&#xA;    &#xA;&#xA;    &#xA;    &#xA;    &lt;p class=&#34;imageSourceText&#34; style=&#34;margin-left: 5px;&#34;&gt;Image Source: &lt;/p&gt;&#xA;    &#xA;    &lt;p class=&#34;imageSourceLink&#34;&gt;&lt;a href=&#34;https://www.cablestogo.com/cables/fiber-optic/duplex-single-mode-os2-cables/23ft-7m-lc-lc-9-125-os2-duplex-single-mode-pvc-fiber-optic-cable-yellow/p/cg-37462&#34;&gt;cablestogo&lt;/a&gt;&lt;/p&gt;&#xA;    &#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&lt;style&gt;&#xA;  .imageName {&#xA;    color: var(--text);&#xA;    display: inline;&#xA;    margin: 0;&#xA;  }&#xA;&#xA;  .imageSourceText {&#xA;    color: var(--text);&#xA;    display: inline;&#xA;    margin: 0;&#xA;  }&#xA;&#xA;  .imageSourceLink {&#xA;    color: var(--text);&#xA;    display: inline;&#xA;    margin: 0;&#xA;  }&#xA;&#xA;  .imageSourceLink:hover {&#xA;    text-decoration: underline;&#xA;  }&#xA;&lt;/style&gt;&#xA; --&gt;&#xD;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &lt;a href=&#34;https://docker.com&#34; target=&#34;_blank&#34;&gt;&#xA;&#xA;    &lt;img src=&#34;https://skillicons.dev/icons?i=docker&#34; alt=&#34;Icon&#34; style=&#34;width:50px;&#34;&gt;&#xA;&#xA;  &lt;/a&gt;&#xA;&#xA;&#xA;&#xA;&lt;h1 id=&#34;docker-management&#34;&gt;Docker Management&lt;/h1&gt;&#xA;&lt;p&gt;Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more. Here&amp;rsquo;s a comprehensive guide to Docker management from cleanup to creation.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/2024/managing-docker-containers/</guid>
+      <description>Docker Management Managing Docker environments efficiently involves not only cleaning up but also creating and maintaining containers, images, volumes, and more. Here&amp;rsquo;s a comprehensive guide to Docker management from cleanup to creation.&#xA;Table of Contents&#xA;1. Removing Docker Containers, Images, and Volumes&#xA;2. Creating Docker Images&#xA;3. Initializing Docker Projects&#xA;4. Using Docker Compose&#xA;Removing Docker Containers, Images, and Volumes If you&amp;rsquo;re looking to clean up your Docker environment by removing containers, images, and volumes, using the command line, here&amp;rsquo;s how you can do it:</description>
     </item>
   </channel>
 </rss>

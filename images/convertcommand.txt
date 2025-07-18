@@ -1,7 +1,0 @@
-$outputDirectory = $PWD.Path
-if (-not (Test-Path $outputDirectory)) {
-    New-Item -ItemType Directory -Force -Path $outputDirectory
-}
-Get-ChildItem *.png | ForEach-Object {
-    & "cwebp.exe" -q 70 -o (Join-Path -Path $outputDirectory -ChildPath "$($_.BaseName).webp") $_.FullName
-}

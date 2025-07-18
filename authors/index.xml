@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors on Paulius.uk</title>
-    <link>https://pauliusuk.github.io/authors/</link>
+    <link>http://localhost:1313/authors/</link>
     <description>Recent content in Authors on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Mar 2025 18:30:32 +0100</lastBuildDate>
-    <atom:link href="https://pauliusuk.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/authors/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>https://pauliusuk.github.io/authors/paulius/</link>
-      <pubDate>Mon, 31 Mar 2025 18:30:32 +0100</pubDate>
-      <guid>https://pauliusuk.github.io/authors/paulius/</guid>
-      <description>&lt;div class=&#34;social-links&#34;&gt;&#xA;&lt;!-- Github Icon --&gt;&#xA;&lt;a href=&#34;https://github.com/paulobox&#34; target=&#34;_blank&#34;&gt;&#xA;&lt;img src=&#34;https://skillicons.dev/icons?i=github&#34; alt=&#34;Github&#34;&gt;&#xA;&lt;/a&gt;&#xA;&lt;!-- LinkedIn Icon --&gt;&#xA;&lt;a href=&#34;https://uk.linkedin.com/in/paulius-jon&#34; target=&#34;_blank&#34;&gt;&#xA;&lt;img src=&#34;https://skillicons.dev/icons?i=linkedin&#34; alt=&#34;Linkedin&#34;&gt;&#xA;&lt;/a&gt;&#xA;&lt;!-- Contat Form --&gt;&#xA;&lt;a href=&#34;https://pauliusuk.github.io/contact&#34;&gt;&#xA;&lt;img&#xA;src=&#34;https://www.freeiconspng.com/uploads/icon-email-icon-clip-art-at-clker-com-vector-qafaq-e-mail-icon-trace--0.png&#34;&#xA;width=&#34;49&#34; alt=&#34;Email&#34; /&gt;&#xA;&lt;/a&gt;&#xA;&lt;/div&gt;&#xA;&lt;br&gt;&#xA;&lt;h2&gt;About:&lt;/h2&gt;&#xA;&lt;p&gt;Welcome to my blog! Here, I share my adventures in coding, setting up devices, and exploring both Linux and Windows systems. I&amp;rsquo;m passionate about continuous learning and staying up-to-date with the latest tech in the IT world. Join me as I dive into different software programs and share tips and tricks. Let&amp;rsquo;s explore together!&lt;/p&gt;&#xA;&lt;div class=&#34;bottomBios&#34;&gt;&#xA;&lt;h3&gt;&amp;nbsp;Support me:&lt;h3&gt;&#xA;&lt;br&gt;&#xA;&lt;a href=&#34;https://ko-fi.com/pauliusuk&#34; target=&#34;_blank&#34;&gt;&#xA;&lt;img src=&#34;https://storage.ko-fi.com/cdn/brandasset/logo_white_stroke_small.png&#34; style=&#34;width: 100px; position: absolute; left:10px; top:30px;&#34; alt=&#34;Github&#34;&gt;&#xA;&lt;/a&gt;&#xA;&lt;/div&gt;</description>
+      <link>http://localhost:1313/authors/paulius/</link>
+      <pubDate>Sun, 28 Apr 2024 15:44:53 +0100</pubDate>
+      <guid>http://localhost:1313/authors/paulius/</guid>
+      <description> About: Welcome to my blog! Here, I share my adventures in coding, setting up devices, and exploring both Linux and Windows systems. I&amp;rsquo;m passionate about continuous learning and staying up-to-date with the latest tech in the IT world. Join me as I dive into different software programs and share tips and tricks. Let&amp;rsquo;s explore together!&#xA;&amp;nbsp;Support me: </description>
     </item>
   </channel>
 </rss>
