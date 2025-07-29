@@ -3,7 +3,7 @@
 
 <head>
   <title>Network Cables and Connectors | Paulius.uk</title>
-  <link rel="canonical" href="https://paulius.uk/">
+  <link rel="canonical" href="https://pauliusuk.github.io/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -231,12 +231,11 @@
           
           <a href="/categories/docker">docker</a>
           
-          <a href="/categories/github">github</a>
-          
           <a href="/games">Games</a>
         </div>
       </div>
       <a href="/tags">Tags</a>
+      <a href="/wallpaper.html">Wallpaper</a>
       <a href="/authors/paulius/">About</a>
       
       <div class="toggle">
@@ -276,7 +275,7 @@
 
         <div class="authorDetails">
           
-          <a href="https://paulius.uk/authors/paulius/">
+          <a href="https://pauliusuk.github.io/authors/paulius/">
             
             <img src="/images/avatar.webp" loading="lazy" alt="" class="singleAvatar">
           </a>
@@ -284,13 +283,12 @@
 
         <div class="singleAuthor">
           
-          <a href="https://paulius.uk/authors/paulius/"> Paulius</a>
+          <a href="https://pauliusuk.github.io/authors/paulius/"> Paulius</a>
           
         </div>
 
-
         
-        <a href="https://paulius.uk/categories/networking/" class="singleCategory">Networking</a>
+        <a href="https://pauliusuk.github.io/categories/networking/" class="singleCategory">Networking</a>
          &nbsp;
 
         
@@ -304,13 +302,21 @@
         <div class="calendarDay">
           <i class="fa-solid fa-calendar-day"></i>
           <time>04-April-2024</time>
-        </div> &nbsp;
-
+        </div>
         <div class="minRead">
           <i class="fa-solid fa-book-open"></i>
           </svg>
           5 min read
         </div>
+
+        <div class="commentSingle">
+          <a href="#bottom">
+            <i class="fas fa-comment"></i>
+            Comments↓
+          </a>
+        </div> &nbsp;
+
+        
 
       </div>
     </div>
@@ -1123,7 +1129,7 @@
   <div class="singleTags">
     <span class="tagsText">Tags:&nbsp;</span>
     
-    <a href="https://paulius.uk/tags/network/" class="singleTag">#network</a>
+    <a href="https://pauliusuk.github.io/tags/network/" class="singleTag">#network</a>
     
   </div>
   
@@ -1443,6 +1449,10 @@
   .side-panel-open .sp-icon-close {
     display: initial !important;
   }
+
+  .js-hidden {
+    visibility: hidden;
+  }
 </style>
 
 
@@ -1451,13 +1461,13 @@
 <div class="leftbar">
   <script src="/js/toggleToc.js"></script>
   
-  <button class="toggle-toc">
+  <button class="toggle-toc js-hidden">
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 20l-8-8h16z" fill="none" stroke="currentColor" stroke-width="2" />
     </svg>
     <span class="toggle-label">Table of Contents</span>
   </button>
-  <div class="toc" id="toc">
+  <div class="toc js-hidden" id="toc">
     <h2 class="toc-title"></h2>
     <nav id="TableOfContents">
   <ul>
@@ -1647,7 +1657,12 @@
   
 
   <script src="/js/navbar-transition.js" defer></script>
+  <script src="/js/bottomScroll.js" defer></script>
 
+</div>
+
+<div id="bottom">
+  
 </div>
 
     <div class="footer">

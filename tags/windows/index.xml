@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows on Paulius.uk</title>
-    <link>https://paulius.uk/tags/windows/</link>
+    <link>https://pauliusuk.github.io/tags/windows/</link>
     <description>Recent content in Windows on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Apr 2024 22:19:39 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/tags/windows/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>yt-local</title>
-      <link>https://paulius.uk/posts/2024/yt-local/</link>
-      <pubDate>Tue, 23 Apr 2024 22:19:39 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/yt-local/</guid>
-      <description>What is yt-local and Why would you want to install it? yt-local is a browser-based client written in Python for watching YouTube anonymously and without the lag of the slow page used by YouTube. One of the primary features is that all requests are routed through Tor, except for the video file at googlevideo.com. Tor has high latency, so this will not be as fast network-wise as regular YouTube. However, using Tor is optional; when not routing through Tor, video pages may load faster than they do with YouTube&amp;rsquo;s page depending on your browser.</description>
-    </item>
+    <lastBuildDate>Sat, 29 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pauliusuk.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Windows Run Commands</title>
-      <link>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</link>
+      <link>https://pauliusuk.github.io/posts/2024/windows-run-command-shortcuts/</link>
       <pubDate>Sun, 31 Mar 2024 18:30:32 +0100</pubDate>
-      <guid>https://paulius.uk/posts/2024/windows-run-command-shortcuts/</guid>
+      <guid>https://pauliusuk.github.io/posts/2024/windows-run-command-shortcuts/</guid>
       <description>Run Commands for Dialogue Box in Windows The Run dialogue box in Microsoft Windows provides a quick and convenient way for you to launch programs, open websites, and access several Windows settings. Let&amp;rsquo;s take a look at some commands and see how it works.&#xA;Launching run dialog Launching the Run dialog on Windows is usually done by pressing the⊞ Windows key + R, or else you can simply open the Start Menu and type &amp;ldquo;run.</description>
+    </item>
+    <item>
+      <title>yt-local</title>
+      <link>https://pauliusuk.github.io/posts/2024/yt-local/</link>
+      <pubDate>Tue, 23 Jan 2024 22:19:39 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/posts/2024/yt-local/</guid>
+      <description>What is yt-local and Why would you want to install it? yt-local is a browser-based client written in Python for watching YouTube anonymously and without the lag of the slow page used by YouTube. One of the primary features is that all requests are routed through Tor, except for the video file at googlevideo.com. Tor has high latency, so this will not be as fast network-wise as regular YouTube. However, using Tor is optional; when not routing through Tor, video pages may load faster than they do with YouTube&amp;rsquo;s page depending on your browser.</description>
     </item>
   </channel>
 </rss>

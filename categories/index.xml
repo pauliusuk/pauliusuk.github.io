@@ -2,73 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Paulius.uk</title>
-    <link>https://paulius.uk/categories/</link>
+    <link>https://pauliusuk.github.io/categories/</link>
     <description>Recent content in Categories on Paulius.uk</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 Apr 2024 15:44:53 +0100</lastBuildDate>
-    <atom:link href="https://paulius.uk/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>GitHub</title>
-      <link>https://paulius.uk/categories/github/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/github/</guid>
-      <description></description>
-    </item>
+    <lastBuildDate>Sat, 29 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pauliusuk.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Configuration</title>
-      <link>https://paulius.uk/categories/configuration/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/configuration/</guid>
+      <link>https://pauliusuk.github.io/categories/configuration/</link>
+      <pubDate>Sun, 28 Apr 2024 15:39:22 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/categories/configuration/</guid>
       <description></description>
     </item>
     <item>
       <title>Android</title>
-      <link>https://paulius.uk/categories/android/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/android/</guid>
+      <link>https://pauliusuk.github.io/categories/android/</link>
+      <pubDate>Wed, 17 Apr 2024 15:26:55 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/categories/android/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
-      <link>https://paulius.uk/categories/docker/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/docker/</guid>
+      <link>https://pauliusuk.github.io/categories/docker/</link>
+      <pubDate>Wed, 17 Apr 2024 12:55:56 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/categories/docker/</guid>
       <description></description>
     </item>
     <item>
       <title>Networking</title>
-      <link>https://paulius.uk/categories/networking/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/networking/</guid>
+      <link>https://pauliusuk.github.io/categories/networking/</link>
+      <pubDate>Tue, 09 Apr 2024 18:39:08 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/categories/networking/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://paulius.uk/categories/linux/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/linux/</guid>
+      <link>https://pauliusuk.github.io/categories/linux/</link>
+      <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/categories/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>Windows</title>
-      <link>https://paulius.uk/categories/windows/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/windows/</guid>
+      <link>https://pauliusuk.github.io/categories/windows/</link>
+      <pubDate>Thu, 04 Apr 2024 16:20:46 +0100</pubDate>
+      <guid>https://pauliusuk.github.io/categories/windows/</guid>
       <description></description>
     </item>
     <item>
       <title>Web Development</title>
-      <link>https://paulius.uk/categories/web-development/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/web-development/</guid>
+      <link>https://pauliusuk.github.io/categories/web-development/</link>
+      <pubDate>Thu, 28 Mar 2024 20:41:34 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/categories/web-development/</guid>
       <description></description>
     </item>
     <item>
       <title>Cybersecurity</title>
-      <link>https://paulius.uk/categories/cybersecurity/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://paulius.uk/categories/cybersecurity/</guid>
+      <link>https://pauliusuk.github.io/categories/cybersecurity/</link>
+      <pubDate>Thu, 07 Mar 2024 16:12:50 +0000</pubDate>
+      <guid>https://pauliusuk.github.io/categories/cybersecurity/</guid>
       <description></description>
     </item>
   </channel>

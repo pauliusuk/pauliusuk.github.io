@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallpaper of the Day</title>
+  <style>
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: fixed;
+      top: 10px;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .goback,
+    .refresh,
+    .download,
+    #random-button {
+      background-color: #FEF6E0;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: filter 0.5s ease;
+      /* Smooth transition for filter change */
+    }
+
+    #random-button:hover {
+      animation: color-rotate 10s linear infinite alternate;
+      /* Apply hue-rotate animation on hover */
+    }
+
+    @keyframes color-rotate {
+      from {
+        filter: hue-rotate(0deg) saturate(100%);
+        /* Initial color state */
+      }
+
+      to {
+        filter: hue-rotate(720deg) saturate(500%);
+        /* Rotate hue and increase saturation */
+      }
+    }
+
+    .goback {
+      /* Positioning for the 'Back' button */
+    }
+
+    #go-back {
+      background-color: #FEF6E0;
+      /* Base color for the button */
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      /* Smooth transition for background change */
+    }
+
+    #go-back:hover {
+      background: linear-gradient(45deg, #ff6f61, #C10808);
+      /* Gradient background on hover */
+      color: #fff;
+      /* Ensure text/icon color is readable on gradient background */
+    }
+
+    .refresh {
+      /* Positioning for the 'Refresh' button */
+    }
+
+    #refresh {
+      background-color: #FEF6E0;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #refresh:hover {
+      background: linear-gradient(45deg, #00f0ff, #0047ff);
+      /* Blue gradient background on hover */
+      color: #fff;
+      /* Ensure text/icon color is readable on gradient background */
+    }
+
+
+    .download {
+      /* Positioning for the 'Fullscreen' button */
+    }
+
+    #fullscreen-button {
+      background-color: #FEF6E0;
+      /* Base color for the button */
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      /* Smooth transition for background and text color changes */
+    }
+
+    #fullscreen-button:hover {
+      background: linear-gradient(45deg, #00ff00, #007700);
+      /* Green gradient background on hover */
+      color: #fff;
+      /* Ensure text/icon color is readable on gradient background */
+    }
+
+
+    #random-button {
+      margin-right: 15px;
+      /* Positioning for the 'Random Wallpaper' button */
+    }
+
+    /* CSS for the active button rainbow border effect */
+    #random-button.active {
+      border: 5px solid transparent;
+      animation: border-spin 4s linear infinite;
+    }
+
+    @keyframes border-spin {
+      0% {
+        border-color: green;
+      }
+
+      14% {
+        border-color: orange;
+      }
+
+      28% {
+        border-color: yellow;
+      }
+
+      42% {
+        border-color: red;
+      }
+
+      57% {
+        border-color: blue;
+      }
+
+      71% {
+        border-color: indigo;
+      }
+
+      85% {
+        border-color: violet;
+      }
+
+      100% {
+        border-color: red;
+      }
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 90vh;
+      margin: 0;
+      background-color: #333;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 60px;
+      /* Adjust for the fixed button container height */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    h1 {
+      margin-top: 0px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      max-height: 80vh;
+    }
+
+    .text-above-image {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #wallpaper-link {
+      display: block;
+      width: 75%;
+      max-height: 90vh;
+    }
+
+    .wallpapers-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    #wallpaper {
+      max-height: 80vh;
+      width: 100%;
+      border: 5px solid transparent;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+      display: block;
+    }
+
+    .info {
+      max-width: 70%;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #0066CC;
+    }
+
+    h1 a {
+      color: white;
+    }
+
+    h1 a:hover {
+      color: #0099cc;
+    }
+
+    a:active {
+      color: orange;
+    }
+
+    a:hover {
+      color: #0066CC;
+      /* Change the color when hovered */
+    }
+
+    #uploader-username {
+      color: white;
+    }
+
+    #uploader-username:hover {
+      color: #0066CC;
+      /* Change the color when hovered */
+    }
+
+    #uploader-avatar {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      #wallpaper-link {
+        width: 100%;
+      }
+
+      #wallpaper {
+        width: 100%;
+        height: auto;
+        max-height: none;
+      }
+
+      .info {
+        max-width: 90%;
+      }
+
+      #uploader-avatar {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #wallpaper-link {
+        width: 100%;
+      }
+
+      #wallpaper {
+        width: 100%;
+        height: auto;
+        max-height: none;
+      }
+
+      .info {
+        max-width: 100%;
+        font-size: 12px;
+      }
+
+      #uploader-avatar {
+        width: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="button-container">
+    <button id="go-back" class="goback" title="Back" onclick="window.history.back()">←</button>
+    <button id="refresh" class="refresh" title="Refresh" onclick="window.location.reload()">⟳</button>
+    <button id="random-button" class="download" title="Random Wallpaper">🎲</button>
+    <button id="fullscreen-button" class="download" title="Fullscreen">⛶</button>
+  </div>
+
+  <div class="container">
+    <h1>Wallpaper of the Day - <a href="https://wallhaven.cc">wallhaven.cc</a></h1>
+    <div class="content">
+      <a id="wallpaper-link" href="" target="_blank">
+        <img id="wallpaper" src="" alt="Wallpaper">
+      </a>
+      <div class="info" id="description"></div>
+    </div>
+  </div>
+
+  <div class="wallpapers-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const randomButton = document.getElementById('random-button');
+      let currentWallpaperId = null;
+      let page = 1;
+      const container = document.querySelector('.wallpapers-container');
+      const retryLimit = 3;
+
+      function formatRelativeDate(date) {
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays === 0 ? 'today' : diffDays === 1 ? 'yesterday' : `${diffDays} days ago`;
+      }
+
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }).replace(/ /g, '-');
+        return `${formatRelativeDate(date)}, ${formattedDate}`;
+      }
+
+      function loadImageWithRetry(imgElement, linkElement, src, retries = retryLimit) {
+        imgElement.src = src;
+        linkElement.href = src;
+
+        imgElement.onerror = function () {
+          if (retries > 0) {
+            setTimeout(() => {
+              const proxyUrls = [
+                'https://api.allorigins.win/raw?url=',
+                'https://thingproxy.freeboard.io/fetch/',
+                'https://cors-anywhere.herokuapp.com/',
+              ];
+              const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(src)}`);
+
+              // Try each proxy in sequence
+              const fetchFromProxy = (index = 0) => {
+                if (index >= apiUrl.length) {
+                  console.error(`Failed to load image after ${retryLimit} attempts.`);
+                  return;
+                }
+
+                fetch(apiUrl[index])
+                  .then(response => response.blob())
+                  .then(blob => {
+                    imgElement.src = URL.createObjectURL(blob);
+                    linkElement.href = src;
+                  })
+                  .catch(() => {
+                    fetchFromProxy(index + 1); // Try the next proxy
+                  });
+              };
+
+              fetchFromProxy(); // Start fetching from the first proxy
+            }, 1000);
+          } else {
+            console.error(`Failed to load image after ${retryLimit} attempts.`);
+          }
+        };
+      }
+
+      function integrateData(wallpaper) {
+        if (!wallpaper) {
+          console.error('No wallpaper data provided');
+          return;
+        }
+
+        const uploadTime = wallpaper.created_at ? formatDate(wallpaper.created_at) : 'Unknown date';
+        const category = wallpaper.category || 'Unknown';
+        const purity = wallpaper.purity || 'Unknown';
+        const resolution = wallpaper.resolution || 'Unknown resolution';
+        const fileSize = wallpaper.file_size ? `${(wallpaper.file_size / 1048576).toFixed(2)} MiB` : 'Size unknown';
+        const views = wallpaper.views || '0';
+        const favorites = wallpaper.favorites || '0';
+
+        const wallpaperImg = document.getElementById('wallpaper');
+        const wallpaperLink = document.getElementById('wallpaper-link');
+
+        loadImageWithRetry(wallpaperImg, wallpaperLink, wallpaper.path);
+        wallpaperLink.href = `https://wallhaven.cc/w/${wallpaper.id}`;
+
+        currentWallpaperId = wallpaper.id;
+
+        document.getElementById('description').innerHTML = `
+          <strong style="color: #85AAAF;">Uploaded by:</strong>
+          <img id="uploader-avatar" src="${wallpaper.uploader.avatar['128px']}" alt=" ">
+          <a id="uploader-username" href="https://wallhaven.cc/user/${wallpaper.uploader.username}" target="_blank" style="color: #08A6F6;">${wallpaper.uploader.username}</a> <br>
+          <strong style="color: #85AAAF;">Uploaded:</strong> ${uploadTime} <br>
+          <strong style="color: #85AAAF;">Category:</strong> ${category} <br>
+          <strong style="color: #85AAAF;">Purity:</strong> <span style="color: #99FF99;">${purity}</span> <br>
+          <strong style="color: #85AAAF;">Resolution:</strong> ${resolution} <br>
+          <strong style="color: #85AAAF;">Size:</strong> ${fileSize} <br>
+          <strong style="color: #85AAAF;">Views:</strong> ${views} <br>
+          <strong style="color: #85AAAF;">Favorites:</strong> <span style="color:#00CCDD;">${favorites}</span> <br>
+          <strong style="color: #85AAAF;">Link:</strong> <a href="https://whvn.cc/${wallpaper.id}" target="_blank">https://whvn.cc/${wallpaper.id}</a>
+        `;
+
+        document.getElementById('uploader-avatar').addEventListener('click', function () {
+          window.open(`https://wallhaven.cc/user/${wallpaper.uploader.username}`);
+        });
+
+        document.getElementById('fullscreen-button').addEventListener('click', function () {
+          if (currentWallpaperId) {
+            const link = document.createElement('a');
+            link.href = wallpaperImg.src;
+            link.download = link.href.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            console.error('No wallpaper ID available for download.');
+          }
+        });
+      }
+
+      function fetchWallpaperDetails(wallpaperId) {
+        const targetUrl = `https://wallhaven.cc/api/v1/w/${wallpaperId}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
+
+        fetch(apiUrl[0])
+          .then(response => response.json())
+          .then(data => {
+            integrateData(data.data);
+          })
+          .catch(error => {
+            console.error('Error fetching wallpaper details from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                integrateData(data.data);
+              })
+              .catch(error => console.error('Error fetching wallpaper details from second proxy:', error));
+          });
+      }
+
+      function fetchRandomWallpaper() {
+        const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=random&order=desc&ai_art_filter=1&page=${Math.floor(Math.random() * 100) + 1}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
+
+        fetch(apiUrl[0])
+          .then(response => response.json())
+          .then(data => {
+            if (data.data.length > 0) {
+              const randomWallpaperId = data.data[0].id;
+              fetchWallpaperDetails(randomWallpaperId);
+            } else {
+              console.error('No data returned from random wallpaper request.');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching random wallpaper from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                if (data.data.length > 0) {
+                  const randomWallpaperId = data.data[0].id;
+                  fetchWallpaperDetails(randomWallpaperId);
+                } else {
+                  console.error('No data returned from random wallpaper request.');
+                }
+              })
+              .catch(error => {
+                console.error('Error fetching random wallpaper from second proxy:', error);
+              });
+          });
+      }
+
+      function fetchWallpaperData(pageNumber) {
+        const targetUrl = `https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=hot&order=desc&ai_art_filter=1&page=${pageNumber}`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
+
+        fetch(apiUrl[0])
+          .then(response => response.json())
+          .then(data => {
+            if (data.data.length > 0) {
+              fetchWallpaperDetails(data.data[0].id);
+            } else {
+              console.error('No data found in fetchWallpaperData.');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching wallpaper data from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                if (data.data.length > 0) {
+                  fetchWallpaperDetails(data.data[0].id);
+                } else {
+                  console.error('No data found in fetchWallpaperData.');
+                }
+              })
+              .catch(error => console.error('Error fetching wallpaper data from second proxy:', error));
+          });
+      }
+
+      function fetchMoreWallpapers() {
+        const targetUrl = `https://wallhaven.cc/api/v1/search?sorting=hot&page=${page}&categories=111&purity=100`;
+        const proxyUrls = [
+          'https://api.allorigins.win/raw?url=',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        const apiUrl = proxyUrls.map(proxy => `${proxy}${encodeURIComponent(targetUrl)}`);
+
+        fetch(apiUrl[0])
+          .then(response => response.json())
+          .then(data => {
+            data.data.forEach(wallpaper => {
+              const wallpaperElement = document.createElement('div');
+              wallpaperElement.innerHTML = `
+                <img src="${wallpaper.path}" alt="Wallpaper">
+                <p>Uploaded by: ${wallpaper.uploader.username}</p>
+              `;
+              container.appendChild(wallpaperElement);
+            });
+            page++;
+          })
+          .catch(error => {
+            console.error('Error fetching more wallpapers from first proxy:', error);
+            fetch(apiUrl[1])
+              .then(response => response.json())
+              .then(data => {
+                data.data.forEach(wallpaper => {
+                  const wallpaperElement = document.createElement('div');
+                  wallpaperElement.innerHTML = `
+                    <img src="${wallpaper.path}" alt="Wallpaper">
+                    <p>Uploaded by: ${wallpaper.uploader.username}</p>
+                  `;
+                  container.appendChild(wallpaperElement);
+                });
+                page++;
+              })
+              .catch(error => console.error('Error fetching more wallpapers from second proxy:', error));
+          });
+      }
+
+      randomButton.addEventListener('click', function () {
+        fetchRandomWallpaper();
+      });
+
+      fetchWallpaperData(2);
+
+      window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+          fetchMoreWallpapers();
+        }
+      });
+
+      fetchMoreWallpapers();
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const randomButton = document.getElementById('random-button');
+
+      // Event listener to apply active class on button press
+      randomButton.addEventListener('mousedown', function () {
+        this.classList.add('active');
+      });
+
+      // Event listener to remove active class on button release
+      randomButton.addEventListener('mouseup', function () {
+        this.classList.remove('active');
+      });
+
+      // Event listener to remove active class if mouse leaves button
+      randomButton.addEventListener('mouseleave', function () {
+        this.classList.remove('active');
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>

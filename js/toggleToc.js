@@ -1,28 +1,40 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.querySelector(".toggle-toc");
   const toc = document.getElementById("toc");
-  const tocState = localStorage.getItem("tocState");
+  let tocState = localStorage.getItem("tocState");
 
-  // Check if there's a stored state for the TOC
+  // Default to collapsed if no saved state
+  if (tocState === null) {
+    tocState = "collapsed";
+    localStorage.setItem("tocState", tocState);
+  }
+
+  // Apply saved state
   if (tocState === "collapsed") {
     toggleButton.classList.add("collapsed");
     toc.classList.add("collapsed");
+  } else {
+    toggleButton.classList.remove("collapsed");
+    toc.classList.remove("collapsed");
   }
 
-  toggleButton.addEventListener("click", function() {
+  // Remove the temporary hidden class so both are revealed correctly
+  toc.classList.remove("js-hidden");
+  toggleButton.classList.remove("js-hidden");
+
+  // Add toggle functionality
+  toggleButton.addEventListener("click", function () {
     const isCollapsed = toggleButton.classList.contains("collapsed");
 
-    // Toggle the collapsed state
-    if (!isCollapsed) {
-      toggleButton.classList.add("collapsed");
-      toc.classList.add("collapsed");
-      // Store the collapsed state in local storage
-      localStorage.setItem("tocState", "collapsed");
-    } else {
+    if (isCollapsed) {
       toggleButton.classList.remove("collapsed");
       toc.classList.remove("collapsed");
-      // Store the expanded state in local storage
       localStorage.setItem("tocState", "expanded");
+    } else {
+      toggleButton.classList.add("collapsed");
+      toc.classList.add("collapsed");
+      localStorage.setItem("tocState", "collapsed");
     }
   });
 });
+
